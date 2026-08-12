@@ -1,0 +1,76 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UCL 36 · 欧冠数据中心</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/competition-info.css"><link rel="stylesheet" href="css/qualification.css"><link rel="stylesheet" href="css/advancement.css"><link rel="stylesheet" href="css/source-labels.css"></head><body>
+<header><a class="brand" href="#"><i>36</i><span>UCL<br><small>CHAMPIONS LEAGUE DATA</small></span></a><nav><button class="active">积分榜</button><button id="latestBtn">最新赛果</button><button id="infoBtn">赛事介绍</button><button id="qualificationBtn">资格赛</button><button id="advancementBtn">晋级图</button></nav><div class="season">2026 / 27 <span>⌄</span></div></header>
+<main><section class="hero"><div><p class="eyebrow">UEFA · CHAMPIONS LEAGUE</p><h1>欧冠，<em>星光汇聚。</em></h1><p class="desc">沿用挪超数据站的完整交互形式，追踪2026/27欧冠资格赛、36队联赛阶段、历史交锋、未来赛程与个人预测。</p></div><div class="hero-stat"><b>0</b><span>已赛场次</span><small>2026/27赛季</small></div></section>
+<section class="layout"><div class="card table-card"><div class="card-head"><div><span class="live-dot"></span>联赛阶段积分榜</div><label>搜索球队 <input id="search" placeholder="输入中英文名称…"></label></div><div class="scroll"><table><thead><tr><th>排名</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进 / 失</th><th>净胜</th><th>积分</th><th>近5场</th></tr></thead><tbody id="standings"></tbody></table></div><footer><span><i class="zone champion"></i> 1–8直通16强</span><span><i class="zone europe"></i> 9–24淘汰赛附加赛</span><span><i class="zone relegation"></i> 25–36淘汰</span></footer><div class="data-source-panel compact"><b>积分榜数据来源</b><span>根据已完赛的欧冠联赛阶段比赛自动计算</span><a href="https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600" target="_blank" rel="noopener">https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&amp;limit=600</a></div></div>
+<aside class="card pulse"><p class="eyebrow">TOURNAMENT PULSE</p><h3>欧冠脉搏</h3><div><b>36</b><span>联赛阶段球队</span></div><div><b>8</b><span>每队比赛场次</span></div><div><b>7</b><span>资格赛晋级席位</span></div><div class="top"><span>2027决赛</span><strong>马德里大都会球场 <i>06.05</i></strong></div></aside></section>
+<section class="results" id="latest"><div class="section-head"><div><p class="eyebrow">LATEST RESULTS</p><h2>最近赛果</h2></div><span>半场 / 全场</span></div><div id="resultGrid"></div><div class="data-source-panel"><b>最近赛果数据来源</b><span>欧冠赛果、全场比分及可用的比赛事件数据</span><a href="https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600" target="_blank" rel="noopener">https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&amp;limit=600</a><a href="https://www.uefa.com/uefachampionsleague/fixtures-results/" target="_blank" rel="noopener">https://www.uefa.com/uefachampionsleague/fixtures-results/</a></div></section>
+<section class="competition-info" id="competitionInfo" aria-labelledby="competitionTitle">
+  <div class="info-hero">
+    <div><p class="eyebrow">THE COMPETITION · 2026/27</p><h2 id="competitionTitle">一张图读懂欧冠</h2><p>从资格赛、36队联赛阶段到马德里决赛，了解赛制路径、抽签原则与奖金分配。</p></div>
+    <div class="season-route"><span>07 JUL 2026</span><i></i><strong>05 JUN 2027</strong><small>资格赛揭幕 · 马德里大都会球场决赛</small></div>
+  </div>
+
+  <div class="info-facts" aria-label="赛事关键数字">
+    <article><b>36</b><span>联赛阶段球队</span><small>29队直入 + 7队资格赛晋级</small></article>
+    <article><b>8</b><span>每队联赛阶段比赛</span><small>4个主场 · 4个客场</small></article>
+    <article><b>24</b><span>保留争冠资格</span><small>前8直通 · 9–24名附加赛</small></article>
+    <article><b>1</b><span>冠军</span><small>2027年6月5日 · 马德里</small></article>
+  </div>
+
+  <section class="format-section">
+    <div class="info-heading"><div><p class="eyebrow">QUALIFICATION MAP</p><h3>可视化晋级路径</h3></div><div class="path-controls" role="group" aria-label="选择赛制阶段"><button class="active" data-stage="all">完整路径</button><button data-stage="qualifying">资格赛</button><button data-stage="league">联赛阶段</button><button data-stage="playoff">淘汰附加赛</button><button data-stage="knockout">淘汰赛</button></div></div>
+    <div class="advancement-map" id="advancementMap" data-stage="all">
+      <div class="map-chapter phase-qualifying"><span>01</span><b>资格赛：四轮决出7个联赛阶段席位</b><small>全部采用主客场两回合</small></div>
+      <div class="qualifying-route phase-qualifying">
+        <div class="qual-round"><small>7/8、14/15 JUL</small><b>第一轮</b><span>冠军路径 · 28队</span><em>14组胜者晋级</em></div><i>→</i>
+        <div class="qual-round"><small>21/22、28/29 JUL</small><b>第二轮</b><span>冠军路径 · 24队</span><span>联赛路径 · 4队</span></div><i>→</i>
+        <div class="qual-round"><small>4/5、11 AUG</small><b>第三轮</b><span>冠军路径</span><span>联赛路径</span></div><i>→</i>
+        <div class="qual-round playoff-round"><small>18/19、25/26 AUG</small><b>附加赛</b><span>冠军路径</span><span>联赛路径</span></div><i>→</i>
+        <div class="qual-result"><small>QUALIFIED</small><b>7</b><span>支胜者进入联赛阶段</span></div>
+      </div>
+      <div class="qualification-exits phase-qualifying"><b>落败球队去向</b><span><i>第一轮</i>转入欧协联资格赛</span><span><i>第二轮</i>转入欧联杯第三轮</span><span><i>第三轮</i>冠军路径转欧联杯附加赛；联赛路径转欧联杯联赛阶段</span><span><i>附加赛</i>直接进入欧联杯联赛阶段</span></div>
+
+      <div class="map-chapter phase-league"><span>02</span><b>组成联赛阶段</b><small>29队直入 + 7队资格赛晋级</small></div>
+      <div class="entry-route phase-league">
+        <div class="entry-sources"><div><b>29</b><span>直接晋级球队</span></div><i>+</i><div><b>7</b><span>资格赛晋级球队</span></div></div>
+        <div class="route-arrow" aria-hidden="true"><span>汇合</span><b>→</b></div>
+        <div class="league-hub"><small>LEAGUE PHASE</small><strong>36 队联赛阶段</strong><span>每队8场 · 4主4客 · 统一积分榜</span></div>
+      </div>
+
+      <div class="map-chapter phase-league"><span>03</span><b>8轮结束后排名分流</b><small>三条不同路径</small></div>
+      <div class="outcome-board">
+        <div class="outcome-row direct-route phase-league"><div class="rank-card"><span>积分榜</span><b>第 1–8 名</b><small>联赛阶段表现最佳的8队</small></div><div class="route-arrow"><span>跳过附加赛</span><b>→</b></div><div class="destination-card direct"><b>直接晋级16强</b><span>获得8个席位 · 16强种子队</span></div></div>
+        <div class="outcome-row playoff-route phase-playoff"><div class="rank-card"><span>积分榜</span><b>第 9–24 名</b><small>共16队进入附加赛</small></div><div class="route-arrow"><span>分为种子与非种子</span><b>→</b></div><div class="playoff-match"><div><b>9–16名</b><span>种子队</span></div><i>VS</i><div><b>17–24名</b><span>非种子队</span></div><small>主客场两回合</small></div><div class="route-arrow"><span>胜者晋级</span><b>→</b></div><div class="destination-card playoff-win"><b>附加赛8支胜者</b><span>获得另外8个16强席位</span></div></div>
+        <div class="outcome-row eliminated-route phase-league"><div class="rank-card"><span>积分榜</span><b>第 25–36 名</b><small>联赛阶段排名后12位</small></div><div class="route-arrow"><span>不转入欧联杯</span><b>→</b></div><div class="destination-card eliminated"><b>直接淘汰</b><span>本赛季欧洲赛事结束</span></div></div>
+      </div>
+
+      <div class="map-chapter phase-knockout"><span>04</span><b>两条晋级线在16强汇合</b><small>正式进入淘汰赛</small></div>
+      <div class="round16-merge phase-knockout"><div><b>8</b><span>联赛前8名</span></div><i>+</i><div><b>8</b><span>附加赛胜者</span></div><i>=</i><strong><b>16</b><span>十六强球队</span></strong></div>
+      <div class="knockout-route phase-knockout">
+        <div><b>16</b><span>1/8决赛</span><small>两回合</small></div><i>→</i><div><b>8</b><span>1/4决赛</span><small>两回合</small></div><i>→</i><div><b>4</b><span>半决赛</span><small>两回合</small></div><i>→</i><div><b>2</b><span>决赛</span><small>马德里 · 单场</small></div><i>→</i><div class="champion-node"><b>1</b><span>欧洲冠军</span><small>捧起大耳朵杯</small></div>
+      </div>
+      <p class="path-detail" id="pathDetail">36支球队先进行8轮联赛阶段比赛；前8名跳过附加赛，9–24名争夺另外8个16强席位。</p>
+    </div>
+  </section>
+
+  <div class="rules-economy-grid">
+    <section class="rules-panel"><div class="info-heading"><div><p class="eyebrow">COMPETITION SYSTEM</p><h3>赛事制度</h3></div></div>
+      <ol class="rules-list">
+        <li><b>资格赛双路径</b><span>第二轮起分为冠军路径与联赛路径；所有对阵均为主客场两回合，最终7队进入联赛阶段。</span></li>
+        <li><b>瑞士制联赛阶段</b><span>36队不再分组。每队从4个档位各抽到2个对手，共8个不同对手，主客场各4场。</span></li>
+        <li><b>统一积分排名</b><span>胜3分、平1分。前8直通16强；9–24名参加附加赛；25名以后淘汰，不再转入欧联杯。</span></li>
+        <li><b>淘汰赛签位</b><span>附加赛9–16名为种子队，对阵17–24名；胜者与前8名会师16强，此后一路淘汰至单场决赛。</span></li>
+      </ol>
+    </section>
+
+    <section class="economy-panel"><div class="info-heading"><div><p class="eyebrow">ECONOMIC MODEL</p><h3>经济与分配制度</h3></div><span>2025/26 UEFA预计口径</span></div>
+      <div class="money-total"><span>欧冠联赛阶段起三支柱奖金池</span><b>€2.437bn</b><small>欧冠及欧洲超级杯合计€2.467bn，另含€30m欧冠附加赛分配</small></div>
+      <div class="money-chart" role="img" aria-label="奖金池分配：成绩奖金37.5%，价值支柱35%，平均分配27.5%"><div class="donut"><span><b>100%</b><small>三支柱</small></span></div><div class="money-legend"><p><i class="performance"></i><b>37.5%</b><span>成绩奖金 · €914m</span></p><p><i class="value"></i><b>35%</b><span>价值支柱 · €853m</span></p><p><i class="equal"></i><b>27.5%</b><span>平均分配 · €670m</span></p></div></div>
+      <div class="economy-notes"><p><b>€18.62m</b><span>36支联赛阶段球队的基础份额（每队）</span></p><p><b>成绩驱动</b><span>联赛阶段胜一场€2.1m、平一场€700k，另有排名及逐轮晋级奖金</span></p><p><b>价值支柱</b><span>综合欧洲媒体市场价值、参赛历史与俱乐部系数等因素</span></p><p><b>团结机制</b><span>三项男足俱乐部赛事另预计向未参赛俱乐部分配€308m，并向资格赛球队分配€132m</span></p></div>
+    </section>
+  </div>
+
+  <footer class="info-sources"><b>资料口径</b><span>赛事结构按UEFA 2026/27官方说明；金额采用UEFA公布的2025/26预计分配，实际结算可能调整。</span><a href="https://www.uefa.com/uefachampionsleague/news/02a6-20e5a8be4e63-ae971c582f8c-1000--champions-league-qualifying-fixtures-results-dates-how-it-/" target="_blank" rel="noopener">资格赛制度 ↗</a><a href="https://www.uefa.com/uefachampionsleague/news/02a6-20d57cfcd03e-407c22a7f465-1000--2026-27-champions-league-teams-dates-draws-format-final/" target="_blank" rel="noopener">赛季与赛制 ↗</a><a href="https://www.uefa.com/running-competitions/financial-distribution/mens-competitions/" target="_blank" rel="noopener">财务分配 ↗</a></footer>
+</section>
+</main><div class="overlay" id="overlay"></div><aside class="drawer" id="drawer"><button class="close" id="close">×</button><div id="drawerContent"></div></aside>
+<script src="js/data/matches-data.js"></script><script src="js/data/qualification-data.js"></script><script src="js/app.js"></script><script src="js/data-manager.js"></script><script src="js/ui/competition-info.js"></script><script src="js/ui/qualification.js"></script><script src="js/ui/advancement.js"></script></body></html>
