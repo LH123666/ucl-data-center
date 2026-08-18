@@ -72,10 +72,20 @@
     <footer class="advance-source"><div><b>自动更新说明</b><span>每次进入页面、重新打开标签页以及每10分钟，系统都会请求最新赛果；数据源暂不可用时继续显示最后一次已核对结果并明确提示。</span></div><a href="https://www.uefa.com/uefachampionsleague/news/02a6-20e5a8be4e63-ae971c582f8c-1000--champions-league-qualifying-fixtures-results-dates-how-it-/" target="_blank" rel="noopener">UEFA官方资格赛页面 ↗</a></footer>`;
   document.querySelector('main').appendChild(page);
 
-  const teamLine=(team,mark='')=>`<span class="advance-team ${mark}"><strong>${zh(team)}</strong><small>${team}</small></span>`;
-  const renderCompletedRound=(target,data)=>{target.innerHTML=data.map(([a,b,leg1,leg2,total,winner])=>`<article class="advance-tie done">${teamLine(a,winner===a?'winner':'')}<div class="leg-score-grid"><span><small>首回合 · ${zh(a)}主场</small><b>${leg1}</b></span><span><small>次回合 · ${zh(b)}主场</small><b>${leg2}</b></span><span class="aggregate"><small>两回合总比分</small><b>${total}</b></span></div>${teamLine(b,winner===b?'winner':'')}<footer><span>比分均为当场主队在前</span><b>${zh(winner)} 晋级</b></footer></article>`).join('')};
-  renderCompletedRound(page.querySelector('#advanceRound1'),round1);
-  page.querySelector('#advanceRound2').innerHTML=round2.map(([a,b,leg1,leg2,total,winner])=>`<article class="advance-tie done">${teamLine(a,winner===a?'winner':'')}<div class="leg-score-grid"><span><small>首回合 · ${zh(a)}主场</small><b>${leg1}</b></span><span><small>次回合 · ${zh(b)}主场</small><b>${leg2}</b></span><span class="aggregate"><small>两回合总比分</small><b>${total}</b></span></div>${teamLine(b,winner===b?'winner':'')}<footer><span>比分均为当场主队在前</span><b>${zh(winner)} 晋级</b></footer></article>`).join('');
+  const round1Teams=new Set(round1.flatMap(tie=>tie.slice(0,2)).map(canonicalTeamName));
+  const round2Teams=new Set(round2.flatMap(tie=>tie.slice(0,2)).map(canonicalTeamName));
+  const round3Teams=new Set(round3.flatMap(tie=>[tie.a,tie.b]).map(canonicalTeamName));
+  const originFor=(team,round)=>{
+    const name=canonicalTeamName(team);
+    if(round==='round1')return {label:'第一轮新加入',className:'origin-round1-entry'};
+    if(round==='round2')return round1Teams.has(name)?{label:'第一轮晋级',className:'origin-round1-winner'}:{label:'第二轮新加入',className:'origin-round2-entry'};
+    if(round==='round3')return round2Teams.has(name)?{label:'第二轮晋级',className:'origin-round2-winner'}:{label:'第三轮新加入',className:'origin-round3-entry'};
+    return round3Teams.has(name)?{label:'第三轮晋级',className:'origin-round3-winner'}:{label:'附加赛新加入',className:'origin-playoff-entry'};
+  };
+  const teamLine=(team,mark='',origin)=>`<span class="advance-team ${mark}"><span class="advance-team-heading"><strong>${zh(team)}</strong>${origin?`<i class="team-origin ${origin.className}">${origin.label}</i>`:''}</span><small>${canonicalTeamName(team)}</small></span>`;
+  const renderCompletedRound=(target,data,round)=>{target.innerHTML=data.map(([a,b,leg1,leg2,total,winner])=>`<article class="advance-tie done">${teamLine(a,winner===a?'winner':'',originFor(a,round))}<div class="leg-score-grid"><span><small>首回合 · ${zh(a)}主场</small><b>${leg1}</b></span><span><small>次回合 · ${zh(b)}主场</small><b>${leg2}</b></span><span class="aggregate"><small>两回合总比分</small><b>${total}</b></span></div>${teamLine(b,winner===b?'winner':'',originFor(b,round))}<footer><span>比分均为当场主队在前</span><b>${zh(winner)} 晋级</b></footer></article>`).join('')};
+  renderCompletedRound(page.querySelector('#advanceRound1'),round1,'round1');
+  renderCompletedRound(page.querySelector('#advanceRound2'),round2,'round2');
   const round3Box=page.querySelector('#advanceRound3');
   function renderRound3(liveMatches=[]){
     round3Box.innerHTML=round3.map((tie,index)=>{
@@ -93,11 +103,11 @@
       const legScore=match=>match&&(match.completed||match.inProgress)?`${match.homeScore}–${match.awayScore}`:'待赛';
       const totalScore=completed.length?`${aGoals}–${bGoals}`:'VS';
       const state=finished?'两回合结束':firstLeg?.completed?`次回合 ${tie.second}`:`首回合 ${tie.first}`;
-      return `<article class="advance-tie ${finished?'done':'active-tie'}" data-index="${index}"><span class="advance-path ${tie.path==='联赛路径'?'league':''}">${tie.path}</span>${teamLine(tie.a,winner===tie.a?'winner':'')}<div class="leg-score-grid"><span><small>首回合 · ${zh(tie.a)}主场</small><b>${legScore(firstLeg)}</b></span><span><small>次回合 · ${zh(tie.b)}主场</small><b>${legScore(secondLeg)}</b></span><span class="aggregate"><small>两回合总比分</small><b>${totalScore}</b></span></div>${teamLine(tie.b,winner===tie.b?'winner':'')}<footer><span>${state} · 比分均为当场主队在前</span><b>${finished?`${zh(winner)} 晋级`:'北京时间'}</b></footer></article>`
+      return `<article class="advance-tie ${finished?'done':'active-tie'}" data-index="${index}"><span class="advance-path ${tie.path==='联赛路径'?'league':''}">${tie.path}</span>${teamLine(tie.a,winner===tie.a?'winner':'',originFor(tie.a,'round3'))}<div class="leg-score-grid"><span><small>首回合 · ${zh(tie.a)}主场</small><b>${legScore(firstLeg)}</b></span><span><small>次回合 · ${zh(tie.b)}主场</small><b>${legScore(secondLeg)}</b></span><span class="aggregate"><small>两回合总比分</small><b>${totalScore}</b></span></div>${teamLine(tie.b,winner===tie.b?'winner':'',originFor(tie.b,'round3'))}<footer><span>${state} · 比分均为当场主队在前</span><b>${finished?`${zh(winner)} 晋级`:'北京时间'}</b></footer></article>`
     }).join('');
   }
   renderRound3(verifiedResults);
-  page.querySelector('#advancePlayoffs').innerHTML=playoffs.map(tie=>`<article class="advance-tie playoff"><span class="advance-path ${tie.path==='联赛路径'?'league':''}">${tie.path}</span>${teamLine(tie.a)}<em>VS</em>${teamLine(tie.b)}<footer><span>首 ${tie.first} · 次 ${tie.second}</span><b>北京时间</b></footer></article>`).join('');
+  page.querySelector('#advancePlayoffs').innerHTML=playoffs.map(tie=>`<article class="advance-tie playoff"><span class="advance-path ${tie.path==='联赛路径'?'league':''}">${tie.path}</span>${teamLine(tie.a,'',originFor(tie.a,'playoff'))}<em>VS</em>${teamLine(tie.b,'',originFor(tie.b,'playoff'))}<footer><span>首 ${tie.first} · 次 ${tie.second}</span><b>北京时间</b></footer></article>`).join('');
 
   function norm(value){return canonicalTeamName(value).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'')}
   function sameTie(match,tie){const m=[norm(match.home),norm(match.away)],t=[norm(tie.a),norm(tie.b)];return m.every(x=>t.includes(x))}

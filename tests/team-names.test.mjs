@@ -36,4 +36,8 @@ test('all UCL pages share one canonical team-name catalog',async()=>{
   assert.ok(index.indexOf('js/data/matches-data.js')<index.indexOf('js/data/qualification-data.js'));
   assert.doesNotMatch(advancement,/\{path:'(?:冠军|联赛)路径',a:'[\u4e00-\u9fff]/);
   assert.match(advancement,/a:'Slovan Bratislava',b:'Celje'/);
+  assert.match(advancement,/label:'第一轮晋级',className:'origin-round1-winner'/);
+  assert.match(advancement,/label:'第二轮新加入',className:'origin-round2-entry'/);
+  assert.match(advancement,/label:'第三轮晋级',className:'origin-round3-winner'/);
+  assert.match(advancement,/label:'附加赛新加入',className:'origin-playoff-entry'/);
 });
