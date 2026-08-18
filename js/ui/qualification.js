@@ -36,7 +36,7 @@
     <footer class="qualification-sources"><div><b>数据来源</b><span>比赛结果、晋级路径和赛程均以UEFA官方资格赛页面为准；表现榜由本站根据已完成比赛自动计算。</span></div><a href="https://www.uefa.com/uefachampionsleague/news/02a6-20e5a8be4e63-ae971c582f8c-1000--champions-league-qualifying-fixtures-results-dates-how-it-/" target="_blank" rel="noopener">UEFA官方资格赛赛程与赛果 ↗</a></footer>`;
   document.querySelector('main').appendChild(page);
 
-  const name=team=>qualificationNames[team]||team;
+  const name=team=>teamChineseName(team);
   const active=new Set([...qualificationActiveChampion,...qualificationActiveLeague]);
   const secondRoundTeams=new Set(qualificationResults.filter(match=>match[1]==='第二轮').flatMap(match=>[match[3],match[4]]));
   const thirdRoundTeams=new Set(qualificationResults.filter(match=>match[1]==='第三轮').flatMap(match=>[match[3],match[4]]));

@@ -100,9 +100,8 @@ const qualificationFixtures=[
   ['2026-08-12','03:00','第三轮·次回合','联赛路径','Lyon','Sparta Prague']
 ];
 
-const qualificationNames={
-  'The New Saints':'新圣徒','Lincoln Red Imps':'林肯红魔','Inter Club d’Escaldes':'伊斯卡尔德斯国际','Ararat-Armenia':'亚美尼亚阿拉拉特','Riga FC':'里加','Kauno Zalgiris':'考纳斯萨尔基利斯','Drita':'德里塔','Vardar':'瓦尔达尔','KuPS Kuopio':'古比斯','Floriana':'弗洛里亚纳','Shamrock Rovers':'沙姆洛克流浪','Tre Fiori':'特雷菲奥里','Larne':'拉恩','Borac Banja Luka':'巴尼亚卢卡战士','Levski Sofia':'索菲亚列夫斯基','KI Klaksvik':'克拉克斯维克','Atert Bissen':'阿特尔特比森','Vikingur Reykjavik':'雷克雅未克维京人','ETO Gyor':'杰尔ETO','Kairat Almaty':'阿拉木图凯拉特','Sutjeska':'尼克希奇苏捷斯卡','Flora Tallinn':'塔林弗洛拉','Iberia Tbilisi':'第比利斯伊比利亚','Vitebsk':'维捷布斯克','Universitatea Craiova':'克拉约瓦大学','Petrocub':'佩特罗库布','Egnatia':'埃格纳蒂亚','Sabah':'萨巴赫','Mjallby':'米亚尔比','Slovan Bratislava':'布拉迪斯拉发斯洛万','Aarhus':'奥胡斯','Lech Poznan':'波兹南莱赫','Thun':'图恩','Dinamo Zagreb':'萨格勒布迪纳摩','Red Star Belgrade':'贝尔格莱德红星','Hapoel Beer-Sheva':'贝尔谢巴工人','Fenerbahce':'费内巴切','Gornik Zabrze':'扎布热戈尔尼克','Sturm Graz':'格拉茨风暴','Hearts':'哈茨','Omonoia':'奥莫尼亚','Celje':'采列','Olympiacos':'奥林匹亚科斯','NEC Nijmegen':'奈梅亨','Union Saint-Gilloise':'圣吉罗斯联合','Bodo/Glimt':'博德闪耀','Sparta Prague':'布拉格斯巴达','Lyon':'里昂'
-};
+// 资格赛、赛果、赛程和晋级图统一使用 matches-data.js 中的唯一球队目录。
+const qualificationNames=uclNames;
 
 const qualificationActiveChampion=['Slovan Bratislava','Celje','Levski Sofia','Hapoel Beer-Sheva','Dinamo Zagreb','Sabah','AEK Athens','Viking','Celtic','LASK'];
 const qualificationActiveLeague=['NEC Nijmegen','Bodo/Glimt','Fenerbahce','Lyon'];

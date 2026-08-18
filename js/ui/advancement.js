@@ -1,6 +1,5 @@
 (function(){
-  const teams=qualificationNames;
-  const zh=team=>teams[team]||team;
+  const zh=team=>teamChineseName(team);
   const round1=[
     ['Sabah','The New Saints','2–0','1–2','4–1','Sabah'],
     ['Lincoln Red Imps','Inter Club d’Escaldes','3–1','1–1','4–2','Lincoln Red Imps'],
@@ -45,13 +44,13 @@
     ['2026-08-12','Sturm Graz','Fenerbahce',0,1],['2026-08-12','Lyon','Sparta Prague',3,0]
   ].map(([date,home,away,homeScore,awayScore])=>({date,home,away,homeScore,awayScore,completed:true,inProgress:false}));
   const playoffs=[
-    {path:'冠军路径',a:'列夫斯基',b:'雅典AEK',first:'08-19 00:45/03:00',second:'08-27 03:00'},
-    {path:'冠军路径',a:'萨格勒布迪纳摩',b:'维京',first:'08-19 03:00',second:'08-27 03:00'},
-    {path:'冠军路径',a:'贝尔谢巴工人',b:'萨巴赫',first:'08-20 03:00',second:'08-26 00:45/03:00'},
-    {path:'冠军路径',a:'凯尔特人',b:'林茨',first:'08-20 03:00',second:'08-26 03:00'},
-    {path:'冠军路径',a:'布拉迪斯拉发',b:'采列',first:'08-20 03:00',second:'08-27 00:45/03:00'},
-    {path:'联赛路径',a:'费内巴切',b:'里昂',first:'08-19 03:00',second:'08-27 03:00'},
-    {path:'联赛路径',a:'奈梅亨',b:'博德闪耀',first:'08-20 03:00',second:'08-26 03:00'}
+    {path:'冠军路径',a:'Levski Sofia',b:'AEK Athens',first:'08-19 00:45/03:00',second:'08-27 03:00'},
+    {path:'冠军路径',a:'Dinamo Zagreb',b:'Viking',first:'08-19 03:00',second:'08-27 03:00'},
+    {path:'冠军路径',a:'Hapoel Beer-Sheva',b:'Sabah',first:'08-20 03:00',second:'08-26 00:45/03:00'},
+    {path:'冠军路径',a:'Celtic',b:'LASK',first:'08-20 03:00',second:'08-26 03:00'},
+    {path:'冠军路径',a:'Slovan Bratislava',b:'Celje',first:'08-20 03:00',second:'08-27 00:45/03:00'},
+    {path:'联赛路径',a:'Fenerbahce',b:'Lyon',first:'08-19 03:00',second:'08-27 03:00'},
+    {path:'联赛路径',a:'NEC Nijmegen',b:'Bodo/Glimt',first:'08-20 03:00',second:'08-26 03:00'}
   ];
   const page=document.createElement('section');
   page.id='advancementPage';page.className='advancement-page';
@@ -98,9 +97,9 @@
     }).join('');
   }
   renderRound3(verifiedResults);
-  page.querySelector('#advancePlayoffs').innerHTML=playoffs.map(tie=>`<article class="advance-tie playoff"><span class="advance-path ${tie.path==='联赛路径'?'league':''}">${tie.path}</span><span class="advance-team"><strong>${tie.a}</strong></span><em>VS</em><span class="advance-team"><strong>${tie.b}</strong></span><footer><span>首 ${tie.first} · 次 ${tie.second}</span><b>北京时间</b></footer></article>`).join('');
+  page.querySelector('#advancePlayoffs').innerHTML=playoffs.map(tie=>`<article class="advance-tie playoff"><span class="advance-path ${tie.path==='联赛路径'?'league':''}">${tie.path}</span>${teamLine(tie.a)}<em>VS</em>${teamLine(tie.b)}<footer><span>首 ${tie.first} · 次 ${tie.second}</span><b>北京时间</b></footer></article>`).join('');
 
-  function norm(value){return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'')}
+  function norm(value){return canonicalTeamName(value).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'')}
   function sameTie(match,tie){const m=[norm(match.home),norm(match.away)],t=[norm(tie.a),norm(tie.b)];return m.every(x=>t.includes(x))}
   function mergeResults(rows=[]){const merged=new Map(verifiedResults.map(match=>[[match.date,norm(match.home),norm(match.away)].join('|'),match]));rows.forEach(match=>{const key=[match.date||'',norm(match.home),norm(match.away)].join('|');merged.set(key,match)});return [...merged.values()]}
   let refreshing=false;

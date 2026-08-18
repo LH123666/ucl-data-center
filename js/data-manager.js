@@ -6,7 +6,7 @@
   main.insertAdjacentHTML('beforeend','<section class="schedule-section" id="schedulePage"><div class="section-head"><div><p class="eyebrow">UPCOMING FIXTURES</p><h2>未来赛程</h2></div><span id="fixtureCount">正在获取…</span></div><div class="schedule-grid" id="scheduleGrid"><div class="empty-schedule">正在载入最新赛程…</div></div><div class="data-source-panel"><b>未来赛程数据来源</b><span>欧冠官方赛程与 ESPN Scoreboard API</span><a href="https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600" target="_blank" rel="noopener">https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&amp;limit=600</a><a href="https://www.uefa.com/uefachampionsleague/fixtures-results/" target="_blank" rel="noopener">https://www.uefa.com/uefachampionsleague/fixtures-results/</a></div></section>');
   document.body.insertAdjacentHTML('beforeend','<div class="data-toast" id="dataToast"></div>');
   document.body.insertAdjacentHTML('beforeend','<aside class="modal-standings" id="modalStandings"></aside>');
-  let allUpcoming=rawUpcoming.map(f=>({...f,home:aliases[f.home]||f.home,away:aliases[f.away]||f.away})),upcoming=[...allUpcoming];
+  let allUpcoming=rawUpcoming.map(f=>({...f,home:canonicalTeamName(f.home),away:canonicalTeamName(f.away)})),upcoming=[...allUpcoming];
   const predictionStorageKey='ucl36-match-predictions-v1';
   const emptyPrediction=()=>({result:'',halfScore:'',fullScore:'',totalGoals:'',halfFull:'',note:''});
   const loadPredictions=()=>{try{return JSON.parse(localStorage.getItem(predictionStorageKey)||'{}')}catch(e){return {}}};
@@ -29,7 +29,7 @@
     container.querySelectorAll('.prediction-remove').forEach(btn=>btn.onclick=()=>{const current=collectPredictionRows(container);current.splice(Number(btn.dataset.remove),1);mountPredictionEditor(container,key,home,away,current.length?current:[emptyPrediction()])});
     container.querySelector('.prediction-save').onclick=()=>{const saved=collectPredictionRows(container).filter(hasPrediction).slice(0,5);if(saved.length)predictions[key]=saved;else delete predictions[key];localStorage.setItem(predictionStorageKey,JSON.stringify(predictions));mountPredictionEditor(container,key,home,away,saved.length?saved:[emptyPrediction()]);renderSchedule();toast(saved.length?`已保存${saved.length}条预测`:'已清空本场预测')};
   };
-  const canonical=n=>aliases[n]||n;
+  const canonical=n=>canonicalTeamName(n);
   const beijingDateTime=value=>{const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(value)).filter(part=>part.type!=='literal').map(part=>[part.type,part.value]));return {date:`${parts.year}-${parts.month}-${parts.day}`,time:`${parts.hour}:${parts.minute}`}};
   const toast=msg=>{const el=document.querySelector('#dataToast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500)};
   const rankColor=rank=>{const hue=12+(rank-1)*(208/15);return `hsl(${hue} 72% ${rank<5?48:43}%)`};
@@ -103,7 +103,7 @@
       const res=await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600&_=${Date.now()}`,{cache:'no-store'});
       if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json(),fresh=[],future=[],now=Date.now(),seasonEvents=(data.events||[]).filter(e=>Number(e.season?.year)===2026);
       seasonEvents.forEach(e=>{const c=e.competitions[0],h=c.competitors.find(x=>x.homeAway==='home'),a=c.competitors.find(x=>x.homeAway==='away'),scheduled=beijingDateTime(e.date),date=scheduled.date,home=canonical(h.team.displayName),away=canonical(a.team.displayName),stage=e.season?.slug==='league-phase'?'league':'qualifying';
-        if(stage==='league')[[home,h],[away,a]].forEach(([name,club])=>{if(!teams.some(t=>t[1]===name))teams.push([uclNames[name]||name,name,club.team.abbreviation||name.slice(0,3).toUpperCase(),0,0,0,0,0,0,0,''])});
+        if(stage==='league')[[home,h],[away,a]].forEach(([name,club])=>{if(!teams.some(t=>t[1]===name))teams.push([teamChineseName(name),name,club.team.abbreviation||name.slice(0,3).toUpperCase(),0,0,0,0,0,0,0,''])});
         if(e.status.type.completed){let hh=0,ha=0;(c.details||[]).filter(x=>x.scoringPlay&&Number(x.clock.value)<=2700).forEach(x=>x.team.id===h.id?hh++:ha++);fresh.push([date,home,away,h.score+'-'+a.score,hh+'-'+ha,stage])}
         else if(new Date(e.date).getTime()>now){future.push({date,time:scheduled.time,home,away})}
       });
