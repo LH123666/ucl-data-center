@@ -46,11 +46,11 @@
 .advance-tie.playoff{background:#f8f7ff;border-left:4px solid #8a71e8}
 .advance-team{display:block;padding:10px 12px}
 .advance-team+em{border-top:1px solid #e3e6ef;border-bottom:1px solid #e3e6ef}
-.advance-team strong,.advance-team small{display:block}
-.advance-team strong{font-size:12px}
-.advance-team small{font-size:9px;color:#8c94aa;margin-top:2px}
-.advance-team-heading{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-right:58px}
-.team-origin{display:inline-flex;align-items:center;padding:3px 6px;border-left:3px solid currentColor;font-size:7px;font-style:normal;font-weight:900;line-height:1;white-space:nowrap}
+.advance-team strong,.advance-team small{display:inline-flex;align-items:center}
+.advance-team strong{font-size:14px;line-height:1.35}
+.advance-team small{font-size:10px;color:#737d94;line-height:1.35}
+.advance-team-heading{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding-right:58px}
+.team-origin{display:inline-flex;align-items:center;padding:4px 7px;border-left:3px solid currentColor;font-size:9px;font-style:normal;font-weight:900;line-height:1;white-space:nowrap}
 .team-origin.origin-round1-entry{background:#e9edf6;color:#58647d}
 .team-origin.origin-round1-winner{background:#ddf6ed;color:#087d68}
 .team-origin.origin-round2-entry{background:#fff0d8;color:#b35c00}

@@ -40,4 +40,5 @@ test('all UCL pages share one canonical team-name catalog',async()=>{
   assert.match(advancement,/label:'第二轮新加入',className:'origin-round2-entry'/);
   assert.match(advancement,/label:'第三轮晋级',className:'origin-round3-winner'/);
   assert.match(advancement,/label:'附加赛新加入',className:'origin-playoff-entry'/);
+  assert.match(advancement,/<strong>\$\{zh\(team\)\}<\/strong><small>\$\{canonicalTeamName\(team\)\}<\/small>\$\{origin\?/);
 });

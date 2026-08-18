@@ -82,7 +82,7 @@
     if(round==='round3')return round2Teams.has(name)?{label:'第二轮晋级',className:'origin-round2-winner'}:{label:'第三轮新加入',className:'origin-round3-entry'};
     return round3Teams.has(name)?{label:'第三轮晋级',className:'origin-round3-winner'}:{label:'附加赛新加入',className:'origin-playoff-entry'};
   };
-  const teamLine=(team,mark='',origin)=>`<span class="advance-team ${mark}"><span class="advance-team-heading"><strong>${zh(team)}</strong>${origin?`<i class="team-origin ${origin.className}">${origin.label}</i>`:''}</span><small>${canonicalTeamName(team)}</small></span>`;
+  const teamLine=(team,mark='',origin)=>`<span class="advance-team ${mark}"><span class="advance-team-heading"><strong>${zh(team)}</strong><small>${canonicalTeamName(team)}</small>${origin?`<i class="team-origin ${origin.className}">${origin.label}</i>`:''}</span></span>`;
   const renderCompletedRound=(target,data,round)=>{target.innerHTML=data.map(([a,b,leg1,leg2,total,winner])=>`<article class="advance-tie done">${teamLine(a,winner===a?'winner':'',originFor(a,round))}<div class="leg-score-grid"><span><small>首回合 · ${zh(a)}主场</small><b>${leg1}</b></span><span><small>次回合 · ${zh(b)}主场</small><b>${leg2}</b></span><span class="aggregate"><small>两回合总比分</small><b>${total}</b></span></div>${teamLine(b,winner===b?'winner':'',originFor(b,round))}<footer><span>比分均为当场主队在前</span><b>${zh(winner)} 晋级</b></footer></article>`).join('')};
   renderCompletedRound(page.querySelector('#advanceRound1'),round1,'round1');
   renderCompletedRound(page.querySelector('#advanceRound2'),round2,'round2');
