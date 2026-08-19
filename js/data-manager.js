@@ -107,7 +107,7 @@
         if(e.status.type.completed){let hh=0,ha=0;(c.details||[]).filter(x=>x.scoringPlay&&Number(x.clock.value)<=2700).forEach(x=>x.team.id===h.id?hh++:ha++);fresh.push([date,home,away,h.score+'-'+a.score,hh+'-'+ha,stage])}
         else if(new Date(e.date).getTime()>now){future.push({date,time:scheduled.time,home,away})}
       });
-      if(!seasonEvents.length)fresh.push(...await fetchOfficialRows());
+      fresh.push(...await fetchOfficialRows());
       if(fresh.length)mergeMatchRows(fresh);
       if(seasonEvents.length)allUpcoming=future.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
       const nowTime=Date.now(),horizon=nowTime+21*24*60*60*1000;upcoming=allUpcoming.filter(f=>{const kickoff=new Date(f.date+'T'+f.time.split('/')[0]+':00+08:00').getTime();return kickoff>=nowTime-60*60*1000&&kickoff<=horizon});renderSchedule();
@@ -116,7 +116,7 @@
     }catch(err){try{const official=await fetchOfficialRows();if(official.length)mergeMatchRows(official)}catch{}const nowTime=Date.now(),horizon=nowTime+21*24*60*60*1000;upcoming=allUpcoming.filter(f=>{const kickoff=new Date(f.date+'T'+f.time.split('/')[0]+':00+08:00').getTime();return kickoff>=nowTime-60*60*1000&&kickoff<=horizon});renderSchedule();if(!silent)toast(`已使用UEFA赛果与 ${upcoming.length} 场核对赛程`);document.querySelector('#updatedAt').textContent='UEFA数据核对于 '+new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})}
     finally{btn.classList.remove('loading');btn.disabled=false}
   }
-  document.querySelector('#updateBtn').onclick=()=>updateData(false);
+  document.querySelector('#updateBtn').onclick=()=>{updateData(false);window.refreshUclAdvancement?.()};
   scheduleBtn.onclick=()=>{document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));scheduleBtn.classList.add('active');document.querySelector('.hero').style.display='none';document.querySelector('.layout').style.display='none';document.querySelector('.results').style.display='none';document.querySelector('#schedulePage').classList.add('active');window.scrollTo({top:0,behavior:'smooth'})};
   document.querySelectorAll('nav button:not(#scheduleBtn)').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('.hero').style.display='flex';document.querySelector('.layout').style.display='grid';document.querySelector('.results').style.display='block';document.querySelector('#schedulePage').classList.remove('active')}));
   updateData(true);setTimeout(()=>updateData(true),1500);setInterval(()=>updateData(true),600000);

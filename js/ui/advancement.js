@@ -41,7 +41,9 @@
     ['2026-08-12','Bodo/Glimt','Union Saint-Gilloise',3,2],['2026-08-12','Kauno Zalgiris','Dinamo Zagreb',1,2],
     ['2026-08-12','NEC Nijmegen','Olympiacos',2,1],['2026-08-12','Red Star Belgrade','Hapoel Beer-Sheva',0,2],
     ['2026-08-12','Slovan Bratislava','Mjallby',2,0],['2026-08-12','Celje','Ararat-Armenia',2,0],
-    ['2026-08-12','Sturm Graz','Fenerbahce',0,1],['2026-08-12','Lyon','Sparta Prague',3,0]
+    ['2026-08-12','Sturm Graz','Fenerbahce',0,1],['2026-08-12','Lyon','Sparta Prague',3,0],
+    ['2026-08-18','Levski Sofia','AEK Athens',0,0],['2026-08-18','Dinamo Zagreb','Viking',2,2],
+    ['2026-08-18','Fenerbahce','Lyon',1,1]
   ].map(([date,home,away,homeScore,awayScore])=>({date,home,away,homeScore,awayScore,completed:true,inProgress:false}));
   const playoffs=[
     {path:'冠军路径',a:'Levski Sofia',b:'AEK Athens',first:'08-19 00:45/03:00',second:'08-27 03:00'},
@@ -69,7 +71,7 @@
       <div class="league-destination"><span>LEAGUE PHASE</span><b>36</b><strong>联赛阶段</strong><small>29队直入 + 7队资格赛晋级</small></div>
     </section>
     <section class="advance-legend"><span><i class="won"></i>已晋级</span><span><i class="live"></i>当前对阵</span><span><i class="waiting"></i>待确定</span><span><i class="europa"></i>负者转入欧联杯</span></section>
-    <footer class="advance-source"><div><b>自动更新说明</b><span>每次进入页面、重新打开标签页以及每10分钟，系统都会请求最新赛果；数据源暂不可用时继续显示最后一次已核对结果并明确提示。</span></div><a href="https://www.uefa.com/uefachampionsleague/news/02a6-20e5a8be4e63-ae971c582f8c-1000--champions-league-qualifying-fixtures-results-dates-how-it-/" target="_blank" rel="noopener">UEFA官方资格赛页面 ↗</a></footer>`;
+    <footer class="advance-source"><div><b>自动更新说明</b><span>每次进入页面、重新打开标签页以及每10分钟，系统都会请求最新赛果；数据源暂不可用时继续显示最后一次已核对结果并明确提示。</span></div><a href="https://www.uefa.com/uefachampionsleague/accesslist/" target="_blank" rel="noopener">UEFA官方资格赛页面 ↗</a></footer>`;
   document.querySelector('main').appendChild(page);
 
   const round1Teams=new Set(round1.flatMap(tie=>tie.slice(0,2)).map(canonicalTeamName));
@@ -107,7 +109,24 @@
     }).join('');
   }
   renderRound3(verifiedResults);
-  page.querySelector('#advancePlayoffs').innerHTML=playoffs.map(tie=>`<article class="advance-tie playoff"><span class="advance-path ${tie.path==='联赛路径'?'league':''}">${tie.path}</span>${teamLine(tie.a,'',originFor(tie.a,'playoff'))}<em>VS</em>${teamLine(tie.b,'',originFor(tie.b,'playoff'))}<footer><span>首 ${tie.first} · 次 ${tie.second}</span><b>北京时间</b></footer></article>`).join('');
+  const playoffBox=page.querySelector('#advancePlayoffs');
+  function renderPlayoffs(liveMatches=[]){
+    playoffBox.innerHTML=playoffs.map((tie,index)=>{
+      const games=liveMatches.filter(match=>sameTie(match,tie));
+      const firstLeg=games.find(match=>norm(match.home)===norm(tie.a));
+      const secondLeg=games.find(match=>norm(match.home)===norm(tie.b));
+      const completed=games.filter(match=>match.completed);
+      let aGoals=0,bGoals=0;
+      completed.forEach(match=>{if(norm(match.home)===norm(tie.a)){aGoals+=match.homeScore;bGoals+=match.awayScore}else{aGoals+=match.awayScore;bGoals+=match.homeScore}});
+      const finished=Boolean(firstLeg?.completed&&secondLeg?.completed);
+      const winner=finished?(aGoals>bGoals?tie.a:tie.b):'';
+      const score=match=>match&&(match.completed||match.inProgress)?`${match.homeScore}–${match.awayScore}`:'待赛';
+      const total=completed.length?`${aGoals}–${bGoals}`:'VS';
+      const state=finished?'两回合结束':firstLeg?.completed?`首回合结束 · 次回合 ${tie.second}`:`首回合 ${tie.first}`;
+      return `<article class="advance-tie playoff ${finished?'done':'active-tie'}" data-index="${index}"><span class="advance-path ${tie.path==='联赛路径'?'league':''}">${tie.path}</span>${teamLine(tie.a,winner===tie.a?'winner':'',originFor(tie.a,'playoff'))}<div class="leg-score-grid"><span><small>首回合 · ${zh(tie.a)}主场</small><b>${score(firstLeg)}</b></span><span><small>次回合 · ${zh(tie.b)}主场</small><b>${score(secondLeg)}</b></span><span class="aggregate"><small>两回合总比分</small><b>${total}</b></span></div>${teamLine(tie.b,winner===tie.b?'winner':'',originFor(tie.b,'playoff'))}<footer><span>${state} · 比分均为当场主队在前</span><b>${finished?`${zh(winner)} 晋级`:'北京时间'}</b></footer></article>`
+    }).join('');
+  }
+  renderPlayoffs(verifiedResults);
 
   function norm(value){return canonicalTeamName(value).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'')}
   function sameTie(match,tie){const m=[norm(match.home),norm(match.away)],t=[norm(tie.a),norm(tie.b)];return m.every(x=>t.includes(x))}
@@ -116,7 +135,7 @@
   const liveApiUrl=location.protocol==='file:'
     ?'https://nord16-eliteserien-2026.lihao123.chatgpt.site/api/ucl-qualification-live'
     :'/api/ucl-qualification-live';
-  const uefaReaderUrl='https://r.jina.ai/http://www.uefa.com/uefachampionsleague/news/02a6-20e5a8be4e63-ae971c582f8c-1000--champions-league-qualifying-fixtures-results-dates-how-it-/';
+  const uefaReaderUrl='https://r.jina.ai/http://www.uefa.com/uefachampionsleague/accesslist/';
   const officialAliases=[
     ['Mjallby','Slovan Bratislava',['Mjällby','Mjallby'],['Slovan Bratislava']],
     ['Ararat-Armenia','Celje',['Ararat-Armenia'],['Celje']],['Levski Sofia','Kairat Almaty',['Levski Sofia'],['Kairat Almaty']],
@@ -125,15 +144,24 @@
     ['Olympiacos','NEC Nijmegen',['Olympiacos'],['N.E.C.','NEC Nijmegen']],
     ['Union Saint-Gilloise','Bodo/Glimt',['Union SG','Union Saint-Gilloise'],['Bodø/Glimt','Bodo/Glimt']],
     ['Sparta Prague','Lyon',['Sparta Praha','Sparta Prague'],['Lyon']],['Aarhus','Sabah',['Aarhus'],['Sabah']],
-    ['Fenerbahce','Sturm Graz',['Fenerbahçe','Fenerbahce'],['Sturm Graz']]
+    ['Fenerbahce','Sturm Graz',['Fenerbahçe','Fenerbahce'],['Sturm Graz']],
+    ['Levski Sofia','AEK Athens',['Levski Sofia'],['AEK Athens']],
+    ['Dinamo Zagreb','Viking',['GNK Dinamo','Dinamo Zagreb'],['Viking']],
+    ['Hapoel Beer-Sheva','Sabah',['Hapoel Beer-Sheva'],['Sabah']],['Celtic','LASK',['Celtic'],['LASK']],
+    ['Slovan Bratislava','Celje',['Slovan Bratislava'],['Celje']],['Fenerbahce','Lyon',['Fenerbahçe','Fenerbahce'],['Lyon']],
+    ['NEC Nijmegen','Bodo/Glimt',['N.E.C.','NEC Nijmegen'],['Bodø/Glimt','Bodo/Glimt']]
   ];
   function escapePattern(value){return value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
   async function fetchOfficialResults(){
     const response=await fetch(uefaReaderUrl,{cache:'no-store'});if(!response.ok)throw new Error('UEFA '+response.status);
-    const text=await response.text(),section=text.split(/##\s+Third qualifying round/i)[1]?.split(/##\s+Play-off round/i)[0]||text,matches=[];
+    const text=await response.text(),section=text,matches=[];
     officialAliases.forEach(([a,b,aAliases,bAliases])=>[[a,b,aAliases,bAliases],[b,a,bAliases,aAliases]].forEach(([home,away,homeAliases,awayAliases])=>{
       const pattern=new RegExp(`(?:${homeAliases.map(escapePattern).join('|')})\\s+(\\d+)\\s*[-–]\\s*(\\d+)\\s+(?:${awayAliases.map(escapePattern).join('|')})`,'gi');
-      const secondLeg=home===b,date=secondLeg?(home==='Kairat Almaty'?'2026-08-11':'2026-08-12'):(home==='Aarhus'||home==='Fenerbahce'?'2026-08-06':'2026-08-05');
+      const playoffTie=playoffs.find(tie=>sameTie({home,away},tie));
+      const secondLeg=home===b;
+      const playoffFirstDates={'Levski Sofia':'2026-08-18','Dinamo Zagreb':'2026-08-18','Hapoel Beer-Sheva':'2026-08-19','Celtic':'2026-08-19','Slovan Bratislava':'2026-08-19','Fenerbahce':'2026-08-18','NEC Nijmegen':'2026-08-19'};
+      const playoffSecondDates={'Levski Sofia':'2026-08-26','Dinamo Zagreb':'2026-08-26','Hapoel Beer-Sheva':'2026-08-25','Celtic':'2026-08-25','Slovan Bratislava':'2026-08-26','Fenerbahce':'2026-08-26','NEC Nijmegen':'2026-08-25'};
+      const date=playoffTie?(secondLeg?playoffSecondDates[playoffTie.a]:playoffFirstDates[playoffTie.a]):secondLeg?(home==='Kairat Almaty'?'2026-08-11':'2026-08-12'):(home==='Aarhus'||home==='Fenerbahce'?'2026-08-06':'2026-08-05');
       for(const result of section.matchAll(pattern))matches.push({date,home,away,homeScore:Number(result[1]),awayScore:Number(result[2]),completed:true,inProgress:false});
     }));
     if(!matches.length)throw new Error('UEFA 暂无可解析赛果');return matches;
@@ -147,13 +175,14 @@
       const response=await fetch(liveApiUrl,{cache:'no-store'});
       if(!response.ok)throw new Error('HTTP '+response.status);
       const data=await response.json();
-      const matches=mergeResults(data.matches||[]);renderRound3(matches);
-      const count=matches.filter(match=>match.completed||match.inProgress).length;
-      title.textContent=data.live?`已同步 ${count} 场官方赛果`:'已使用最后核对数据';
+      const matches=mergeResults(data.matches||[]);renderRound3(matches);renderPlayoffs(matches);
+      const count=matches.filter(match=>playoffs.some(tie=>sameTie(match,tie))&&(match.completed||match.inProgress)).length;
+      title.textContent=data.live?`已同步 ${count} 场附加赛官方赛果`:`已显示 ${count} 场已核对附加赛赛果`;
       time.textContent=`检查于 ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})} · ${data.source||'UEFA / ESPN'}`;
-    }catch(error){try{const matches=mergeResults(await fetchOfficialResults());renderRound3(matches);title.textContent=`已从 UEFA 同步 ${matches.length} 场赛果`;time.textContent=`检查于 ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})} · UEFA 官方资格赛`}catch{renderRound3(verifiedResults);title.textContent='已显示已核对的 20 场第三轮赛果';time.textContent='当前为本地完整数据 · 联网后可再次刷新'}}
+    }catch(error){try{const matches=mergeResults(await fetchOfficialResults());renderRound3(matches);renderPlayoffs(matches);const count=matches.filter(match=>playoffs.some(tie=>sameTie(match,tie))&&(match.completed||match.inProgress)).length;title.textContent=`已从 UEFA 同步 ${count} 场附加赛赛果`;time.textContent=`检查于 ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})} · UEFA 官方资格赛`}catch{renderRound3(verifiedResults);renderPlayoffs(verifiedResults);title.textContent='已显示已核对的 3 场附加赛赛果';time.textContent='当前为本地完整数据 · 联网后可再次刷新'}}
     finally{refreshing=false;button.disabled=false;button.textContent='↻ 立即刷新'}
   }
+  window.refreshUclAdvancement=update;
   page.querySelector('#advanceRefresh').addEventListener('click',update);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&page.classList.contains('active'))update()});
   setInterval(()=>{if(page.classList.contains('active'))update()},600000);

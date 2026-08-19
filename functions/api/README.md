@@ -1,3 +1,3 @@
 # Functions API
 
-当前版本无需服务端代码。未来需要跨域代理、隐藏密钥、缓存或数据库时，可在此添加 Cloudflare Pages Functions，由前端通过 `/api/*` 调用。
+`ucl-qualification-live.js` 通过 `/api/ucl-qualification-live` 读取 UEFA 官方资格赛页面，规范球队名称并返回附加赛赛果。官方页面临时不可用时，接口会返回最后一次人工核对的赛果并标记 `stale: true`。
