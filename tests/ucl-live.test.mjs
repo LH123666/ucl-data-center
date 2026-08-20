@@ -15,8 +15,8 @@ test('Pages Function parses and canonicalizes UEFA playoff results',async()=>{
     assert.equal(response.headers.get('cache-control'),'no-store, max-age=0');
     const payload=await response.json();
     assert.equal(payload.live,true);
-    assert.equal(payload.matches.length,3);
-    assert.deepEqual(payload.matches.map(match=>[match.home,match.away,match.homeScore,match.awayScore]),[
+    assert.equal(payload.matches.length,7);
+    assert.deepEqual(payload.matches.slice(0,3).map(match=>[match.home,match.away,match.homeScore,match.awayScore]),[
       ['Levski Sofia','AEK Athens',0,0],['Dinamo Zagreb','Viking',2,2],['Fenerbahce','Lyon',1,1]
     ]);
   }finally{globalThis.fetch=originalFetch}
@@ -30,6 +30,7 @@ test('advancement page rerenders playoff scores after every refresh',async()=>{
   assert.match(source,/renderRound3\(matches\);renderPlayoffs\(matches\)/);
   assert.doesNotMatch(source,/advancePlayoffs'\)\.innerHTML=playoffs\.map/);
   assert.match(source,/\['2026-08-18','Levski Sofia','AEK Athens',0,0\]/);
+  assert.match(source,/\['2026-08-19','Celtic','LASK',3,0\]/);
   assert.match(source,/window\.refreshUclAdvancement=update/);
   assert.match(manager,/fresh\.push\(\.\.\.await fetchOfficialRows\(\)\)/);
   assert.doesNotMatch(manager,/if\(!seasonEvents\.length\)fresh\.push\(\.\.\.await fetchOfficialRows\(\)\)/);

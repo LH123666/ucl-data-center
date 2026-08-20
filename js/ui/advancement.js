@@ -43,7 +43,9 @@
     ['2026-08-12','Slovan Bratislava','Mjallby',2,0],['2026-08-12','Celje','Ararat-Armenia',2,0],
     ['2026-08-12','Sturm Graz','Fenerbahce',0,1],['2026-08-12','Lyon','Sparta Prague',3,0],
     ['2026-08-18','Levski Sofia','AEK Athens',0,0],['2026-08-18','Dinamo Zagreb','Viking',2,2],
-    ['2026-08-18','Fenerbahce','Lyon',1,1]
+    ['2026-08-18','Fenerbahce','Lyon',1,1],['2026-08-19','Celtic','LASK',3,0],
+    ['2026-08-19','NEC Nijmegen','Bodo/Glimt',1,3],['2026-08-19','Slovan Bratislava','Celje',1,1],
+    ['2026-08-19','Hapoel Beer-Sheva','Sabah',2,1]
   ].map(([date,home,away,homeScore,awayScore])=>({date,home,away,homeScore,awayScore,completed:true,inProgress:false}));
   const playoffs=[
     {path:'冠军路径',a:'Levski Sofia',b:'AEK Athens',first:'08-19 00:45/03:00',second:'08-27 03:00'},
