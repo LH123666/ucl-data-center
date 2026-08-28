@@ -17,6 +17,7 @@ test('all UCL pages share one canonical team-name catalog',async()=>{
   vm.runInContext(qualificationData,context);
   const audit=vm.runInContext(`(()=>{
     const names=new Set([
+      ...leagueTeams.map(([name])=>name),
       ...rawMatches.flatMap(match=>[match[1],match[2]]),
       ...rawUpcoming.flatMap(match=>[match.home,match.away]),
       ...qualificationResults.flatMap(match=>[match[3],match[4]]),
@@ -26,11 +27,13 @@ test('all UCL pages share one canonical team-name catalog',async()=>{
     ].map(canonicalTeamName));
     return {
       sameCatalog:qualificationNames===uclNames,
+      leagueTeamCount:leagueTeams.length,
       unknown:[...names].filter(name=>!uclNames[name]),
       unknownAliasTargets:Object.values(aliases).filter(name=>!uclNames[name])
     };
   })()`,context);
   assert.equal(audit.sameCatalog,true);
+  assert.equal(audit.leagueTeamCount,36);
   assert.equal(audit.unknown.length,0,`未登记球队：${[...audit.unknown].join('、')}`);
   assert.equal(audit.unknownAliasTargets.length,0,`别名指向未登记球队：${[...audit.unknownAliasTargets].join('、')}`);
   assert.ok(index.indexOf('js/data/matches-data.js')<index.indexOf('js/data/qualification-data.js'));

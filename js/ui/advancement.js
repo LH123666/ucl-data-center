@@ -45,7 +45,10 @@
     ['2026-08-18','Levski Sofia','AEK Athens',0,0],['2026-08-18','Dinamo Zagreb','Viking',2,2],
     ['2026-08-18','Fenerbahce','Lyon',1,1],['2026-08-19','Celtic','LASK',3,0],
     ['2026-08-19','NEC Nijmegen','Bodo/Glimt',1,3],['2026-08-19','Slovan Bratislava','Celje',1,1],
-    ['2026-08-19','Hapoel Beer-Sheva','Sabah',2,1]
+    ['2026-08-19','Hapoel Beer-Sheva','Sabah',2,1],
+    ['2026-08-25','Sabah','Hapoel Beer-Sheva',5,2],['2026-08-25','LASK','Celtic',5,1],
+    ['2026-08-25','Bodo/Glimt','NEC Nijmegen',3,0],['2026-08-26','AEK Athens','Levski Sofia',4,0],
+    ['2026-08-26','Viking','Dinamo Zagreb',3,1],['2026-08-26','Celje','Slovan Bratislava',1,2],['2026-08-26','Lyon','Fenerbahce',1,2]
   ].map(([date,home,away,homeScore,awayScore])=>({date,home,away,homeScore,awayScore,completed:true,inProgress:false}));
   const playoffs=[
     {path:'冠军路径',a:'Levski Sofia',b:'AEK Athens',first:'08-19 00:45/03:00',second:'08-27 03:00'},
@@ -60,7 +63,7 @@
   page.id='advancementPage';page.className='advancement-page';
   page.innerHTML=`
     <section class="advance-hero"><div><p class="eyebrow">LIVE QUALIFICATION MAP · 2026/27</p><h1>欧冠资格赛<br><span>实时晋级图</span></h1><p>不看模拟积分，只沿着真实的两回合对阵追踪谁晋级、谁待赛、谁转入欧联杯。</p></div><div class="advance-live"><i></i><div><b id="advanceUpdateTitle">正在检查最新数据</b><span id="advanceUpdateTime">页面打开时自动更新</span></div><button id="advanceRefresh" type="button">↻ 立即刷新</button></div></section>
-    <section class="advance-overview"><article><b>14</b><span>第一轮晋级</span><small>已完成</small></article><i>→</i><article><b>14</b><span>第二轮晋级</span><small>已完成</small></article><i>→</i><article><b>10</b><span>第三轮晋级</span><small>已完成</small></article><i>→</i><article class="current"><b>7</b><span>附加赛对阵</span><small>当前轮次</small></article></section>
+    <section class="advance-overview"><article><b>14</b><span>第一轮晋级</span><small>已完成</small></article><i>→</i><article><b>14</b><span>第二轮晋级</span><small>已完成</small></article><i>→</i><article><b>10</b><span>第三轮晋级</span><small>已完成</small></article><i>→</i><article class="completed"><b>7</b><span>附加赛晋级</span><small>已完成</small></article></section>
     <section class="advance-history"><header><div><span>ROUND 1 · COMPLETE</span><h2>第一轮完整赛果</h2></div><small>14组 · 28场 · 比分均为当场主队在前</small></header><div id="advanceRound1" class="advance-history-grid"></div></section>
     <section class="advance-path-summary"><div class="champion"><span>冠军路径</span><b>12队 → 6队 → 5个联赛阶段席位</b></div><div class="league"><span>联赛路径</span><b>8队 → 4队 → 2个联赛阶段席位</b></div></section>
     <section class="advance-board">
@@ -68,12 +71,12 @@
       <div class="advance-flow"><span>14支晋级</span><b>→</b></div>
       <div class="advance-column completed round3-column"><header><span>ROUND 3</span><h2>第三轮</h2><small>10组 · 已结束</small></header><div id="advanceRound3"></div></div>
       <div class="advance-flow"><span>10支晋级</span><b>→</b></div>
-      <div class="advance-column current"><header><span>PLAY-OFFS</span><h2>附加赛</h2><small>7组 · 8月18日起</small></header><div id="advancePlayoffs"></div></div>
+      <div class="advance-column completed"><header><span>PLAY-OFFS</span><h2>附加赛</h2><small>7组 · 已结束</small></header><div id="advancePlayoffs"></div></div>
       <div class="advance-flow final"><span>7支晋级</span><b>→</b></div>
       <div class="league-destination"><span>LEAGUE PHASE</span><b>36</b><strong>联赛阶段</strong><small>29队直入 + 7队资格赛晋级</small></div>
     </section>
     <section class="advance-legend"><span><i class="won"></i>已晋级</span><span><i class="live"></i>当前对阵</span><span><i class="waiting"></i>待确定</span><span><i class="europa"></i>负者转入欧联杯</span></section>
-    <footer class="advance-source"><div><b>自动更新说明</b><span>每次进入页面、重新打开标签页以及每10分钟，系统都会请求最新赛果；数据源暂不可用时继续显示最后一次已核对结果并明确提示。</span></div><a href="https://www.uefa.com/uefachampionsleague/accesslist/" target="_blank" rel="noopener">UEFA官方资格赛页面 ↗</a></footer>`;
+    <footer class="advance-source"><div><b>自动更新说明</b><span>每次进入页面、重新打开标签页以及每10分钟，系统都会请求最新赛果；数据源暂不可用时继续显示最后一次已核对结果并明确提示。</span></div><a href="https://www.uefa.com/uefachampionsleague/news/02a6-20e5a8be4e63-ae971c582f8c-1000--champions-league-qualifying-results-how-it-worked/" target="_blank" rel="noopener">UEFA官方资格赛页面 ↗</a></footer>`;
   document.querySelector('main').appendChild(page);
 
   const round1Teams=new Set(round1.flatMap(tie=>tie.slice(0,2)).map(canonicalTeamName));
@@ -135,9 +138,9 @@
   function mergeResults(rows=[]){const merged=new Map(verifiedResults.map(match=>[[match.date,norm(match.home),norm(match.away)].join('|'),match]));rows.forEach(match=>{const key=[match.date||'',norm(match.home),norm(match.away)].join('|');merged.set(key,match)});return [...merged.values()]}
   let refreshing=false;
   const liveApiUrl=location.protocol==='file:'
-    ?'https://nord16-eliteserien-2026.lihao123.chatgpt.site/api/ucl-qualification-live'
+    ?'https://ucl-data-center.pages.dev/api/ucl-qualification-live'
     :'/api/ucl-qualification-live';
-  const uefaReaderUrl='https://r.jina.ai/http://www.uefa.com/uefachampionsleague/accesslist/';
+  const uefaReaderUrl='https://r.jina.ai/http://www.uefa.com/uefachampionsleague/news/02a6-20e5a8be4e63-ae971c582f8c-1000--champions-league-qualifying-results-how-it-worked/';
   const officialAliases=[
     ['Mjallby','Slovan Bratislava',['Mjällby','Mjallby'],['Slovan Bratislava']],
     ['Ararat-Armenia','Celje',['Ararat-Armenia'],['Celje']],['Levski Sofia','Kairat Almaty',['Levski Sofia'],['Kairat Almaty']],
@@ -158,7 +161,7 @@
     const response=await fetch(uefaReaderUrl,{cache:'no-store'});if(!response.ok)throw new Error('UEFA '+response.status);
     const text=await response.text(),section=text,matches=[];
     officialAliases.forEach(([a,b,aAliases,bAliases])=>[[a,b,aAliases,bAliases],[b,a,bAliases,aAliases]].forEach(([home,away,homeAliases,awayAliases])=>{
-      const pattern=new RegExp(`(?:${homeAliases.map(escapePattern).join('|')})\\s+(\\d+)\\s*[-–]\\s*(\\d+)\\s+(?:${awayAliases.map(escapePattern).join('|')})`,'gi');
+      const pattern=new RegExp(`(?:${homeAliases.map(escapePattern).join('|')})\\s+(\\d+)\\s*[-–]\\s*(\\d+)(?:\\s*aet)?\\s+(?:${awayAliases.map(escapePattern).join('|')})`,'gi');
       const playoffTie=playoffs.find(tie=>sameTie({home,away},tie));
       const secondLeg=home===b;
       const playoffFirstDates={'Levski Sofia':'2026-08-18','Dinamo Zagreb':'2026-08-18','Hapoel Beer-Sheva':'2026-08-19','Celtic':'2026-08-19','Slovan Bratislava':'2026-08-19','Fenerbahce':'2026-08-18','NEC Nijmegen':'2026-08-19'};
@@ -181,7 +184,7 @@
       const count=matches.filter(match=>playoffs.some(tie=>sameTie(match,tie))&&(match.completed||match.inProgress)).length;
       title.textContent=data.live?`已同步 ${count} 场附加赛官方赛果`:`已显示 ${count} 场已核对附加赛赛果`;
       time.textContent=`检查于 ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})} · ${data.source||'UEFA / ESPN'}`;
-    }catch(error){try{const matches=mergeResults(await fetchOfficialResults());renderRound3(matches);renderPlayoffs(matches);const count=matches.filter(match=>playoffs.some(tie=>sameTie(match,tie))&&(match.completed||match.inProgress)).length;title.textContent=`已从 UEFA 同步 ${count} 场附加赛赛果`;time.textContent=`检查于 ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})} · UEFA 官方资格赛`}catch{renderRound3(verifiedResults);renderPlayoffs(verifiedResults);title.textContent='已显示已核对的 3 场附加赛赛果';time.textContent='当前为本地完整数据 · 联网后可再次刷新'}}
+    }catch(error){try{const matches=mergeResults(await fetchOfficialResults());renderRound3(matches);renderPlayoffs(matches);const count=matches.filter(match=>playoffs.some(tie=>sameTie(match,tie))&&(match.completed||match.inProgress)).length;title.textContent=`已从 UEFA 同步 ${count} 场附加赛赛果`;time.textContent=`检查于 ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})} · UEFA 官方资格赛`}catch{renderRound3(verifiedResults);renderPlayoffs(verifiedResults);title.textContent='已显示完整14场附加赛核验结果';time.textContent='数据已核对至 2026-08-26'}}
     finally{refreshing=false;button.disabled=false;button.textContent='↻ 立即刷新'}
   }
   window.refreshUclAdvancement=update;

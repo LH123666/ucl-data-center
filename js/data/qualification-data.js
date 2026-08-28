@@ -74,34 +74,42 @@ const qualificationResults=[
   ['2026-08-12','第三轮','冠军路径','Slovan Bratislava','Mjallby',2,0],
   ['2026-08-12','第三轮','冠军路径','Celje','Ararat-Armenia',2,0],
   ['2026-08-12','第三轮','联赛路径','Sturm Graz','Fenerbahce',0,1],
-  ['2026-08-12','第三轮','联赛路径','Lyon','Sparta Prague',3,0]
+  ['2026-08-12','第三轮','联赛路径','Lyon','Sparta Prague',3,0],
+  ['2026-08-18','附加赛','冠军路径','Levski Sofia','AEK Athens',0,0],
+  ['2026-08-18','附加赛','冠军路径','Dinamo Zagreb','Viking',2,2],
+  ['2026-08-18','附加赛','联赛路径','Fenerbahce','Lyon',1,1],
+  ['2026-08-19','附加赛','冠军路径','Hapoel Beer-Sheva','Sabah',2,1],
+  ['2026-08-19','附加赛','冠军路径','Celtic','LASK',3,0],
+  ['2026-08-19','附加赛','冠军路径','Slovan Bratislava','Celje',1,1],
+  ['2026-08-19','附加赛','联赛路径','NEC Nijmegen','Bodo/Glimt',1,3],
+  ['2026-08-25','附加赛','冠军路径','Sabah','Hapoel Beer-Sheva',5,2],
+  ['2026-08-25','附加赛','冠军路径','LASK','Celtic',5,1],
+  ['2026-08-25','附加赛','联赛路径','Bodo/Glimt','NEC Nijmegen',3,0],
+  ['2026-08-26','附加赛','冠军路径','AEK Athens','Levski Sofia',4,0],
+  ['2026-08-26','附加赛','冠军路径','Viking','Dinamo Zagreb',3,1],
+  ['2026-08-26','附加赛','冠军路径','Celje','Slovan Bratislava',1,2],
+  ['2026-08-26','附加赛','联赛路径','Lyon','Fenerbahce',1,2]
 ];
 
 const qualificationFixtures=[
-  ['2026-08-05','00:00','第三轮·首回合','冠军路径','Mjallby','Slovan Bratislava'],
-  ['2026-08-05','00:00','第三轮·首回合','冠军路径','Ararat-Armenia','Celje'],
-  ['2026-08-05','01:30','第三轮·首回合','冠军路径','Levski Sofia','Kairat Almaty'],
-  ['2026-08-05','01:30','第三轮·首回合','冠军路径','Hapoel Beer-Sheva','Red Star Belgrade'],
-  ['2026-08-05','02:00','第三轮·首回合','冠军路径','Dinamo Zagreb','Kauno Zalgiris'],
-  ['2026-08-05','02:00','第三轮·首回合','联赛路径','Olympiacos','NEC Nijmegen'],
-  ['2026-08-05','02:00','第三轮·首回合','联赛路径','Union Saint-Gilloise','Bodo/Glimt'],
-  ['2026-08-05','02:00','第三轮·首回合','联赛路径','Sparta Prague','Lyon'],
-  ['2026-08-06','00:30','第三轮·首回合','冠军路径','Aarhus','Sabah'],
-  ['2026-08-06','02:00','第三轮·首回合','联赛路径','Fenerbahce','Sturm Graz'],
-  ['2026-08-11','23:00','第三轮·次回合','冠军路径','Kairat Almaty','Levski Sofia'],
-  ['2026-08-12','00:00','第三轮·次回合','冠军路径','Sabah','Aarhus'],
-  ['2026-08-12','00:00','第三轮·次回合','联赛路径','Bodo/Glimt','Union Saint-Gilloise'],
-  ['2026-08-12','01:00','第三轮·次回合','冠军路径','Kauno Zalgiris','Dinamo Zagreb'],
-  ['2026-08-12','01:30','第三轮·次回合','联赛路径','NEC Nijmegen','Olympiacos'],
-  ['2026-08-12','02:00','第三轮·次回合','冠军路径','Red Star Belgrade','Hapoel Beer-Sheva'],
-  ['2026-08-12','02:15','第三轮·次回合','冠军路径','Slovan Bratislava','Mjallby'],
-  ['2026-08-12','02:15','第三轮·次回合','冠军路径','Celje','Ararat-Armenia'],
-  ['2026-08-12','02:30','第三轮·次回合','联赛路径','Sturm Graz','Fenerbahce'],
-  ['2026-08-12','03:00','第三轮·次回合','联赛路径','Lyon','Sparta Prague']
+  ['2026-08-19','00:45/03:00','附加赛·首回合','冠军路径','Levski Sofia','AEK Athens'],
+  ['2026-08-19','03:00','附加赛·首回合','冠军路径','Dinamo Zagreb','Viking'],
+  ['2026-08-19','03:00','附加赛·首回合','联赛路径','Fenerbahce','Lyon'],
+  ['2026-08-20','03:00','附加赛·首回合','冠军路径','Hapoel Beer-Sheva','Sabah'],
+  ['2026-08-20','03:00','附加赛·首回合','冠军路径','Celtic','LASK'],
+  ['2026-08-20','03:00','附加赛·首回合','冠军路径','Slovan Bratislava','Celje'],
+  ['2026-08-20','03:00','附加赛·首回合','联赛路径','NEC Nijmegen','Bodo/Glimt'],
+  ['2026-08-26','00:45/03:00','附加赛·次回合','冠军路径','Sabah','Hapoel Beer-Sheva'],
+  ['2026-08-26','03:00','附加赛·次回合','冠军路径','LASK','Celtic'],
+  ['2026-08-26','03:00','附加赛·次回合','联赛路径','Bodo/Glimt','NEC Nijmegen'],
+  ['2026-08-27','03:00','附加赛·次回合','冠军路径','AEK Athens','Levski Sofia'],
+  ['2026-08-27','03:00','附加赛·次回合','冠军路径','Viking','Dinamo Zagreb'],
+  ['2026-08-27','00:45/03:00','附加赛·次回合','冠军路径','Celje','Slovan Bratislava'],
+  ['2026-08-27','03:00','附加赛·次回合','联赛路径','Lyon','Fenerbahce']
 ];
 
 // 资格赛、赛果、赛程和晋级图统一使用 matches-data.js 中的唯一球队目录。
 const qualificationNames=uclNames;
 
-const qualificationActiveChampion=['Slovan Bratislava','Celje','Levski Sofia','Hapoel Beer-Sheva','Dinamo Zagreb','Sabah','AEK Athens','Viking','Celtic','LASK'];
-const qualificationActiveLeague=['NEC Nijmegen','Bodo/Glimt','Fenerbahce','Lyon'];
+const qualificationActiveChampion=['AEK Athens','Viking','Sabah','LASK','Slovan Bratislava'];
+const qualificationActiveLeague=['Fenerbahce','Bodo/Glimt'];

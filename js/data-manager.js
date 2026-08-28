@@ -2,7 +2,7 @@
   document.head.insertAdjacentHTML('beforeend','<link rel="stylesheet" href="css/live-update.css"><link rel="stylesheet" href="css/fixture-detail.css"><link rel="stylesheet" href="css/fixture-table.css"><link rel="stylesheet" href="css/fixture-readable.css"><link rel="stylesheet" href="css/fixture-results.css"><link rel="stylesheet" href="css/fixture-stats.css"><link rel="stylesheet" href="css/fixture-stats-readable.css"><link rel="stylesheet" href="css/modal-standings.css"><link rel="stylesheet" href="css/modal-standings-large.css"><link rel="stylesheet" href="css/fixture-score-status.css"><link rel="stylesheet" href="css/fixture-home-icon.css"><link rel="stylesheet" href="css/fixture-alignment.css"><link rel="stylesheet" href="css/fixture-goal-splits.css"><link rel="stylesheet" href="css/prediction-editor.css"><link rel="stylesheet" href="css/prediction-summary-readable.css"><link rel="stylesheet" href="css/ucl-theme.css">');
   const nav=document.querySelector('nav'),main=document.querySelector('main'),season=document.querySelector('.season');
   const scheduleBtn=document.createElement('button');scheduleBtn.textContent='赛程安排';scheduleBtn.id='scheduleBtn';nav.appendChild(scheduleBtn);
-  season.insertAdjacentHTML('beforebegin','<div class="update-wrap"><span class="updated-at" id="updatedAt">静态数据 · 07-12</span><button class="update-btn" id="updateBtn"><span class="refresh-icon">↻</span><span class="label">更新数据</span></button></div>');
+  season.insertAdjacentHTML('beforebegin','<div class="update-wrap"><span class="updated-at" id="updatedAt" aria-live="polite">正在同步官方数据…</span><button class="update-btn" id="updateBtn"><span class="refresh-icon">↻</span><span class="label">更新数据</span></button></div>');
   main.insertAdjacentHTML('beforeend','<section class="schedule-section" id="schedulePage"><div class="section-head"><div><p class="eyebrow">UPCOMING FIXTURES</p><h2>未来赛程</h2></div><span id="fixtureCount">正在获取…</span></div><div class="schedule-grid" id="scheduleGrid"><div class="empty-schedule">正在载入最新赛程…</div></div><div class="data-source-panel"><b>未来赛程数据来源</b><span>欧冠官方赛程与 ESPN Scoreboard API</span><a href="https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600" target="_blank" rel="noopener">https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&amp;limit=600</a><a href="https://www.uefa.com/uefachampionsleague/fixtures-results/" target="_blank" rel="noopener">https://www.uefa.com/uefachampionsleague/fixtures-results/</a></div></section>');
   document.body.insertAdjacentHTML('beforeend','<div class="data-toast" id="dataToast"></div>');
   document.body.insertAdjacentHTML('beforeend','<aside class="modal-standings" id="modalStandings"></aside>');
@@ -43,7 +43,7 @@
   const renderSchedule=()=>{
     const grid=document.querySelector('#scheduleGrid'),count=document.querySelector('#fixtureCount');
     count.textContent=`${upcoming.length} 场待赛 · 北京时间`;
-    if(!upcoming.length){grid.innerHTML='<div class="empty-schedule">当前没有获取到未来赛程，请点击“更新数据”重试。</div>';return}
+    if(!upcoming.length){grid.innerHTML='<div class="empty-schedule">UEFA尚未公布联赛阶段完整赛程；公布后点击“更新数据”即可同步。</div>';return}
     const days={};upcoming.forEach(f=>(days[f.date]??=[]).push(f));
     grid.innerHTML=Object.entries(days).slice(0,9).map(([date,fs])=>`<article class="fixture-day"><div class="fixture-date"><span>${date.slice(5).replace('-','月')}日</span><b>${['日','一','二','三','四','五','六'][new Date(date+'T12:00:00').getDay()]}</b></div>${fs.map(f=>`<div class="fixture" data-date="${f.date}" data-time="${f.time}" data-home="${encodeURIComponent(f.home)}" data-away="${encodeURIComponent(f.away)}"><time>${f.time} · 北京时间 · 欧冠</time><div class="fixture-teams"><span>${display(f.home)}</span><i>VS</i><span>${display(f.away)}</span></div>${predictionSummary(f)}<small class="fixture-more">查看比赛详情 →</small></div>`).join('')}</article>`).join('');
     grid.querySelectorAll('.fixture').forEach(el=>el.onclick=()=>openFixtureDetail(decodeURIComponent(el.dataset.home),decodeURIComponent(el.dataset.away),el.dataset.date,el.dataset.time));
@@ -92,31 +92,58 @@
     rows.forEach(match=>merged.set(match.slice(0,3).join('|'),match));
     matches.splice(0,matches.length,...[...merged.values()].sort((a,b)=>b[0].localeCompare(a[0])));recalc();
   };
-  const fetchOfficialRows=async()=>{
-    if(typeof window.uclFetchOfficialResults!=='function')return [];
-    const data=await window.uclFetchOfficialResults();
-    return data.map(match=>[match.date,match.home,match.away,`${match.homeScore}-${match.awayScore}`,'—','qualifying']);
+  const liveApiUrl=location.protocol==='file:'?'https://ucl-data-center.pages.dev/api/ucl-qualification-live':'/api/ucl-qualification-live';
+  const fetchOfficialPayload=async()=>{
+    const res=await fetch(`${liveApiUrl}?_=${Date.now()}`,{cache:'no-store'});
+    if(!res.ok)throw new Error('UEFA API HTTP '+res.status);
+    return res.json();
+  };
+  const officialRows=data=>(data?.matches||[]).map(match=>[match.date,canonical(match.home),canonical(match.away),`${match.homeScore}-${match.awayScore}`,'—','qualifying']);
+  const syncLeagueTeams=catalog=>{
+    if(!Array.isArray(catalog)||catalog.length!==36)return false;
+    const previous=new Map(teams.map(team=>[team[1],team]));
+    const next=catalog.map(([rawName,code])=>{const team=canonical(rawName),old=previous.get(team);return [teamChineseName(team),team,code||team.slice(0,3).toUpperCase(),...(old?old.slice(3):[0,0,0,0,0,0,0,''])]});
+    teams.splice(0,teams.length,...next);
+    return true;
+  };
+  const refreshUpcoming=()=>{
+    const nowTime=Date.now(),horizon=nowTime+21*24*60*60*1000;
+    upcoming=allUpcoming.filter(f=>{const kickoff=new Date(f.date+'T'+f.time.split('/')[0]+':00+08:00').getTime();return kickoff>=nowTime-60*60*1000&&kickoff<=horizon});
+    renderSchedule();
   };
   async function updateData(silent=false){
     const btn=document.querySelector('#updateBtn');btn.classList.add('loading');btn.disabled=true;
+    let official=null,seasonEvents=[],sourceErrors=[];
     try{
-      const res=await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600&_=${Date.now()}`,{cache:'no-store'});
-      if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json(),fresh=[],future=[],now=Date.now(),seasonEvents=(data.events||[]).filter(e=>Number(e.season?.year)===2026);
-      seasonEvents.forEach(e=>{const c=e.competitions[0],h=c.competitors.find(x=>x.homeAway==='home'),a=c.competitors.find(x=>x.homeAway==='away'),scheduled=beijingDateTime(e.date),date=scheduled.date,home=canonical(h.team.displayName),away=canonical(a.team.displayName),stage=e.season?.slug==='league-phase'?'league':'qualifying';
-        if(stage==='league')[[home,h],[away,a]].forEach(([name,club])=>{if(!teams.some(t=>t[1]===name))teams.push([teamChineseName(name),name,club.team.abbreviation||name.slice(0,3).toUpperCase(),0,0,0,0,0,0,0,''])});
-        if(e.status.type.completed){let hh=0,ha=0;(c.details||[]).filter(x=>x.scoringPlay&&Number(x.clock.value)<=2700).forEach(x=>x.team.id===h.id?hh++:ha++);fresh.push([date,home,away,h.score+'-'+a.score,hh+'-'+ha,stage])}
-        else if(new Date(e.date).getTime()>now){future.push({date,time:scheduled.time,home,away})}
-      });
-      fresh.push(...await fetchOfficialRows());
-      if(fresh.length)mergeMatchRows(fresh);
-      if(seasonEvents.length)allUpcoming=future.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
-      const nowTime=Date.now(),horizon=nowTime+21*24*60*60*1000;upcoming=allUpcoming.filter(f=>{const kickoff=new Date(f.date+'T'+f.time.split('/')[0]+':00+08:00').getTime();return kickoff>=nowTime-60*60*1000&&kickoff<=horizon});renderSchedule();
-      document.querySelector('#updatedAt').textContent=(seasonEvents.length?'更新于 ':'已核对 ')+new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
-      if(!silent)toast(seasonEvents.length?`更新成功：${matches.length} 场赛果，${upcoming.length} 场待赛`:`已从UEFA更新赛果，并保留 ${upcoming.length} 场官方赛程`);
-    }catch(err){try{const official=await fetchOfficialRows();if(official.length)mergeMatchRows(official)}catch{}const nowTime=Date.now(),horizon=nowTime+21*24*60*60*1000;upcoming=allUpcoming.filter(f=>{const kickoff=new Date(f.date+'T'+f.time.split('/')[0]+':00+08:00').getTime();return kickoff>=nowTime-60*60*1000&&kickoff<=horizon});renderSchedule();if(!silent)toast(`已使用UEFA赛果与 ${upcoming.length} 场核对赛程`);document.querySelector('#updatedAt').textContent='UEFA数据核对于 '+new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})}
-    finally{btn.classList.remove('loading');btn.disabled=false}
+      try{
+        official=await fetchOfficialPayload();
+        if(official.leagueTeams?.length===36)syncLeagueTeams(official.leagueTeams);
+        const rows=officialRows(official);if(rows.length)mergeMatchRows(rows);
+      }catch(error){sourceErrors.push('UEFA')}
+      try{
+        const urls=[2026,2027].map(year=>`https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=${year}&limit=600&_=${Date.now()}`);
+        const responses=await Promise.all(urls.map(url=>fetch(url,{cache:'no-store'})));
+        if(responses.some(response=>!response.ok))throw new Error('ESPN HTTP error');
+        const payloads=await Promise.all(responses.map(response=>response.json()));
+        seasonEvents=payloads.flatMap(data=>data.events||[]).filter(event=>{const date=event.date?.slice(0,10)||'';return date>='2026-07-01'&&date<='2027-06-30'});
+        const fresh=[],future=[],now=Date.now();
+        seasonEvents.forEach(event=>{const competition=event.competitions?.[0],home=competition?.competitors?.find(team=>team.homeAway==='home'),away=competition?.competitors?.find(team=>team.homeAway==='away');if(!competition||!home||!away)return;const scheduled=beijingDateTime(event.date),date=scheduled.date,homeName=canonical(home.team.displayName),awayName=canonical(away.team.displayName),stage=event.season?.slug==='league-phase'?'league':'qualifying';
+          if(stage==='league')[[homeName,home],[awayName,away]].forEach(([name,club])=>{if(!teams.some(team=>team[1]===name))teams.push([teamChineseName(name),name,club.team.abbreviation||name.slice(0,3).toUpperCase(),0,0,0,0,0,0,0,''])});
+          if(event.status?.type?.completed){let hh=0,ha=0;(competition.details||[]).filter(detail=>detail.scoringPlay&&Number(detail.clock.value)<=2700).forEach(detail=>detail.team.id===home.id?hh++:ha++);fresh.push([date,homeName,awayName,home.score+'-'+away.score,hh+'-'+ha,stage])}
+          else if(new Date(event.date).getTime()>now)future.push({date,time:scheduled.time,home:homeName,away:awayName});
+        });
+        if(fresh.length)mergeMatchRows(fresh);
+        if(seasonEvents.length)allUpcoming=future.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+      }catch(error){sourceErrors.push('ESPN')}
+      recalc();refreshUpcoming();
+      const stamp=official?.sourceUpdatedAt?.slice(5)||'08-27';
+      const confirmed=official?.leagueTeams?.length===36||teams.length===36;
+      document.querySelector('#updatedAt').textContent=`官方数据至 ${stamp} · ${confirmed?'36队已确认':'名单核对中'}`;
+      if(!silent)toast(sourceErrors.length===2?'在线数据源暂不可用，已显示本地最终核验数据':`更新完成：${teams.length} 队，${matches.length} 场赛果，${upcoming.length} 场待赛`);
+      window.refreshUclAdvancement?.();
+    }finally{btn.classList.remove('loading');btn.disabled=false}
   }
-  document.querySelector('#updateBtn').onclick=()=>{updateData(false);window.refreshUclAdvancement?.()};
+  document.querySelector('#updateBtn').onclick=()=>updateData(false);
   scheduleBtn.onclick=()=>{document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));scheduleBtn.classList.add('active');document.querySelector('.hero').style.display='none';document.querySelector('.layout').style.display='none';document.querySelector('.results').style.display='none';document.querySelector('#schedulePage').classList.add('active');window.scrollTo({top:0,behavior:'smooth'})};
   document.querySelectorAll('nav button:not(#scheduleBtn)').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('.hero').style.display='flex';document.querySelector('.layout').style.display='grid';document.querySelector('.results').style.display='block';document.querySelector('#schedulePage').classList.remove('active')}));
   updateData(true);setTimeout(()=>updateData(true),1500);setInterval(()=>updateData(true),600000);
