@@ -48,9 +48,22 @@
     grid.innerHTML=Object.entries(days).slice(0,9).map(([date,fs])=>`<article class="fixture-day"><div class="fixture-date"><span>${date.slice(5).replace('-','月')}日</span><b>${['日','一','二','三','四','五','六'][new Date(date+'T12:00:00').getDay()]}</b></div>${fs.map(f=>`<div class="fixture" data-date="${f.date}" data-time="${f.time}" data-home="${encodeURIComponent(f.home)}" data-away="${encodeURIComponent(f.away)}"><time>${f.time} · 北京时间 · 欧冠</time><div class="fixture-teams"><span>${display(f.home)}</span><i>VS</i><span>${display(f.away)}</span></div>${predictionSummary(f)}<small class="fixture-more">查看比赛详情 →</small></div>`).join('')}</article>`).join('');
     grid.querySelectorAll('.fixture').forEach(el=>el.onclick=()=>openFixtureDetail(decodeURIComponent(el.dataset.home),decodeURIComponent(el.dataset.away),el.dataset.date,el.dataset.time));
   };
-  const openTeamLive=name=>{
-    const t=teams.find(x=>x[1]===name),games=matches.filter(m=>m[1]===name||m[2]===name),rank=teams.indexOf(t)+1;
-    document.querySelector('#drawerContent').innerHTML=`<div class="team-hero"><div class="bigbadge">${t[2]}</div><p class="eyebrow">2026/27 SEASON · 第 ${rank} 名</p><h2>${t[0]}<small>（${t[1]}）</small></h2><span>UEFA Champions League · Europe</span></div><div class="summary"><div><b>${t[9]}</b><span>积分</span></div><div><b>${t[4]}</b><span>胜</span></div><div><b>${t[5]}</b><span>平</span></div><div><b>${t[6]}</b><span>负</span></div></div><div class="history"><div class="history-title"><h3>本赛季全部比赛</h3><span>共 ${games.length} 场</span></div><div class="history-label"><span>日期</span><span>对手（当前排名）</span><span>半场</span><span>全场</span></div>${games.map(m=>{let home=m[1]===name,sc=m[3].split('-').map(Number),a=home?sc[0]:sc[1],b=home?sc[1]:sc[0],o=a>b?'W':a===b?'D':'L',opp=home?m[2]:m[1],ot=teams.find(x=>x[1]===opp),orank=ot?teams.indexOf(ot)+1:'–';return `<div class="game"><span>${m[0].slice(5)}</span><span class="opponent"><i class="outcome ${o.toLowerCase()}">${o==='W'?'胜':o==='D'?'平':'负'}</i><i class="rank-chip" style="${ot?`background:${rankColor(orank)}`:'background:#7c8b86'}" title="当前第 ${orank} 名">${orank}</i><span class="opponent-name">${home?'主':'客'} · ${display(opp)}</span></span><span class="ht">${m[4]}</span><span class="score">${m[3]}</span></div>`}).join('')}</div><div class="data-source-panel"><b>球队比赛数据来源</b><span>资格赛半场比分缺失时显示“—”</span><a href="https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600" target="_blank" rel="noopener">https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&amp;limit=600</a><a href="https://www.uefa.com/uefachampionsleague/fixtures-results/" target="_blank" rel="noopener">https://www.uefa.com/uefachampionsleague/fixtures-results/</a></div>`;
+  let currentTeamName='';
+  const teamDrawFixtures=name=>{
+    const rows=[
+      ...(leagueDraw[name]||[]).map((entry,index)=>({date:'',home:entry.venue==='home'?name:entry.opponent,away:entry.venue==='away'?name:entry.opponent,status:'待赛',completed:false,order:index})),
+      ...matches.filter(m=>m[5]==='league'&&(m[1]===name||m[2]===name)).map(m=>({date:m[0],home:m[1],away:m[2],status:m[3],completed:true})),
+      ...allUpcoming.filter(f=>f.home===name||f.away===name).map(f=>({date:f.date,home:f.home,away:f.away,status:f.time||'待赛',completed:false}))
+    ];
+    const unique=new Map(rows.map(row=>[[row.home,row.away].join('|'),row]));
+    return [...unique.values()].sort((a,b)=>(a.date||'9999').localeCompare(b.date||'9999')||(a.order??99)-(b.order??99));
+  };
+  const drawRows=(name,fixtures)=>fixtures.length?fixtures.map(f=>{const isHome=f.home===name,opponent=isHome?f.away:f.home,info=leagueTeamInfo(opponent);return `<div class="draw-opponent"><time>${f.date?f.date.slice(5):'日期待定'}</time><span class="venue ${isHome?'home':'away'}">${isHome?'主场':'客场'}</span><span class="draw-club"><strong>${teamChineseName(opponent)}</strong><small>${canonical(opponent)}</small></span><i class="draw-pot pot-${info?.pot||0}">${info?`第${info.pot}档`:'档位待核'}</i><b>${f.completed?f.status:'待赛'}</b></div>`}).join(''):'<div class="draw-empty">正在同步UEFA已公布的8场联赛阶段赛程…</div>';
+  const openTeamLive=(rawName,updateLocation=true)=>{
+    const name=canonical(rawName),t=teams.find(x=>x[1]===name);if(!t)return;
+    const games=matches.filter(m=>m[1]===name||m[2]===name),rank=teams.indexOf(t)+1,info=leagueTeamInfo(name),draw=teamDrawFixtures(name);currentTeamName=name;
+    if(updateLocation&&info)history.pushState(null,'',`#team=${encodeURIComponent(info.id)}`);
+    document.querySelector('#drawerContent').innerHTML=`<div class="team-hero"><div class="bigbadge">${t[2]}</div><p class="eyebrow">2026/27 SEASON · 第 ${rank} 名</p><h2>${t[0]}<small>${t[1]}</small></h2><span>UEFA Champions League · 第 ${info?.pot||t[11]} 档</span></div><div class="summary"><div><b>${t[9]}</b><span>积分</span></div><div><b>${t[4]}</b><span>胜</span></div><div><b>${t[5]}</b><span>平</span></div><div><b>${t[6]}</b><span>负</span></div></div><section class="team-draw"><div class="history-title"><h3>联赛阶段抽签对战</h3><span>${draw.length} / 8 场</span></div><p>每档两名对手 · 主客场各四场</p><div class="draw-opponents">${drawRows(name,draw)}</div></section><div class="history"><div class="history-title"><h3>本赛季全部比赛</h3><span>共 ${games.length} 场</span></div><div class="history-label"><span>日期</span><span>对手（当前排名）</span><span>半场</span><span>全场</span></div>${games.map(m=>{let home=m[1]===name,sc=m[3].split('-').map(Number),a=home?sc[0]:sc[1],b=home?sc[1]:sc[0],o=a>b?'W':a===b?'D':'L',opp=home?m[2]:m[1],ot=teams.find(x=>x[1]===opp),orank=ot?teams.indexOf(ot)+1:'–';return `<div class="game"><span>${m[0].slice(5)}</span><span class="opponent"><i class="outcome ${o.toLowerCase()}">${o==='W'?'胜':o==='D'?'平':'负'}</i><i class="rank-chip" style="${ot?`background:${rankColor(orank)}`:'background:#7c8b86'}" title="当前第 ${orank} 名">${orank}</i><span class="opponent-name">${home?'主':'客'} · ${display(opp)}</span></span><span class="ht">${m[4]}</span><span class="score">${m[3]}</span></div>`}).join('')}</div><div class="data-source-panel"><b>球队比赛与抽签数据来源</b><span>联赛阶段抽签及赛程以UEFA官方公布结果为准</span><a href="https://www.uefa.com/uefachampionsleague/news/02a8-2176fa83582b-d99f0b27f405-1000--champions-league-league-phase-fixtures-by-team/" target="_blank" rel="noopener">UEFA 2026/27各队完整赛程</a><a href="https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600" target="_blank" rel="noopener">ESPN Scoreboard API</a></div>`;
     drawer.classList.add('open');overlay.classList.add('open');
   };
   window.openTeam=openTeamLive;
@@ -68,7 +81,7 @@
   const calculateStats=(games,team)=>{const s={n:games.length,ft:{w:0,d:0,l:0},ht:{w:0,d:0,l:0},goals:0};games.forEach(m=>{const isHome=m[1]===team,[fh,fa]=m[3].split('-').map(Number),[hh,ha]=m[4].split('-').map(Number),fg=isHome?fh:fa,fo=isHome?fa:fh,hg=isHome?hh:ha,ho=isHome?ha:hh;s.goals+=fg;s.ft[fg>fo?'w':fg<fo?'l':'d']++;if(Number.isFinite(hg)&&Number.isFinite(ho))s.ht[hg>ho?'w':hg<ho?'l':'d']++});return s};
   const pct=(v,n)=>n?Math.round(v/n*100):0;
   const statsCard=(team,games,scope)=>{const s=calculateStats(games,team),row=(label,x)=>`<div class="stat-line"><span>${label}</span><b class="stat-w">胜 ${x.w}<small>${pct(x.w,s.n)}%</small></b><b class="stat-d">平 ${x.d}<small>${pct(x.d,s.n)}%</small></b><b class="stat-l">负 ${x.l}<small>${pct(x.l,s.n)}%</small></b></div>`;return `<article class="record-stat"><header><strong>${shortName(team)}</strong><span>${scope} · ${s.n} 场</span></header>${row('全场',s.ft)}${row('半场',s.ht)}<footer><span>场均进球</span><strong>${s.n?(s.goals/s.n).toFixed(2):'0.00'}</strong></footer></article>`};
-  const renderSideStandings=(home,away)=>{const panel=document.querySelector('#modalStandings');panel.innerHTML=`<div class="side-table-title"><div><p>UEFA CHAMPIONS LEAGUE · 2026/27</p><h2>联赛阶段积分榜</h2></div><span>当前 ${teams.length} 队</span></div><div class="side-table-head"><span>#</span><span>球队</span><span>赛</span><span>净胜</span><span>积分</span></div><div class="side-table-body">${teams.map((t,i)=>`<div class="side-team ${t[1]===home||t[1]===away?'selected':''} zone-${i+1}"><b>${i+1}</b><span><strong>${t[0]}</strong><small>${t[1]}</small></span><i>${t[3]}</i><i>${t[7]-t[8]>0?'+':''}${t[7]-t[8]}</i><em>${t[9]}</em></div>`).join('')}</div><div class="side-legend"><span><i></i>1–8直通16强</span><span><i></i>9–24附加赛</span><span><i></i>25–36淘汰</span></div>`;panel.classList.add('open')};
+  const renderSideStandings=(home,away)=>{const panel=document.querySelector('#modalStandings');panel.innerHTML=`<div class="side-table-title"><div><p>UEFA CHAMPIONS LEAGUE · 2026/27</p><h2>联赛阶段积分榜</h2></div><span>当前 ${teams.length} 队</span></div><div class="side-table-head"><span>#</span><span>球队</span><span>赛</span><span>净胜</span><span>积分</span></div><div class="side-table-body">${teams.map((t,i)=>`<div class="side-team pot-${t[11]} ${t[1]===home||t[1]===away?'selected':''} zone-${i+1}"><b>${i+1}</b><span><strong>${t[0]}</strong><small>${t[1]}</small></span><i>${t[3]}</i><i>${t[7]-t[8]>0?'+':''}${t[7]-t[8]}</i><em>${t[9]}</em></div>`).join('')}</div><div class="side-legend"><span><i></i>1–8直通16强</span><span><i></i>9–24附加赛</span><span><i></i>25–36淘汰</span></div>`;panel.classList.add('open')};
   async function openFixtureDetail(home,away,date='',time=''){
     const predictionKey=fixtureKey(date,home,away);
     renderSideStandings(home,away);
@@ -84,9 +97,11 @@
   }
   window.openFixtureDetail=openFixtureDetail;renderResults();
   new MutationObserver(()=>{if(!drawer.classList.contains('open'))document.querySelector('#modalStandings').classList.remove('open')}).observe(drawer,{attributes:true,attributeFilter:['class']});
-  const bindRows=()=>tbody.querySelectorAll('tr').forEach(r=>r.onclick=()=>openTeamLive(r.dataset.team));
+  const bindRows=()=>tbody.querySelectorAll('tr').forEach(r=>{const open=()=>openTeamLive(r.dataset.team);r.onclick=open;r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}}});
   const oldRender=window.render;window.render=function(q=''){oldRender(q);bindRows()};
   bindRows();
+  const openTeamFromHash=()=>{const id=decodeURIComponent(location.hash.replace(/^#team=/,'')),info=leagueTeamCatalog.find(team=>team.id===id);if(info)openTeamLive(info.name,false);else if(!location.hash){drawer.classList.remove('open');overlay.classList.remove('open');currentTeamName=''}};
+  window.addEventListener('hashchange',openTeamFromHash);setTimeout(openTeamFromHash,0);
   const mergeMatchRows=rows=>{
     const merged=new Map(matches.map(match=>[match.slice(0,3).join('|'),match]));
     rows.forEach(match=>merged.set(match.slice(0,3).join('|'),match));
@@ -101,8 +116,10 @@
   const officialRows=data=>(data?.matches||[]).map(match=>[match.date,canonical(match.home),canonical(match.away),`${match.homeScore}-${match.awayScore}`,'—','qualifying']);
   const syncLeagueTeams=catalog=>{
     if(!Array.isArray(catalog)||catalog.length!==36)return false;
-    const previous=new Map(teams.map(team=>[team[1],team]));
-    const next=catalog.map(([rawName,code])=>{const team=canonical(rawName),old=previous.get(team);return [teamChineseName(team),team,code||team.slice(0,3).toUpperCase(),...(old?old.slice(3):[0,0,0,0,0,0,0,''])]});
+    const incoming=new Set(catalog.map(([rawName])=>canonical(rawName))),official=new Set(leagueTeamCatalog.map(team=>team.name));
+    if(incoming.size!==36||[...incoming].some(name=>!official.has(name)))return false;
+    const previous=new Map(teams.filter(team=>official.has(team[1])).map(team=>[team[1],team]));
+    const next=leagueTeamCatalog.map(meta=>{const old=previous.get(meta.name);return [meta.zh,meta.name,meta.code,...(old?old.slice(3,11):[0,0,0,0,0,0,0,'']),meta.pot]});
     teams.splice(0,teams.length,...next);
     return true;
   };
@@ -126,18 +143,18 @@
         if(responses.some(response=>!response.ok))throw new Error('ESPN HTTP error');
         const payloads=await Promise.all(responses.map(response=>response.json()));
         seasonEvents=payloads.flatMap(data=>data.events||[]).filter(event=>{const date=event.date?.slice(0,10)||'';return date>='2026-07-01'&&date<='2027-06-30'});
-        const fresh=[],future=[],now=Date.now();
+        const fresh=[],future=[],now=Date.now(),unknownLeagueNames=new Set();
         seasonEvents.forEach(event=>{const competition=event.competitions?.[0],home=competition?.competitors?.find(team=>team.homeAway==='home'),away=competition?.competitors?.find(team=>team.homeAway==='away');if(!competition||!home||!away)return;const scheduled=beijingDateTime(event.date),date=scheduled.date,homeName=canonical(home.team.displayName),awayName=canonical(away.team.displayName),stage=event.season?.slug==='league-phase'?'league':'qualifying';
-          if(stage==='league')[[homeName,home],[awayName,away]].forEach(([name,club])=>{if(!teams.some(team=>team[1]===name))teams.push([teamChineseName(name),name,club.team.abbreviation||name.slice(0,3).toUpperCase(),0,0,0,0,0,0,0,''])});
+          if(stage==='league'&&(!leagueTeamInfo(homeName)||!leagueTeamInfo(awayName))){if(!leagueTeamInfo(homeName))unknownLeagueNames.add(home.team.displayName);if(!leagueTeamInfo(awayName))unknownLeagueNames.add(away.team.displayName);return}
           if(event.status?.type?.completed){let hh=0,ha=0;(competition.details||[]).filter(detail=>detail.scoringPlay&&Number(detail.clock.value)<=2700).forEach(detail=>detail.team.id===home.id?hh++:ha++);fresh.push([date,homeName,awayName,home.score+'-'+away.score,hh+'-'+ha,stage])}
           else if(new Date(event.date).getTime()>now)future.push({date,time:scheduled.time,home:homeName,away:awayName});
         });
         if(fresh.length)mergeMatchRows(fresh);
         if(seasonEvents.length)allUpcoming=future.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
       }catch(error){sourceErrors.push('ESPN')}
-      recalc();refreshUpcoming();
+      syncLeagueTeams(leagueTeams);recalc();refreshUpcoming();if(currentTeamName)openTeamLive(currentTeamName,false);
       const stamp=official?.sourceUpdatedAt?.slice(5)||'08-27';
-      const confirmed=official?.leagueTeams?.length===36||teams.length===36;
+      const confirmed=teams.length===36&&new Set(teams.map(team=>team[1])).size===36&&teams.every(team=>leagueTeamInfo(team[1]));
       document.querySelector('#updatedAt').textContent=`官方数据至 ${stamp} · ${confirmed?'36队已确认':'名单核对中'}`;
       if(!silent)toast(sourceErrors.length===2?'在线数据源暂不可用，已显示本地最终核验数据':`更新完成：${teams.length} 队，${matches.length} 场赛果，${upcoming.length} 场待赛`);
       window.refreshUclAdvancement?.();
