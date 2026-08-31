@@ -32,6 +32,7 @@ test('all UCL pages share one canonical team-name catalog',async()=>{
       uniqueLeagueNames:new Set(leagueTeamCatalog.map(team=>team.name)).size,
       chineseNames:leagueTeamCatalog.map(team=>team.zh),
       potSizes:Object.fromEntries(Object.entries(leaguePots).map(([pot,names])=>[pot,names.length])),
+      previousRanks:leagueTeamCatalog.map(team=>[team.name,team.previousRank]),
       aliases:['LASK Linz','Feyenoord Rotterdam','Viking FK','Sabah FK'].map(canonicalTeamName),
       draw:Object.fromEntries(Object.entries(leagueDraw).map(([name,fixtures])=>[name,{count:fixtures.length,home:fixtures.filter(f=>f.venue==='home').length,away:fixtures.filter(f=>f.venue==='away').length,pots:Object.fromEntries([1,2,3,4].map(pot=>[pot,fixtures.filter(f=>leaguePotFor(f.opponent)===pot).length]))}])),
       unknown:[...names].filter(name=>!uclNames[name]),
@@ -45,6 +46,13 @@ test('all UCL pages share one canonical team-name catalog',async()=>{
   assert.equal(new Set(audit.chineseNames).size,36);
   assert.ok(audit.chineseNames.every(name=>/[\u4e00-\u9fff]/.test(name)),`中文名缺失：${audit.chineseNames.join('、')}`);
   assert.deepEqual({...audit.potSizes},{1:9,2:9,3:9,4:9});
+  const ranked=audit.previousRanks.filter(([,rank])=>rank!==null),newcomers=audit.previousRanks.filter(([,rank])=>rank===null);
+  assert.equal(ranked.length,18);
+  assert.equal(newcomers.length,18);
+  assert.equal(new Set(ranked.map(([,rank])=>rank)).size,18);
+  assert.ok(ranked.every(([,rank])=>rank>=1&&rank<=36));
+  assert.equal(audit.previousRanks.find(([name])=>name==='Arsenal')[1],1);
+  assert.equal(audit.previousRanks.find(([name])=>name==='Villarreal')[1],35);
   assert.deepEqual([...audit.aliases],['LASK','Feyenoord','Viking','Sabah']);
   assert.equal(Object.keys(audit.draw).length,36);
   Object.entries(audit.draw).forEach(([name,draw])=>{
@@ -78,6 +86,28 @@ test('live ingestion cannot append a 37th league-phase team',async()=>{
   assert.match(manager,/8 场/);
   assert.match(app,/leagueTeamCatalog\.map/);
   assert.match(app,/pot-\$\{t\[11\]\}/);
+  assert.match(app,/rankHistoryMarkup/);
+  assert.match(app,/newcomer-knight/);
+  assert.match(manager,/meta\.previousRank/);
   assert.match(styles,/\.bilingual\{display:inline-flex;flex-direction:column/);
+  assert.match(styles,/\.rank-change\.up/);
+  assert.match(styles,/\.newcomer-knight/);
   assert.match(styles,/#standings tr\.pot-4/);
+});
+
+test('last-season rank comparison has stable semantics',async()=>{
+  const matchData=await readFile(new URL('js/data/matches-data.js',root),'utf8');
+  const context=vm.createContext({});vm.runInContext(matchData,context);
+  const changes=vm.runInContext(`[
+    leagueRankChange(null,4,true),
+    leagueRankChange(14,10,false),
+    leagueRankChange(14,10,true),
+    leagueRankChange(1,5,true),
+    leagueRankChange(7,7,true)
+  ]`,context);
+  assert.deepEqual({...changes[0]},{kind:'new',value:null});
+  assert.deepEqual({...changes[1]},{kind:'pending',value:null});
+  assert.deepEqual({...changes[2]},{kind:'up',value:4});
+  assert.deepEqual({...changes[3]},{kind:'down',value:4});
+  assert.deepEqual({...changes[4]},{kind:'same',value:0});
 });

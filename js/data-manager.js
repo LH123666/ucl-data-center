@@ -64,6 +64,8 @@
     const games=matches.filter(m=>m[1]===name||m[2]===name),rank=teams.indexOf(t)+1,info=leagueTeamInfo(name),draw=teamDrawFixtures(name);currentTeamName=name;
     if(updateLocation&&info)history.pushState(null,'',`#team=${encodeURIComponent(info.id)}`);
     document.querySelector('#drawerContent').innerHTML=`<div class="team-hero"><div class="bigbadge">${t[2]}</div><p class="eyebrow">2026/27 SEASON · 第 ${rank} 名</p><h2>${t[0]}<small>${t[1]}</small></h2><span>UEFA Champions League · 第 ${info?.pot||t[11]} 档</span></div><div class="summary"><div><b>${t[9]}</b><span>积分</span></div><div><b>${t[4]}</b><span>胜</span></div><div><b>${t[5]}</b><span>平</span></div><div><b>${t[6]}</b><span>负</span></div></div><section class="team-draw"><div class="history-title"><h3>联赛阶段抽签对战</h3><span>${draw.length} / 8 场</span></div><p>每档两名对手 · 主客场各四场</p><div class="draw-opponents">${drawRows(name,draw)}</div></section><div class="history"><div class="history-title"><h3>本赛季全部比赛</h3><span>共 ${games.length} 场</span></div><div class="history-label"><span>日期</span><span>对手（当前排名）</span><span>半场</span><span>全场</span></div>${games.map(m=>{let home=m[1]===name,sc=m[3].split('-').map(Number),a=home?sc[0]:sc[1],b=home?sc[1]:sc[0],o=a>b?'W':a===b?'D':'L',opp=home?m[2]:m[1],ot=teams.find(x=>x[1]===opp),orank=ot?teams.indexOf(ot)+1:'–';return `<div class="game"><span>${m[0].slice(5)}</span><span class="opponent"><i class="outcome ${o.toLowerCase()}">${o==='W'?'胜':o==='D'?'平':'负'}</i><i class="rank-chip" style="${ot?`background:${rankColor(orank)}`:'background:#7c8b86'}" title="当前第 ${orank} 名">${orank}</i><span class="opponent-name">${home?'主':'客'} · ${display(opp)}</span></span><span class="ht">${m[4]}</span><span class="score">${m[3]}</span></div>`}).join('')}</div><div class="data-source-panel"><b>球队比赛与抽签数据来源</b><span>联赛阶段抽签及赛程以UEFA官方公布结果为准</span><a href="https://www.uefa.com/uefachampionsleague/news/02a8-2176fa83582b-d99f0b27f405-1000--champions-league-league-phase-fixtures-by-team/" target="_blank" rel="noopener">UEFA 2026/27各队完整赛程</a><a href="https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600" target="_blank" rel="noopener">ESPN Scoreboard API</a></div>`;
+    const seasonLine=document.querySelector('.team-hero>span');
+    if(seasonLine)seasonLine.outerHTML=`<div class="team-season-context"><span class="team-history">${rankHistoryMarkup(t,rank)}</span><em class="pot-chip">第 ${info?.pot||t[11]} 档</em></div>`;
     drawer.classList.add('open');overlay.classList.add('open');
   };
   window.openTeam=openTeamLive;
@@ -119,7 +121,7 @@
     const incoming=new Set(catalog.map(([rawName])=>canonical(rawName))),official=new Set(leagueTeamCatalog.map(team=>team.name));
     if(incoming.size!==36||[...incoming].some(name=>!official.has(name)))return false;
     const previous=new Map(teams.filter(team=>official.has(team[1])).map(team=>[team[1],team]));
-    const next=leagueTeamCatalog.map(meta=>{const old=previous.get(meta.name);return [meta.zh,meta.name,meta.code,...(old?old.slice(3,11):[0,0,0,0,0,0,0,'']),meta.pot]});
+    const next=leagueTeamCatalog.map(meta=>{const old=previous.get(meta.name);return [meta.zh,meta.name,meta.code,...(old?old.slice(3,11):[0,0,0,0,0,0,0,'']),meta.pot,meta.previousRank]});
     teams.splice(0,teams.length,...next);
     return true;
   };
