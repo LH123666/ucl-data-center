@@ -33,6 +33,9 @@ test('all UCL pages share one canonical team-name catalog',async()=>{
       chineseNames:leagueTeamCatalog.map(team=>team.zh),
       potSizes:Object.fromEntries(Object.entries(leaguePots).map(([pot,names])=>[pot,names.length])),
       previousRanks:leagueTeamCatalog.map(team=>[team.name,team.previousRank]),
+      histories:leagueTeamCatalog.map(team=>[team.name,clubHistoryFor(team.name)]),
+      profileQualifiers:[...qualifyingLeagueTeams].sort(),
+      resultQualifiers:[...qualificationActiveChampion,...qualificationActiveLeague].sort(),
       aliases:['LASK Linz','Feyenoord Rotterdam','Viking FK','Sabah FK'].map(canonicalTeamName),
       draw:Object.fromEntries(Object.entries(leagueDraw).map(([name,fixtures])=>[name,{count:fixtures.length,home:fixtures.filter(f=>f.venue==='home').length,away:fixtures.filter(f=>f.venue==='away').length,pots:Object.fromEntries([1,2,3,4].map(pot=>[pot,fixtures.filter(f=>leaguePotFor(f.opponent)===pot).length]))}])),
       unknown:[...names].filter(name=>!uclNames[name]),
@@ -53,6 +56,16 @@ test('all UCL pages share one canonical team-name catalog',async()=>{
   assert.ok(ranked.every(([,rank])=>rank>=1&&rank<=36));
   assert.equal(audit.previousRanks.find(([name])=>name==='Arsenal')[1],1);
   assert.equal(audit.previousRanks.find(([name])=>name==='Villarreal')[1],35);
+  assert.equal(audit.histories.length,36);
+  assert.equal(audit.histories.filter(([,history])=>history.entry==='qualifying').length,7);
+  assert.equal(audit.histories.filter(([,history])=>history.entry==='direct').length,29);
+  assert.deepEqual([...audit.profileQualifiers],[...audit.resultQualifiers]);
+  audit.histories.forEach(([name,history])=>{
+    assert.equal(history.ucl.length,3,`${name} 欧冠历史不完整`);
+    assert.equal(history.domestic.length,3,`${name} 国内联赛历史不完整`);
+    assert.ok(history.league,`${name} 国内联赛名称缺失`);
+    assert.ok(history.domestic.every(value=>value!=='—'),`${name} 国内联赛排名缺失`);
+  });
   assert.deepEqual([...audit.aliases],['LASK','Feyenoord','Viking','Sabah']);
   assert.equal(Object.keys(audit.draw).length,36);
   Object.entries(audit.draw).forEach(([name,draw])=>{
@@ -89,9 +102,13 @@ test('live ingestion cannot append a 37th league-phase team',async()=>{
   assert.match(app,/rankHistoryMarkup/);
   assert.match(app,/newcomer-knight/);
   assert.match(manager,/meta\.previousRank/);
+  assert.match(manager,/clubHistoryMarkup/);
+  assert.match(manager,/entryMethodMarkup/);
   assert.match(styles,/\.bilingual\{display:inline-flex;flex-direction:column/);
   assert.match(styles,/\.rank-change\.up/);
   assert.match(styles,/\.newcomer-knight/);
+  assert.match(styles,/\.club-history-grid/);
+  assert.match(styles,/\.entry-method\.qualifying/);
   assert.match(styles,/#standings tr\.pot-4/);
 });
 
