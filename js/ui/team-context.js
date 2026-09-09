@@ -1,4 +1,10 @@
 const escapeClubText=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const teamLogoMarkup=(rawName,size='small')=>{
+  const name=canonicalTeamName(rawName),info=leagueTeamInfo(name),code=info?.code||teamChineseName(name).replace(/[^\p{L}\p{N}]/gu,'').slice(0,2).toUpperCase()||'?';
+  const image=info?.logo?`<img src="${escapeClubText(info.logo)}" width="128" height="128" loading="lazy" decoding="async" alt="" data-club-logo>`:'';
+  return `<span class="club-logo club-logo-${escapeClubText(size)}" aria-hidden="true"><span>${escapeClubText(code)}</span>${image}</span>`;
+};
+if(typeof document!=='undefined')document.addEventListener('error',event=>{if(event.target?.matches?.('img[data-club-logo]'))event.target.hidden=true},true);
   // Keep fixture labels tied to the same club identities as standings.
   // Absence is checked against UEFA's complete 2025/26 league-phase list:
   // https://www.uefa.com/uefachampionsleague/news/029c-1e92123f27d7-f1c1fabba5f1-1000/
@@ -8,7 +14,7 @@ const escapeClubText=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp
     const domesticText=rank==null?'国内排名待核实':typeof rank==='number'?`上季${domestic.league}第${rank}`:`上季${rank}`;
     const absent=new Set(['AEK Athens','Aston Villa','AS Roma','Como','FC Porto','Fenerbahce','Feyenoord','LASK','Lens','Lille','Manchester United','RB Leipzig','Real Betis','Sabah','Shakhtar Donetsk','Slovan Bratislava','VfB Stuttgart','Viking']);
     const ucl=info?.previousRank!=null?`<em class="previous-ucl" title="2025/26 欧冠联赛阶段最终第${info.previousRank}名">上季欧冠第${info.previousRank}</em>`:absent.has(name)?'<em class="ucl-new" title="2025/26 未进入欧冠联赛阶段（可能参加过资格赛）" aria-label="上赛季无欧冠联赛阶段排名">♞</em>':'<em>欧冠待核实</em>';
-    return `<span class="fixture-club"><strong>${escapeClubText(teamChineseName(name))}</strong><small>${escapeClubText(name)}</small><span class="fixture-context"><em class="pot-${info?.pot||0}" title="2026/27 欧冠抽签档位">${info?`第${info.pot}档`:'档位待核实'}</em><em class="domestic-rank" title="${domesticSeason} 国内联赛最终排名">${escapeClubText(domesticText)}</em>${ucl}</span></span>`;
+    return `<span class="fixture-club"><span class="fixture-club-heading">${teamLogoMarkup(name,'card')}<span><strong>${escapeClubText(teamChineseName(name))}</strong><small>${escapeClubText(name)}</small></span></span><span class="fixture-context"><em class="pot-${info?.pot||0}" title="2026/27 欧冠抽签档位">${info?`第${info.pot}档`:'档位待核实'}</em><em class="domestic-rank" title="${domesticSeason} 国内联赛最终排名">${escapeClubText(domesticText)}</em>${ucl}</span></span>`;
   };
 /** Lower pot numbers mean higher draw pots; missing pots remain unclassified. */
 function resultPotOutcome(homePot,awayPot,score){

@@ -26,7 +26,8 @@ const previousLeagueRanks={
   'Bodo/Glimt':23,'PSV Eindhoven':28,'Napoli':30,'Slavia Prague':34,'Villarreal':35
 };
 const leagueTeamCodes={'AEK Athens':'AEK','Arsenal':'ARS','Aston Villa':'AVL','Atlético Madrid':'ATM','Barcelona':'BAR','Bayern Munich':'FCB','Bodo/Glimt':'BOG','Borussia Dortmund':'BVB','Club Brugge':'BRU','Como':'COM','Fenerbahce':'FEN','Feyenoord':'FEY','Galatasaray':'GAL','Internazionale':'INT','LASK':'LASK','RB Leipzig':'RBL','Lens':'LEN','Lille':'LIL','Liverpool':'LIV','Manchester City':'MCI','Manchester United':'MUN','Napoli':'NAP','Paris Saint-Germain':'PSG','FC Porto':'POR','PSV Eindhoven':'PSV','Real Betis':'BET','Real Madrid':'RMA','AS Roma':'ROM','Sabah':'SAB','Shakhtar Donetsk':'SHK','Slavia Prague':'SLA','Slovan Bratislava':'SLO','Sporting CP':'SCP','VfB Stuttgart':'VFB','Viking':'VIK','Villarreal':'VIL'};
-const leagueTeamCatalog=Object.entries(leaguePots).flatMap(([pot,names])=>names.map(name=>({id:name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''),name,zh:teamChineseName(name),code:leagueTeamCodes[name],pot:Number(pot),previousRank:previousLeagueRanks[name]??null})));
+const teamIdentityId=name=>name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+const leagueTeamCatalog=Object.entries(leaguePots).flatMap(([pot,names])=>names.map(name=>{const id=teamIdentityId(name);return {id,name,zh:teamChineseName(name),code:leagueTeamCodes[name],logo:`assets/clubs/${id}.png`,pot:Number(pot),previousRank:previousLeagueRanks[name]??null}}));
 const leagueTeams=leagueTeamCatalog.map(team=>[team.name,team.code]);
 const leagueTeamByName=new Map(leagueTeamCatalog.map(team=>[team.name,team]));
 const leagueTeamInfo=value=>leagueTeamByName.get(canonicalTeamName(value));

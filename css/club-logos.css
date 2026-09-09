@@ -1,0 +1,27 @@
+.club-logo{--club-logo-size:32px;position:relative;display:inline-grid;place-items:center;width:var(--club-logo-size);height:var(--club-logo-size);min-width:var(--club-logo-size);overflow:hidden;border:1px solid #dce2f2;border-radius:50%;background:#fff;color:#17205a;box-shadow:0 2px 8px #10194a12;font:800 9px/1 'DM Sans','Noto Sans SC',sans-serif;vertical-align:middle}
+.club-logo>span{max-width:90%;overflow:hidden;white-space:nowrap}
+.club-logo img{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:contain;background:transparent}
+.club-logo-standings{--club-logo-size:36px;margin-right:10px}
+.club-logo-card{--club-logo-size:34px}
+.club-logo-draw{--club-logo-size:31px}
+.club-logo-side{--club-logo-size:26px}
+.club-logo-advance{--club-logo-size:34px}
+.club-logo-qualification{--club-logo-size:31px}
+.club-logo-hero{--club-logo-size:78px;border-width:2px;box-shadow:0 8px 26px #10194a20}
+.club-logo-knockout{--club-logo-size:32px;background:#f8f9ff}
+td.team{display:flex;align-items:center;gap:0}
+.fixture-club-heading{display:flex;align-items:flex-start;gap:9px}
+.fixture-club:last-child .fixture-club-heading{flex-direction:row-reverse;text-align:right}
+.draw-club-wrap,.qualification-club,.side-club{display:flex!important;align-items:center!important;gap:8px;min-width:0}
+.qualification-club-cell{display:flex;align-items:center;gap:8px}
+.qualification-fixture-club{display:flex!important;align-items:center;gap:7px}
+.qualification-fixture-club>span{display:flex;flex-direction:column;min-width:0}
+.qualification-fixture-club:nth-of-type(2){flex-direction:row-reverse;text-align:right}
+.draw-club-wrap .draw-club,.qualification-club>span,.side-club>span{display:flex;flex-direction:column;min-width:0}
+.advance-team-heading{align-items:center!important;flex-wrap:nowrap!important}
+.advance-team-name{display:flex;align-items:center;gap:7px;flex-wrap:wrap;min-width:0}
+.advance-team-name strong,.advance-team-name small{white-space:normal}
+#modalStandings .side-team>.side-club{flex-direction:row;gap:7px}
+#modalStandings .side-team>.side-club>span{align-items:flex-start;gap:1px}
+.team-hero>.club-logo{margin-bottom:14px}
+@media(max-width:700px){.club-logo-standings{--club-logo-size:32px}.club-logo-advance{--club-logo-size:30px}.club-logo-card{--club-logo-size:30px}}

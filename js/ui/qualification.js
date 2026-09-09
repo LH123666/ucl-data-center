@@ -57,6 +57,12 @@
     const filtered=ranking.filter(row=>filter==='all'||filter==='active'&&active.has(row.team)||row.path===filter);
     tbody.innerHTML=filtered.map((row,index)=>{const gd=row.gf-row.ga;const state=active.has(row.team)?'联赛阶段':thirdRoundTeams.has(row.team)?'转入欧联杯':secondRoundTeams.has(row.team)?'转入欧联杯':'转入欧协联';return `<tr class="${active.has(row.team)?'is-active':''}"><td>${index+1}</td><td><strong>${name(row.team)}</strong><small>${row.team}</small></td><td><span class="path-tag ${row.path==='联赛路径'?'league':''}">${row.path}</span></td><td>${row.p}</td><td>${row.w}</td><td>${row.d}</td><td>${row.l}</td><td>${row.gf}–${row.ga}</td><td>${gd>0?'+':''}${gd}</td><td><b class="table-points">${row.pts}</b></td><td><span class="state-tag ${active.has(row.team)?'active':''}">${state}</span></td></tr>`}).join('');
   }
+  const renderTableBase=renderTable;
+  renderTable=function(filter='all'){
+    renderTableBase(filter);
+    const filtered=ranking.filter(row=>filter==='all'||filter==='active'&&active.has(row.team)||row.path===filter);
+    tbody.querySelectorAll('tr').forEach((row,index)=>{const cell=row.children[1],team=filtered[index]?.team;if(cell&&team){cell.classList.add('qualification-club-cell');cell.insertAdjacentHTML('afterbegin',teamLogoMarkup(team,'qualification'))}});
+  };
   renderTable();
   page.querySelectorAll('.qualification-filters button').forEach(button=>button.addEventListener('click',()=>{page.querySelectorAll('.qualification-filters button').forEach(item=>item.classList.toggle('active',item===button));renderTable(button.dataset.filter)}));
 
@@ -66,6 +72,12 @@
     const days=[...new Set(list.map(match=>match[0]))];
     fixtures.innerHTML=days.map(date=>`<article class="fixture-day"><header><time>${date}</time><span>${new Intl.DateTimeFormat('zh-CN',{weekday:'long'}).format(new Date(date+'T12:00:00+08:00'))}</span></header>${list.filter(match=>match[0]===date).map(([,time,round,route,home,away])=>{const result=qualificationResults.find(item=>item[3]===home&&item[4]===away);return `<div class="qual-match"><time>${time}</time><span class="path-tag ${route==='联赛路径'?'league':''}">${route}</span><strong>${name(home)}<small>${home}</small></strong><i>${result?`${result[5]}–${result[6]}`:'VS'}</i><strong>${name(away)}<small>${away}</small></strong><em>${result?'已结束':round.replace(/^(第三轮|附加赛)·/,'')}</em></div>`}).join('')}</article>`).join('');
   }
+  const renderFixturesBase=renderFixtures;
+  renderFixtures=function(path='all'){
+    renderFixturesBase(path);
+    const list=qualificationFixtures.filter(match=>path==='all'||match[3]===path);
+    fixtures.querySelectorAll('.qual-match').forEach((card,index)=>{const match=list[index],clubs=card.querySelectorAll('strong');if(!match||clubs.length<2)return;[[clubs[0],match[4]],[clubs[1],match[5]]].forEach(([node,team])=>{node.classList.add('qualification-fixture-club');node.innerHTML=`${teamLogoMarkup(team,'qualification')}<span>${name(team)}<small>${team}</small></span>`})});
+  };
   renderFixtures();
   page.querySelectorAll('.schedule-tabs button').forEach(button=>button.addEventListener('click',()=>{page.querySelectorAll('.schedule-tabs button').forEach(item=>item.classList.toggle('active',item===button));renderFixtures(button.dataset.path)}));
 
