@@ -40,17 +40,6 @@
     teams.sort((a,b)=>b[9]-a[9]||(b[7]-b[8])-(a[7]-a[8])||b[7]-a[7]);render(document.querySelector('#search').value);renderResults();
     document.querySelector('.hero-stat b').textContent=matches.length;
   };
-  // Keep fixture labels tied to the same club identities as standings.
-  // Absence is checked against UEFA's complete 2025/26 league-phase list:
-  // https://www.uefa.com/uefachampionsleague/news/029c-1e92123f27d7-f1c1fabba5f1-1000/
-  const fixtureClubMarkup=rawName=>{
-    const name=canonical(rawName),info=leagueTeamInfo(name),domestic=clubDomesticHistory[name];
-    const domesticSeason=domestic?.league==='挪超'?'2025':'2025/26',rank=domestic?.ranks?.[2];
-    const domesticText=rank==null?'国内排名待核实':typeof rank==='number'?`上季${domestic.league}第${rank}`:`上季${rank}`;
-    const absent=new Set(['AEK Athens','Aston Villa','AS Roma','Como','FC Porto','Fenerbahce','Feyenoord','LASK','Lens','Lille','Manchester United','RB Leipzig','Real Betis','Sabah','Shakhtar Donetsk','Slovan Bratislava','VfB Stuttgart','Viking']);
-    const ucl=info?.previousRank!=null?`<em class="previous-ucl" title="2025/26 欧冠联赛阶段最终第${info.previousRank}名">上季欧冠第${info.previousRank}</em>`:absent.has(name)?'<em class="ucl-new" title="2025/26 未进入欧冠联赛阶段（可能参加过资格赛）" aria-label="上赛季无欧冠联赛阶段排名">♞</em>':'<em>欧冠待核实</em>';
-    return `<span class="fixture-club"><strong>${escapeHtml(teamChineseName(name))}</strong><small>${escapeHtml(name)}</small><span class="fixture-context"><em class="pot-${info?.pot||0}" title="2026/27 欧冠抽签档位">${info?`第${info.pot}档`:'档位待核实'}</em><em class="domestic-rank" title="${domesticSeason} 国内联赛最终排名">${escapeHtml(domesticText)}</em>${ucl}</span></span>`;
-  };
   const renderSchedule=()=>{
     const grid=document.querySelector('#scheduleGrid'),count=document.querySelector('#fixtureCount');
     count.textContent=`${upcoming.length} 场待赛 · 北京时间`;

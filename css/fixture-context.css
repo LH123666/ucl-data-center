@@ -1,4 +1,28 @@
 /* Compact club metadata and viewport-sized companion standings. */
+#resultGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#resultGrid .match{--result-bg:#fff;--result-accent:#66728c;background:var(--result-bg);border-color:var(--result-accent);border-top-width:4px;padding:16px;display:flex;flex-direction:column;min-width:0}
+#resultGrid .result-green{--result-bg:#edf8ef;--result-accent:#2b7945}
+#resultGrid .result-red{--result-bg:#fff0ef;--result-accent:#b84646}
+#resultGrid .result-yellow{--result-bg:#fff9df;--result-accent:#8c6b12}
+#resultGrid .result-blue{--result-bg:#edf4ff;--result-accent:#3669ab}
+#resultGrid .match:hover,#resultGrid .match:focus-visible{background:var(--result-bg)!important;border-color:var(--result-accent)!important;box-shadow:0 6px 20px #17205a18;outline:2px solid var(--result-accent);outline-offset:2px}
+.result-card-meta{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:14px}
+.result-verdict{color:var(--result-accent);font-size:10px;font-weight:700;text-align:right}
+.result-teams{display:grid;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);gap:8px;align-items:start;margin-bottom:14px}
+.result-teams>.fixture-club:last-child{text-align:right}
+.result-teams .result-score{white-space:nowrap;display:block;text-align:center;font-size:18px;line-height:1.4;padding:3px 4px;border-radius:4px;font-variant-numeric:tabular-nums}
+#resultGrid .fixture-club>small{margin:0;text-align:inherit}
+#resultGrid .fixture-context{gap:5px}
+#resultGrid .fixture-context em{border:1px solid #ffffff80}
+#resultGrid .result-half{margin-top:auto;font-size:11px}
+#resultGrid .match-detail-cue{border-top-color:var(--result-accent);color:var(--result-accent);opacity:1;transform:none}
+.result-color-legend{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;margin:-6px 0 16px;font-size:11px;color:#45516e}
+.result-color-legend>span{display:inline-flex;align-items:center;gap:5px}
+.result-color-legend>span:before{content:'';width:9px;height:9px;border-radius:2px;background:var(--swatch)}
+.result-color-legend .green{--swatch:#2b7945}.result-color-legend .red{--swatch:#b84646}.result-color-legend .yellow{--swatch:#c5a127}.result-color-legend .blue{--swatch:#3669ab}
+.result-color-legend>small{font-size:10px;color:#747e9b}
+@media(max-width:1200px){#resultGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){#resultGrid{grid-template-columns:minmax(0,1fr)}}
 .fixture-teams{grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);align-items:start}
 .fixture-club{min-width:0;display:flex;flex-direction:column;gap:4px}
 .fixture-club>strong{font-size:14px;line-height:1.45;overflow-wrap:anywhere}
