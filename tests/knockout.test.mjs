@@ -27,8 +27,8 @@ test('knockout endpoint normalizes a live match and its event timeline',async()=
   const source=await readFile(new URL('functions/api/ucl-knockout-live.js',root),'utf8');
   const module=await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
   const event={id:'401',date:'2027-03-09T20:00:00Z',status:{type:{completed:false,state:'in',shortDetail:"67'"}},competitions:[{competitors:[{id:'h',homeAway:'home',score:'2',team:{displayName:'FC Barcelona'}},{id:'a',homeAway:'away',score:'1',team:{displayName:'Bayern München'}}],details:[{scoringPlay:true,clock:{displayValue:"61'"},team:{id:'h'},type:{text:'Goal'},athletes:[{displayName:'测试球员'}]}]}]};
-  const originalFetch=globalThis.fetch;let call=0;
-  globalThis.fetch=async()=>new Response(JSON.stringify({events:call++?[]:[event]}),{headers:{'content-type':'application/json'}});
+  const originalFetch=globalThis.fetch;
+  globalThis.fetch=async()=>new Response(JSON.stringify({events:[event]}),{headers:{'content-type':'application/json'}});
   try{
     const response=await module.onRequestGet(),payload=await response.json();
     assert.equal(response.status,200);assert.equal(payload.matches.length,1);
