@@ -75,7 +75,7 @@
     renderRoutes();if(loading)return;loading=true;
     const button=document.querySelector('#koRefresh');button.disabled=true;button.textContent='↻ 更新中';
     const url=location.protocol==='file:'?'https://ucl-data-center.pages.dev/api/ucl-knockout-live':'/api/ucl-knockout-live';
-    try{const response=await fetch(`${url}?_=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json();renderLive(Array.isArray(data.matches)?data.matches:[])}
+    try{const response=await fetch(url,{cache:'no-cache'});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json();renderLive(Array.isArray(data.matches)?data.matches:[])}
     catch(error){document.querySelector('#koLiveStatus').textContent='实时接口暂不可用';if(!liveMatches.length)document.querySelector('#koLiveBody').innerHTML='<div class="ko-empty"><b>暂时无法连接比赛数据源</b><span>主晋级路线仍按当前积分榜正常显示，稍后可点击刷新重试。</span></div>'}
     finally{loading=false;button.disabled=false;button.textContent='↻ 刷新淘汰赛数据'}
   }

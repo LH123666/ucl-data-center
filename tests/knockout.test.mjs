@@ -30,7 +30,7 @@ test('knockout endpoint normalizes a live match and its event timeline',async()=
   const originalFetch=globalThis.fetch;
   globalThis.fetch=async()=>new Response(JSON.stringify({events:[event]}),{headers:{'content-type':'application/json'}});
   try{
-    const response=await module.onRequestGet(),payload=await response.json();
+    const response=await module.onRequestGet({request:new Request('https://example.test/api/ucl-knockout-live?force=1')}),payload=await response.json();
     assert.equal(response.status,200);assert.equal(payload.matches.length,1);
     assert.deepEqual(payload.matches[0],{id:'401',date:'2027-03-09',round:'round16',home:'Barcelona',away:'Bayern Munich',homeScore:2,awayScore:1,completed:false,inProgress:true,status:"67'",timeline:[{clock:"61'",type:'Goal',text:'Goal · 测试球员 · FC Barcelona'}]});
   }finally{globalThis.fetch=originalFetch}
