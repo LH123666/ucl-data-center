@@ -34,5 +34,6 @@ document.querySelector('nav').addEventListener('click',event=>{
   }
   document.querySelector('#latest').style.display=id==='latestBtn'?'block':'none';
   for(const [key,selector] of Object.entries({infoBtn:'#competitionInfo',qualificationBtn:'#qualificationPage',advancementBtn:'#advancementPage',scheduleBtn:'#schedulePage'}))document.querySelector(selector)?.classList.toggle('active',id===key);
+  window.syncUclAdvanceView?.();
   window.scrollTo({top:0,behavior:'smooth'});
 });

@@ -1,4 +1,35 @@
 .league-phase-hub{max-width:1100px;margin:-34px auto 28px;padding:0 26px;position:relative;z-index:4;color:#090d46}
+#leagueStatisticsView[hidden],.advance-hero .advance-live[hidden]{display:none!important}
+#leagueStatisticsView .league-phase-hub{max-width:none;width:100%;margin:24px 0;padding:0;z-index:1}
+#advancementPage:has(#leagueStatisticsView:not([hidden])){padding-left:clamp(12px,2.5vw,48px);padding-right:clamp(12px,2.5vw,48px)}
+#leagueStatisticsView .phase-matrix-scroll{max-height:72vh;overflow:auto}
+#leagueStatisticsView .phase-matrix-row>.phase-rank,#leagueStatisticsView .phase-matrix-row>:first-child{position:sticky;left:0;background:white;z-index:2}
+#leagueStatisticsView .phase-matrix-row>.phase-team{background:white}
+#leagueStatisticsView .phase-matrix-row.header>:first-child,#leagueStatisticsView .phase-matrix-row.header>:nth-child(2){background:#101650;position:sticky;z-index:4}
+#leagueStatisticsView .phase-matrix-row.header>:nth-child(2){left:42px}
+#leagueStatisticsView .phase-match strong{white-space:normal;overflow-wrap:anywhere;line-height:1.4}
+#leagueStatisticsView .phase-matrix-row.header>div{flex-direction:column;gap:3px}
+#leagueStatisticsView .phase-match.result-green{background:#edf8ef;color:#2b7945}
+#leagueStatisticsView .phase-match.result-red{background:#fff0ef;color:#b84646}
+#leagueStatisticsView .phase-match.result-yellow{background:#fff9df;color:#8c6b12}
+#leagueStatisticsView .phase-match.result-blue{background:#edf4ff;color:#3669ab}
+#leagueStatisticsView .phase-match.result-unknown{background:#f4f6fb}
+.phase-outcome{font-size:10px;border:1px solid currentColor;border-radius:3px;padding:0 4px}
+.phase-matrix-row>.selected-round{box-shadow:inset 2px 0 #7c86ce,inset -2px 0 #7c86ce}
+.phase-statistics{padding:24px;background:white;border:1px solid #d7dced}
+.phase-statistics h3{margin:0 0 18px}.phase-statistics h3 small{font-size:12px;color:#7180aa;margin-left:12px}
+.phase-statistics p{font-size:12px;color:#7180aa}
+.phase-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.phase-stat-grid article{background:#f4f6fc;border:1px solid #dce1ef;padding:14px;border-radius:6px}
+.phase-stat-grid span,.phase-stat-grid b{display:block}.phase-stat-grid span{font-size:12px;color:#64729b;margin-bottom:8px}.phase-stat-grid b{font-size:19px}
+.round-comparison{overflow:auto}.round-comparison table{min-width:540px}.round-comparison caption{text-align:left;font-weight:700;padding:12px 0}
+.round-comparison button{background:transparent;color:#253b93;border:0;font:inherit;cursor:pointer;padding:8px}
+.round-comparison .selected-stat{background:#edf0ff}
+#leagueStatisticsView .phase-matrix-legend .green i{background:#edf8ef;border-color:#2b7945}
+#leagueStatisticsView .phase-matrix-legend .red i{background:#fff0ef;border-color:#b84646}
+#leagueStatisticsView .phase-matrix-legend .yellow i{background:#fff9df;border-color:#8c6b12}
+#leagueStatisticsView .phase-matrix-legend .blue i{background:#edf4ff;border-color:#3669ab}
+@media(max-width:760px){.phase-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.phase-statistics{padding:14px}#leagueStatisticsView .phase-matrix-row.header>:nth-child(2){left:38px}.phase-stat-grid b{font-size:16px}}
 @media(max-width:760px){.league-phase-hub{overflow:hidden}}
 .phase-pulse{background:linear-gradient(112deg,#0c1554 0%,#1f43b9 58%,#5636b9 100%);color:#fff;border-top:5px solid #55d8f2;box-shadow:0 18px 46px rgba(19,28,91,.18);padding:24px 28px 22px}
 .phase-pulse-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}

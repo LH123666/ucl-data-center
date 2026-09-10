@@ -23,7 +23,9 @@
     <div class="ko-road" aria-label="淘汰赛总晋级流程">${uclKnockoutMilestones.map((item,index)=>`${index?'<i aria-hidden="true">→</i>':''}<article><b>${[16,16,8,4,2][index]}</b><span>${item.label}</span><small>${item.dates}</small></article>`).join('')}</div>
     <section class="ko-live"><header><div><h3>单场走势时间线</h3><span id="koLiveStatus">淘汰赛尚未开始</span></div><button class="ko-refresh" id="koRefresh" type="button">↻ 刷新淘汰赛数据</button></header><div class="ko-live-body" id="koLiveBody"><div class="ko-empty"><b>等待淘汰赛开赛</b><span>比赛开始后，这里将显示进球、红黄牌等关键事件及实时比分。</span></div></div></section>
     <footer class="ko-sources"><span>路线结构依据UEFA 2026/27赛事规程；实时比赛由本站Cloudflare接口转接ESPN Scoreboard。</span><a href="https://documents.uefa.com/r/Regulations-of-the-UEFA-Champions-League-2026/27-Online" target="_blank" rel="noopener">UEFA赛事规程 ↗</a></footer>`;
-  hero.after(tabs,qualificationView,view);
+  const leagueView=document.createElement('section');leagueView.id='leagueStatisticsView';leagueView.hidden=true;
+  tabs.firstElementChild.insertAdjacentHTML('afterend','<button type="button" role="tab" aria-selected="false" data-advance-view="league">联赛阶段统计</button>');
+  hero.after(tabs,qualificationView,leagueView,view);
   if(!window.uclSeason.current){
     view.querySelector('.ko-sources span').textContent=window.uclSeason.label+'赛季归档；上方为联赛最终排名签位池，下方为实际淘汰赛赛果。未收录的事件不作推断。';
     view.querySelector('.ko-sources a').href='https://www.uefa.com/uefachampionsleague/history/';
@@ -87,11 +89,24 @@
     finally{loading=false;button.disabled=false;button.textContent='↻ 刷新淘汰赛数据'}
   }
   window.refreshKnockoutView=refreshKnockout;
+  const originalHero={title:hero.querySelector('h1').innerHTML,description:hero.querySelector('div>p:not(.eyebrow)').textContent,eyebrow:hero.querySelector('.eyebrow').textContent};
+  let selectedView='qualification';try{selectedView=sessionStorage.getItem('ucl-advance-view')||selectedView}catch{}
+  if(!['qualification','league','knockout'].includes(selectedView))selectedView='qualification';
+  window.syncUclAdvanceView=()=>{
+    qualificationView.hidden=selectedView!=='qualification';leagueView.hidden=selectedView!=='league';view.classList.toggle('active',selectedView==='knockout');
+    const hub=document.querySelector('#leaguePhaseHub');if(hub)hub.style.removeProperty('display');
+  };
   tabs.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>{
-    const knockout=button.dataset.advanceView==='knockout';
+    selectedView=button.dataset.advanceView;const knockout=selectedView==='knockout';
+    try{sessionStorage.setItem('ucl-advance-view',selectedView)}catch{}
     tabs.querySelectorAll('button').forEach(item=>{const active=item===button;item.classList.toggle('active',active);item.setAttribute('aria-selected',String(active))});
-    qualificationView.hidden=knockout;view.classList.toggle('active',knockout);
+    window.syncUclAdvanceView();
+    hero.querySelector('h1').innerHTML=selectedView==='qualification'?originalHero.title:selectedView==='league'?'欧冠联赛阶段<br><span>数据与统计</span>':'欧冠正赛<br><span>晋级图</span>';
+    hero.querySelector('div>p:not(.eyebrow)').textContent=selectedView==='qualification'?originalHero.description:selectedView==='league'?'逐轮比较进球、赛果分布与冷门，查看36队的8轮比赛全景。':'从联赛阶段最终排名到淘汰赛，查看晋级路线和实际对阵。';
+    hero.querySelector('.eyebrow').textContent=selectedView==='qualification'?originalHero.eyebrow:`${window.uclSeason.label} · ${selectedView==='league'?'LEAGUE STATISTICS':'KNOCKOUT ROUTE'}`;
+    hero.querySelector('.advance-live').hidden=selectedView!=='qualification';
     if(knockout){renderRoutes();refreshKnockout()}
   }));
+  tabs.querySelector(`[data-advance-view="${selectedView}"]`).click();
   renderRoutes();
 })();
