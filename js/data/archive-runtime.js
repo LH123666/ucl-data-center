@@ -1,0 +1,46 @@
+const activeSeasonArchive=window.uclSeasonArchives?.[window.uclSeason?.key];
+if(!activeSeasonArchive)throw new Error(`Missing archive for ${window.uclSeason?.key||'unknown season'}`);
+const uclNames=activeSeasonArchive.names;
+const aliases={'Atletico Madrid':'Atlético Madrid','Bayern München':'Bayern Munich','Inter':'Internazionale','Paris':'Paris Saint-Germain','PSV':'PSV Eindhoven','Roma':'AS Roma','Shakhtar':'Shakhtar Donetsk','Slavia Praha':'Slavia Prague','Bodø/Glimt':'Bodo/Glimt','Crvena Zvezda':'Red Star Belgrade','Sparta Praha':'Sparta Prague','Feyenoord Rotterdam':'Feyenoord'};
+const canonicalTeamName=value=>{const name=String(value||'').trim();return aliases[name]||name};
+const teamChineseName=value=>{const name=canonicalTeamName(value);return uclNames[name]||name};
+const leaguePots=activeSeasonArchive.pots;
+const previousLeagueRanks=activeSeasonArchive.previousRanks;
+const leagueTeamCodes=activeSeasonArchive.codes;
+const teamIdentityId=name=>name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+const leagueTeamCatalog=Object.entries(leaguePots).flatMap(([pot,names])=>names.map(name=>({id:teamIdentityId(name),name,zh:teamChineseName(name),code:leagueTeamCodes[name],logo:`assets/clubs/${teamIdentityId(name)}.png`,pot:Number(pot),previousRank:previousLeagueRanks[name]??null})));
+const leagueTeams=leagueTeamCatalog.map(team=>[team.name,team.code]);
+const leagueTeamByName=new Map(leagueTeamCatalog.map(team=>[team.name,team]));
+const leagueTeamInfo=value=>leagueTeamByName.get(canonicalTeamName(value));
+const leaguePotFor=value=>leagueTeamInfo(value)?.pot||0;
+const leagueRankChange=(previousRank,currentRank,active)=>previousRank==null?{kind:'new',value:null}:!active?{kind:'pending',value:null}:previousRank===currentRank?{kind:'same',value:0}:previousRank>currentRank?{kind:'up',value:previousRank-currentRank}:{kind:'down',value:currentRank-previousRank};
+const qualifyingLeagueTeams=new Set(activeSeasonArchive.qualifiers);
+const uclGroupRanks2023={};
+const uclLeagueRanks2024={};
+const clubDomesticHistory=Object.fromEntries(Object.entries(activeSeasonArchive.domesticHistory||{}).map(([name,profile])=>[name,{...profile,ranks:[null,null,profile.ranks[window.uclSeason.key==='2025-26'?1:0]]}]));
+const clubHistoryFor=value=>{
+  const name=canonicalTeamName(value),profile=activeSeasonArchive.domesticHistory?.[name];
+  const domestic=window.uclSeason.key==='2025-26'?(profile?.ranks||[null,null,null]):[null,profile?.ranks?.[0],profile?.ranks?.[1]];
+  const ucl=window.uclSeason.historySeasons.map(season=>{
+    const archive=window.uclSeasonArchives[season.replace('/','-')];
+    if(archive){const rank=archive.finalStandings.find(row=>row.name===name)?.rank;return rank?`联赛第${rank}`:'未进正赛'}
+    const group=season==='2023/24'?activeSeasonArchive.groupRanks2023?.[name]:null;
+    return group?`小组第${group}`:'待核实';
+  });
+  return {entry:qualifyingLeagueTeams.has(name)?'qualifying':'direct',league:profile?.league||'国内联赛',domestic:domestic.map(rank=>rank==null?'待核实':typeof rank==='number'?`第${rank}`:rank),ucl};
+};
+const leagueDraw=activeSeasonArchive.draw;
+const rawMatches=activeSeasonArchive.matches;
+const rawUpcoming=[];
+const qualificationResults=activeSeasonArchive.qualificationResults;
+const qualificationFixtures=activeSeasonArchive.qualificationFixtures;
+const qualificationNames=uclNames;
+const qualificationActiveLeague=(window.uclSeason.leaguePathQualifiers||[]).slice();
+const qualificationActiveChampion=activeSeasonArchive.qualifiers.filter(name=>!qualificationActiveLeague.includes(name));
+const uclLeaguePhaseSchedule=activeSeasonArchive.leagueSchedule;
+const uclKnockoutRoutes=[{id:'a',label:'A',direct:[1,2],seeded:[15,16],unseeded:[17,18]},{id:'b',label:'B',direct:[3,4],seeded:[13,14],unseeded:[19,20]},{id:'c',label:'C',direct:[5,6],seeded:[11,12],unseeded:[21,22]},{id:'d',label:'D',direct:[7,8],seeded:[9,10],unseeded:[23,24]}];
+const finalYear=Number(window.uclSeason.key.slice(0,4))+1;
+const uclKnockoutMilestones=[{key:'playoff',label:'淘汰赛附加赛',dates:`${finalYear}年2月`},{key:'round16',label:'十六强',dates:`${finalYear}年3月`},{key:'quarterfinal',label:'四分之一决赛',dates:`${finalYear}年4月`},{key:'semifinal',label:'半决赛',dates:`${finalYear}年4/5月`},{key:'final',label:'决赛',dates:`${window.uclSeason.finalDate} · ${window.uclSeason.finalVenue}`}];
+const archiveKnockoutRows=rawMatches.filter(row=>row[5]==='knockout').slice().sort((a,b)=>a[0].localeCompare(b[0]));
+const archiveRound=(index,total)=>index<16?'playoff':index<32?'round16':index<40?'quarterfinal':index<44?'semifinal':'final';
+const uclArchiveKnockoutMatches=archiveKnockoutRows.map((row,index)=>({id:`${window.uclSeason.key}-${index}`,date:row[0],round:archiveRound(index,archiveKnockoutRows.length),home:row[1],away:row[2],homeScore:Number(row[3].split('-')[0]),awayScore:Number(row[3].split('-')[1]),completed:true,inProgress:false,status:'已结束'}));

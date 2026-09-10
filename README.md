@@ -4,7 +4,7 @@
 
 ## 功能
 
-- 2026/27 欧冠积分榜、赛果与未来赛程
+- 2026/27 当前赛季，以及 2025/26、2024/25 两个历史赛季
 - 一键更新数据及最后更新时间反馈
 - 资格赛和淘汰赛晋级路径
 - 比赛详情、历史交锋与球队赛季记录
@@ -49,3 +49,18 @@ python -m http.server 8080
 ## 数据来源
 
 数据来自 ESPN Scoreboard API，并参考 UEFA 官方赛程和规则。第三方数据字段可能变化，请以官方信息为准。
+
+## 三赛季切换
+
+右上角选择赛季，也可使用 `?season=2024-25`、`?season=2025-26` 或 `?season=2026-27` 分享链接。选择保存在本机；切换后恢复原导航页面。不同赛季分别加载数据，防止当前赛季接口覆盖历史结果。
+
+- 当前赛季保留在线刷新；历史赛季按钮为“重新载入归档”。
+- 每个历史赛季含 36 队、144 场联赛阶段比赛、资格赛和 45 场淘汰赛；赛程页展示全部联赛阶段归档。
+- 个人预测按赛季保存，原有当前赛季预测自动迁移。
+- 2023/24为小组赛制，不与统一联赛排名计算升降；未收录的历史排名和点球细节明确标注。
+
+历史比赛源：[公开历史比赛归档](https://github.com/harryji168/email_solutions-sports/tree/main/public/sports/leagues/UEFA_CL)。球队名称复用本站身份目录；日期沿用原始记录，不将未核实的时区和点球结果当作已确认信息。档位及参赛规则参考 [UEFA历史赛季](https://www.uefa.com/uefachampionsleague/history/)。
+
+重新生成：`node scripts/generate-season-archives.mjs <2024-25源文件.json> <2025-26源文件.json>`。
+
+回归测试：`node --test tests/*.test.mjs`。DOM交互验证（另行安装 jsdom 26，不属于网站运行依赖）：`node scripts/validate-season-pages.mjs <jsdom模块绝对路径>`。

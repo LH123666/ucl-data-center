@@ -1,4 +1,31 @@
 (function(){
+  if(!window.uclSeason.current){
+    const rounds=['第一轮','第二轮','第三轮','附加赛'],page=document.createElement('section');
+    page.id='advancementPage';page.className='advancement-page';
+    const groups=rounds.map(round=>{
+      const ties=new Map();qualificationResults.filter(row=>row[1]===round).forEach(row=>{const key=row.slice(3,5).sort().join('|');if(!ties.has(key))ties.set(key,[]);ties.get(key).push(row)});
+      return [...ties.values()].map(rows=>rows.sort((a,b)=>a[0].localeCompare(b[0])));
+    });
+    const line=(team,winner,origin)=>`<span class="advance-team ${winner===team?'winner':''}"><span class="advance-team-heading">${teamLogoMarkup(team,'advance')}<span class="advance-team-name"><strong>${teamChineseName(team)}</strong><small>${team}</small><i class="team-origin ${origin.className}">${origin.label}</i></span></span></span>`;
+    const card=(rows,index)=>{
+      const a=rows[0][3],b=rows[0][4],next=new Set(index===3?[...qualificationActiveChampion,...qualificationActiveLeague]:groups[index+1].flatMap(ties=>ties.flatMap(row=>row.slice(3,5))));
+      let hg=0,ag=0;rows.forEach(row=>{hg+=row[3]===a?row[5]:row[6];ag+=row[3]===a?row[6]:row[5]});
+      const winner=next.has(a)?a:next.has(b)?b:hg>ag?a:ag>hg?b:'';
+      const previous=new Set(index?groups[index-1].flatMap(ties=>ties.flatMap(row=>row.slice(3,5))):[]);
+      const origin=team=>({label:index&&previous.has(team)?rounds[index-1]+'晋级':rounds[index]+'新加入',className:index&&previous.has(team)?'origin-round'+index+'-winner':'origin-round'+(index+1)+'-entry'});
+      return `<article class="advance-tie done"><span class="advance-path">${rows[0][2]}</span>${line(a,winner,origin(a))}<div class="leg-score-grid">${rows.map((row,i)=>`<span><small>${i?'次':'首'}回合 · ${row[0].slice(5)} · ${teamChineseName(row[3])}主场</small><b>${row[5]}–${row[6]}</b></span>`).join('')}<span class="aggregate"><small>两回合总比分</small><b>${hg}–${ag}</b></span></div>${line(b,winner,origin(b))}<footer><span>${hg===ag?'总比分持平；点球细节未收录':'两回合结束'}</span><b>${winner?teamChineseName(winner)+' 晋级':'胜者待核实'}</b></footer></article>`;
+    };
+    page.innerHTML=`<section class="advance-hero"><div><p class="eyebrow">QUALIFICATION ARCHIVE · ${window.uclSeason.label}</p><h1>欧冠资格赛<br><span>历史晋级图</span></h1><p>按轮次查看两回合赛果、晋级球队与来源。</p></div><div class="advance-live"><div><b>赛季归档</b><span>${qualificationResults.length}场资格赛 · 7队晋级</span></div></div></section><section class="advance-board archive-board">${rounds.map((round,index)=>`<div class="advance-column completed"><header><span>ROUND ${index+1}</span><h2>${round}</h2><small>${groups[index].length}组 · 已结束</small></header><div>${groups[index].map(rows=>card(rows,index)).join('')}</div></div>`).join('')}</section>`;
+    document.querySelector('main').appendChild(page);
+    window.refreshUclAdvancement=()=>{};
+    const button=document.querySelector('#advancementBtn');button.addEventListener('click',()=>{
+      document.querySelectorAll('nav button').forEach(item=>item.classList.toggle('active',item===button));
+      ['.hero','#leaguePhaseHub','.layout','.results'].forEach(selector=>document.querySelector(selector)?.style.setProperty('display','none'));
+      ['#schedulePage','#competitionInfo','#qualificationPage'].forEach(selector=>document.querySelector(selector)?.classList.remove('active'));
+      page.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});
+    });
+    return;
+  }
   const zh=team=>teamChineseName(team);
   const round1=[
     ['Sabah','The New Saints','2–0','1–2','4–1','Sabah'],

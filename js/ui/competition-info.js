@@ -31,7 +31,7 @@
     qualifying:'资格赛从第一轮开始，第二轮起分为冠军路径和联赛路径；经过四轮两回合淘汰赛后，7支附加赛胜者进入联赛阶段。',
     league:'29支球队直接进入联赛阶段，另有7支球队从资格赛突围。36队统一排名，每队面对8个不同对手。',
     playoff:'第9–16名为种子队，对阵第17–24名，原则上次回合主场作战；8组两回合对决产生8支胜者。',
-    knockout:'前8名与附加赛8支胜者组成16强。16强至半决赛为两回合淘汰，决赛在马德里单场决胜。'
+    knockout:`前8名与附加赛8支胜者组成16强。16强至半决赛为两回合淘汰，决赛在${window.uclSeason.finalVenue}单场决胜。`
   };
   document.querySelectorAll('.path-controls button').forEach(button=>button.addEventListener('click',()=>{
     document.querySelectorAll('.path-controls button').forEach(item=>item.classList.toggle('active',item===button));

@@ -35,6 +35,19 @@
     </section>
     <footer class="qualification-sources"><div><b>数据来源</b><span>比赛结果、晋级路径和最终席位均以UEFA官方资格赛最终结果为准；表现榜由本站根据90场已完成比赛自动计算。</span></div><a href="https://www.uefa.com/uefachampionsleague/news/02a6-20e5a8be4e63-ae971c582f8c-1000--champions-league-qualifying-results-how-it-worked/" target="_blank" rel="noopener">UEFA官方资格赛最终结果 ↗</a></footer>`;
   document.querySelector('main').appendChild(page);
+  if(!window.uclSeason.current){
+    page.querySelector('.qualification-hero .eyebrow').textContent='QUALIFYING TRACKER · '+window.uclSeason.label;
+    page.querySelector('.qualification-stamp').textContent='历史赛季归档 · 资格赛已结束';
+    page.querySelector('.qualification-scoreboard b').textContent=qualificationResults.length;
+    page.querySelectorAll('.round-track article').forEach((article,index)=>{
+      const rows=qualificationResults.filter(row=>row[1]===['第一轮','第二轮','第三轮','附加赛'][index]);
+      article.querySelector('small').textContent=rows[0][0].slice(5)+'–'+rows.at(-1)[0].slice(5);
+      article.querySelector('em').textContent=rows.length+' / '+rows.length+'场';
+    });
+    page.querySelector('.qualification-sources span').textContent='表现榜根据本赛季归档赛果计算；不代表官方淘汰赛排名。';
+    page.querySelector('.qualification-sources a').href='https://www.uefa.com/uefachampionsleague/history/';
+    page.querySelector('.qualification-schedule .section-title>span').textContent='附加赛完整归档 · 共14场';
+  }
 
   const name=team=>teamChineseName(team);
   const active=new Set([...qualificationActiveChampion,...qualificationActiveLeague]);

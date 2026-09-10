@@ -46,8 +46,8 @@ test('refresh flow uses the UCL API first and the correct 2026/27 date window',a
   assert.match(advancement,/window\.refreshUclAdvancement=update/);
   assert.match(manager,/const fetchOfficialPayload=async/);
   assert.match(manager,/official\.leagueTeams\?\.length===36/);
-  assert.match(manager,/date>='2026-07-01'&&date<='2027-06-30'/);
-  assert.match(manager,/\[2026,2027\]\.map/);
+  assert.match(manager,/date>=seasonMeta.start&&date<=seasonMeta.end/);
+  assert.match(manager,/seasonMeta.years\.map/);
   assert.doesNotMatch(manager,/静态数据 · 07-12/);
   assert.match(manager,/正在同步官方数据/);
 });
@@ -65,7 +65,7 @@ test('static first paint contains all qualification results and 36 league-phase 
   const snapshot=vm.runInContext('({teams:leagueTeams.length,upcoming:rawUpcoming.length,results:qualificationResults.length,fixtures:qualificationFixtures.length,qualified:qualificationActiveChampion.length+qualificationActiveLeague.length})',context);
   assert.deepEqual({...snapshot},{teams:36,upcoming:0,results:90,fixtures:14,qualified:7});
   assert.match(app,/verifiedQualificationMatches/);
-  assert.match(app,/staticVerified='2026-08-26'/);
+  assert.match(app,/staticVerified=window.uclSeason.current\?'2026-08-26':window.uclSeason.end/);
   assert.match(qualificationUi,/<b>90<\/b><span>已完成比赛<\/span>/);
   assert.match(qualificationUi,/14 \/ 14场/);
   assert.match(qualificationUi,/附加赛完整赛果/);

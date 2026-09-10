@@ -24,6 +24,12 @@
     <section class="ko-live"><header><div><h3>单场走势时间线</h3><span id="koLiveStatus">淘汰赛尚未开始</span></div><button class="ko-refresh" id="koRefresh" type="button">↻ 刷新淘汰赛数据</button></header><div class="ko-live-body" id="koLiveBody"><div class="ko-empty"><b>等待淘汰赛开赛</b><span>比赛开始后，这里将显示进球、红黄牌等关键事件及实时比分。</span></div></div></section>
     <footer class="ko-sources"><span>路线结构依据UEFA 2026/27赛事规程；实时比赛由本站Cloudflare接口转接ESPN Scoreboard。</span><a href="https://documents.uefa.com/r/Regulations-of-the-UEFA-Champions-League-2026/27-Online" target="_blank" rel="noopener">UEFA赛事规程 ↗</a></footer>`;
   hero.after(tabs,qualificationView,view);
+  if(!window.uclSeason.current){
+    view.querySelector('.ko-sources span').textContent=window.uclSeason.label+'赛季归档；上方为联赛最终排名签位池，下方为实际淘汰赛赛果。未收录的事件不作推断。';
+    view.querySelector('.ko-sources a').href='https://www.uefa.com/uefachampionsleague/history/';
+    view.querySelector('.knockout-intro p:not(.eyebrow)').textContent='上方展示联赛最终排名对应的签位池；下方按轮次列出本赛季实际淘汰赛赛果。';
+    view.querySelector('.knockout-explainer').textContent='1–8名直通十六强；9–24名参加淘汰赛附加赛。签位池表示抽签规则，不等同于实际对阵。';
+  }
 
   let selectedTeam='',loading=false,liveMatches=[];
   const rankTeam=rank=>teams[rank-1]?.[1]||'';
@@ -72,6 +78,7 @@
     renderTimeline(matches[0]);
   }
   async function refreshKnockout(){
+    if(!window.uclSeason.current){renderRoutes();renderLive(uclArchiveKnockoutMatches);document.querySelector('#koLiveStatus').textContent=`${window.uclSeason.label} · ${uclArchiveKnockoutMatches.length} 场淘汰赛归档`;document.querySelector('#koRefresh').textContent='↻ 重新载入归档';return}
     renderRoutes();if(loading)return;loading=true;
     const button=document.querySelector('#koRefresh');button.disabled=true;button.textContent='↻ 更新中';
     const url=location.protocol==='file:'?'https://ucl-data-center.pages.dev/api/ucl-knockout-live':'/api/ucl-knockout-live';

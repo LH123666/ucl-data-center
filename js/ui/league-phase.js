@@ -1,6 +1,6 @@
 (function(){
   document.head.insertAdjacentHTML('beforeend','<link rel="stylesheet" href="css/league-phase.css">');
-  const matchdays=[
+  const currentMatchdays=[
     {n:1,label:'9月8–10日',start:'2026-09-08',end:'2026-09-10'},
     {n:2,label:'10月13/14日',start:'2026-10-13',end:'2026-10-14'},
     {n:3,label:'10月20/21日',start:'2026-10-20',end:'2026-10-21'},
@@ -10,6 +10,9 @@
     {n:7,label:'1月19/20日',start:'2027-01-19',end:'2027-01-20'},
     {n:8,label:'1月27日',start:'2027-01-27',end:'2027-01-28'}
   ];
+  const archiveDates=[...new Set((typeof uclLeaguePhaseSchedule==='undefined'?[]:uclLeaguePhaseSchedule).map(row=>row[0]))].sort();
+  const archiveGroups=[];archiveDates.forEach(date=>{const last=archiveGroups.at(-1);if(!last||new Date(date)-new Date(last.at(-1))>4*86400000)archiveGroups.push([date]);else last.push(date)});
+  const matchdays=window.uclSeason.current?currentMatchdays:archiveGroups.map((dates,index)=>({n:index+1,start:dates[0],end:dates.at(-1),label:dates[0].slice(5)+(dates.length>1?'–'+dates.at(-1).slice(5):'')}));
   const dayFor=date=>matchdays.find(day=>date>=day.start&&date<=day.end)?.n||0;
   const safe=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const feed=()=>window.getUclLeaguePhaseFeed?.()||{upcoming:[],live:[]};
