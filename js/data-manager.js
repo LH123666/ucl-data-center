@@ -10,6 +10,7 @@
   let allUpcoming=rawUpcoming.map(f=>({...f,home:canonicalTeamName(f.home),away:canonicalTeamName(f.away)})),upcoming=seasonMeta.current?[...allUpcoming]:archiveFixtures,liveLeagueFixtures=[];
   window.getUclLeaguePhaseFeed=()=>({upcoming:allUpcoming.map(item=>({...item})),live:liveLeagueFixtures.map(item=>({...item}))});
   const predictionStorageKey=`ucl36-match-predictions-v1-${seasonMeta.key}`;
+  window.uclDataStatus.init();
   const emptyPrediction=()=>({result:'',halfScore:'',fullScore:'',totalGoals:'',halfFull:'',note:''});
   const loadPredictions=()=>{try{
     const stored=localStorage.getItem(predictionStorageKey);if(stored!==null)return JSON.parse(stored);
@@ -148,7 +149,7 @@
   };
   const liveApiUrl=location.protocol==='file:'?'https://ucl-data-center.pages.dev/api/ucl-qualification-live':'/api/ucl-qualification-live';
   const fetchOfficialPayload=async()=>{
-    const res=await fetch(`${liveApiUrl}?_=${Date.now()}`,{cache:'no-store'});
+    const res=await fetch(`${liveApiUrl}?_=${Date.now()}`,{cache:'no-store',signal:AbortSignal.timeout(20000)});
     if(!res.ok)throw new Error('UEFA API HTTP '+res.status);
     return res.json();
   };
@@ -169,23 +170,29 @@
     renderSchedule();
   };
   async function updateData(silent=false){
+    if(document.querySelector('#updateBtn').disabled)return;
     const btn=document.querySelector('#updateBtn');btn.classList.add('loading');btn.disabled=true;
     if(!seasonMeta.current){
       try{recalc();upcoming=archiveFixtures;renderSchedule();document.querySelector('#updatedAt').textContent=`${seasonMeta.label} · 完整赛季归档`;if(!silent)toast(`已重新载入 ${seasonMeta.label}：36队、144场联赛阶段比赛`);window.refreshUclAdvancement?.();window.refreshKnockoutView?.();window.refreshLeaguePhaseView?.()}finally{btn.classList.remove('loading');btn.disabled=false}
-      return;
+      window.uclDataStatus.archive();return;
     }
     let official=null,seasonEvents=[],sourceErrors=[];
+    window.uclDataStatus.begin('league');window.uclDataStatus.begin('qualifying');window.uclDataStatus.begin('knockout');
     try{
       try{
         official=await fetchOfficialPayload();
+        if(!Array.isArray(official.matches))throw new Error('资格赛数据格式无效');
+        if(official.matches.some(m=>!/^\d{4}-\d{2}-\d{2}$/.test(m.date)||!m.home||!m.away||!Number.isInteger(m.homeScore)||!Number.isInteger(m.awayScore)||m.homeScore<0||m.awayScore<0))throw new Error('资格赛比分格式无效');
         if(official.leagueTeams?.length===36)syncLeagueTeams(official.leagueTeams);
         const rows=officialRows(official);if(rows.length)mergeMatchRows(rows);
-      }catch(error){sourceErrors.push('UEFA')}
+        window.uclDataStatus.finish('qualifying',{ok:official.live===true&&!official.stale,source:official.source,warning:official.live!==true?'在线核验未完成，使用本站核验结果':official.stale?'接口标记数据已过期':'',checkedAt:official.checkedAt});
+      }catch(error){sourceErrors.push('UEFA');window.uclDataStatus.finish('qualifying',{warning:'资格赛数据源不可用，保留已有结果'})}
       try{
         const urls=seasonMeta.years.map(year=>`https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=${year}&limit=600&_=${Date.now()}`);
-        const responses=await Promise.all(urls.map(url=>fetch(url,{cache:'no-store'})));
+        const responses=await Promise.all(urls.map(url=>fetch(url,{cache:'no-store',signal:AbortSignal.timeout(20000)})));
         if(responses.some(response=>!response.ok))throw new Error('ESPN HTTP error');
         const payloads=await Promise.all(responses.map(response=>response.json()));
+        if(payloads.some(data=>!Array.isArray(data.events)))throw new Error('ESPN数据格式无效');
         seasonEvents=payloads.flatMap(data=>data.events||[]).filter(event=>{const date=event.date?.slice(0,10)||'';return date>=seasonMeta.start&&date<=seasonMeta.end});
         const fresh=[],future=[],live=[],now=Date.now(),unknownLeagueNames=new Set();
         seasonEvents.forEach(event=>{const competition=event.competitions?.[0],home=competition?.competitors?.find(team=>team.homeAway==='home'),away=competition?.competitors?.find(team=>team.homeAway==='away');if(!competition||!home||!away)return;const scheduled=beijingDateTime(event.date),date=scheduled.date,homeName=canonical(home.team.displayName),awayName=canonical(away.team.displayName),stage=window.uclResultStage(event.season?.slug);
@@ -194,15 +201,16 @@
           else if(stage==='league'&&event.status?.type?.state==='in')live.push({date,time:scheduled.time,home:homeName,away:awayName,score:`${home.score||0}-${away.score||0}`,status:event.status.type.shortDetail||'进行中'});
           else if(new Date(event.date).getTime()>now)future.push({date,time:scheduled.time,home:homeName,away:awayName});
         });
+        if(fresh.some(row=>!/^\d+-\d+$/.test(row[3])))throw new Error('比赛比分无效');
         if(fresh.length)mergeMatchRows(fresh);
         if(seasonEvents.length){allUpcoming=future.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));liveLeagueFixtures=live}
-      }catch(error){sourceErrors.push('ESPN')}
+        window.uclDataStatus.finish('league',{ok:seasonEvents.some(event=>event.season?.slug==='league-phase')&&!unknownLeagueNames.size,source:'ESPN Scoreboard API',warning:unknownLeagueNames.size?'有球队无法识别，部分数据未纳入':!seasonEvents.some(event=>event.season?.slug==='league-phase')?'接口未返回本赛季联赛阶段数据，保留已有结果':''});
+      }catch(error){sourceErrors.push('ESPN');window.uclDataStatus.finish('league',{warning:'联赛赛果获取或校验失败，保留已有数据'})}
       syncLeagueTeams(leagueTeams);recalc();refreshUpcoming();if(currentTeamName)openTeamLive(currentTeamName,false);
       const stamp=official?.sourceUpdatedAt?.slice(5)||'08-27';
       const confirmed=teams.length===36&&new Set(teams.map(team=>team[1])).size===36&&teams.every(team=>leagueTeamInfo(team[1]));
-      document.querySelector('#updatedAt').textContent=`官方数据至 ${stamp} · ${confirmed?'36队已确认':'名单核对中'}`;
-      if(!silent)toast(sourceErrors.length===2?'在线数据源暂不可用，已显示本地最终核验数据':`更新完成：${teams.length} 队，${matches.length} 场赛果，${upcoming.length} 场待赛`);
-      window.refreshUclAdvancement?.();window.refreshKnockoutView?.();window.refreshLeaguePhaseView?.();
+      window.refreshUclAdvancement?.();await window.refreshKnockoutView?.();window.refreshLeaguePhaseView?.();
+      if(!silent)toast(window.uclDataStatus.summary());
     }finally{btn.classList.remove('loading');btn.disabled=false}
   }
   document.querySelector('#updateBtn').onclick=()=>updateData(false);

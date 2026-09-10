@@ -1,0 +1,23 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import fs from 'node:fs';
+test('data status distinguishes partial success, fallback, unavailable, scheduled and archives',()=>{
+  const element={appendChild(){},insertAdjacentHTML(){},querySelector(){return {}}};
+  const context=vm.createContext({window:{uclSeason:{current:true}},document:{head:element,createElement:()=>element,querySelector:()=>element},matches:[['2026-09-09','A','B','2-1','1-0','league'],['2026-08-01','C','D','1-0','0-0','qualifying']]});
+  vm.runInContext(fs.readFileSync(new URL('../js/ui/data-status.js',import.meta.url),'utf8'),context);
+  const status=context.window.uclDataStatus;status.init();
+  for(const key of ['league','qualifying','knockout'])status.begin(key);
+  status.finish('league',{ok:true});status.finish('qualifying',{warning:'使用本站回退'});status.finish('knockout',{ok:true,scheduled:true});
+  assert.equal(status.summary(),'部分更新成功');assert.equal(status.get().qualifying.status,'fallback');
+  assert.equal(status.get().league.message,'检查完成，暂无新赛果');
+  const success=status.get().league.success;
+  status.begin('league');status.finish('league',{warning:'网络失败'});
+  assert.equal(status.get().league.success,success);assert.equal(status.get().league.count,1);
+  status.begin('knockout');status.finish('knockout',{warning:'网络失败'});assert.equal(status.get().knockout.status,'unavailable');
+  status.begin('league');status.finish('league',{ok:true});status.begin('qualifying');status.finish('qualifying',{ok:true});status.begin('knockout');status.finish('knockout',{ok:true,scheduled:true});
+  assert.equal(status.summary(),'全部检查成功');
+  status.begin('league');context.matches.push(['2026-09-10','E','F','1-1','0-0','league']);status.finish('league',{ok:true});assert.match(status.get().league.message,/新增 1 场/);
+  status.finish('league',{cached:true,checkedAt:'2026-09-09T10:00:00Z'});assert.equal(status.get().league.status,'fallback');
+  status.archive();assert.equal(status.summary(),'历史归档');
+});

@@ -2,7 +2,7 @@
 #leagueStatisticsView[hidden],.advance-hero .advance-live[hidden]{display:none!important}
 #leagueStatisticsView .league-phase-hub{max-width:none;width:100%;margin:24px 0;padding:0;z-index:1}
 #advancementPage:has(#leagueStatisticsView:not([hidden])){padding-left:clamp(12px,2.5vw,48px);padding-right:clamp(12px,2.5vw,48px)}
-#leagueStatisticsView .phase-matrix-scroll{max-height:72vh;overflow:auto}
+#leagueStatisticsView .phase-matrix-scroll{max-height:none;overflow-x:auto;overflow-y:hidden}
 #leagueStatisticsView .phase-matrix-row>.phase-rank,#leagueStatisticsView .phase-matrix-row>:first-child{position:sticky;left:0;background:white;z-index:2}
 #leagueStatisticsView .phase-matrix-row>.phase-team{background:white}
 #leagueStatisticsView .phase-matrix-row.header>:first-child,#leagueStatisticsView .phase-matrix-row.header>:nth-child(2){background:#101650;position:sticky;z-index:4}

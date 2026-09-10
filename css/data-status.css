@@ -1,0 +1,10 @@
+.update-wrap{position:relative}
+.data-status-panel{font-size:12px;color:#172454}
+.data-status-panel summary{cursor:pointer;padding:6px 8px;border:1px solid #d8ddef;border-radius:5px;background:white}
+.data-status-panel[open]{position:absolute;right:0;top:100%;width:min(740px,92vw);background:#fff;border:1px solid #d8ddef;box-shadow:0 12px 36px #17245433;padding:14px;z-index:20;border-radius:8px}
+.data-status-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.data-status-items article{padding:12px;background:#f5f7fc;border-radius:5px;overflow-wrap:anywhere}
+.data-status-items article div{display:flex;gap:8px;flex-wrap:wrap}.data-status-items p{font-size:11px;color:#52618d;line-height:1.7;margin:7px 0}.data-status-items small{line-height:1.6;display:block}
+.status-success{color:#26733d}.status-fallback{color:#8c6612}.status-unavailable{color:#ac3030}.status-checking{color:#365cc2}
+.data-status-note{font-size:11px;color:#64729b;line-height:1.7}
+@media(max-width:700px){.data-status-items{grid-template-columns:1fr}.data-status-panel[open]{position:fixed;top:90px;right:4vw;max-height:75vh;overflow:auto}.data-status-panel summary{font-size:10px}}
