@@ -1,0 +1,22 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const context=vm.createContext({window:{},document:{querySelector:()=>({addEventListener(){}})}});
+for(const file of ['js/data/matches-data.js','js/data/league-phase-schedule.js','js/ui/results.js'])vm.runInContext(fs.readFileSync(new URL('../'+file,import.meta.url),'utf8'),context);
+test('results exclude qualifiers and pending scores and match rounds across timezone date changes',()=>{
+  assert.equal(context.window.uclResultStage('knockout-stage'),'knockout');
+  assert.equal(context.window.uclResultStage('qualifying-final'),'qualifying');
+  assert.equal(context.window.uclResultStage('league-phase'),'league');
+  const rows=vm.runInContext('uclLeaguePhaseSchedule.slice(0,10).map(row=>[row[0],row[1],row[2],"2-1","1-0","league"])',context);
+  rows[0][0]='2026-09-09';
+  rows.push(['2026-09-12','A','B','1-0','0-0','qualifying'],['2026-09-12','A','B','—','—','league']);
+  const result=context.window.uclResultGroups(rows);
+  assert.equal(result.all.length,10);assert.equal(result.groups[0].count,8);
+  assert.equal(result.groups[0].title,'联赛阶段 · 第1轮');
+  context.window.uclResultsExpanded=true;
+  assert.equal(context.window.uclResultGroups(rows).groups[0].count,10);
+  const unknown=context.window.uclResultGroups([['2026-09-09','A','B','1-0','0-0','league']]);
+  assert.equal(unknown.groups[0].title,'联赛阶段 · 轮次待确认');
+  assert.equal(context.window.uclResultGroups([]).groups.length,0);
+});

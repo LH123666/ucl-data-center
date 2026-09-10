@@ -21,6 +21,28 @@ for(const season of ['2026-27','2025-26','2024-25']){
   assert.equal(w.uclSeason.key,season);
   assert.equal(w.document.querySelectorAll('#standings tr').length,36);
   assert.equal(w.document.querySelectorAll('.season-option').length,3);
+  const resultCount=()=>w.document.querySelectorAll('#resultGrid .match').length;
+  const eligible=run('matches.filter(row=>["league","knockout"].includes(row[5])).length','result-count');
+  assert.equal(resultCount(),Math.min(8,eligible));
+  w.document.querySelector('#latestBtn').click();
+  assert.equal(w.document.querySelector('#latest').style.display,'block');
+  assert.equal(w.document.querySelector('.layout').style.display,'none');
+  assert.equal(w.document.querySelector('#leaguePhaseHub').style.display,'none');
+  if(eligible>8){
+    w.document.querySelector('.results-toggle').click();assert.equal(resultCount(),eligible);
+    run('renderResults()','refresh-results');assert.equal(resultCount(),eligible);
+    for(const day of w.document.querySelectorAll('.result-date')){
+      const date=day.querySelector('time').dateTime;
+      assert.ok([...day.querySelectorAll('.match')].every(card=>card.dataset.date===date));
+    }
+    w.document.querySelector('.results-toggle').click();assert.equal(resultCount(),8);
+  }
+  for(const id of ['infoBtn','qualificationBtn','advancementBtn','scheduleBtn']){
+    w.document.getElementById(id).click();assert.equal(w.document.querySelector('#latest').style.display,'none');
+    w.document.querySelector('#latestBtn').click();assert.equal(w.document.querySelector('#latest').style.display,'block');
+    assert.equal(w.document.querySelectorAll('#competitionInfo.active,#qualificationPage.active,#advancementPage.active,#schedulePage.active').length,0);
+  }
+  w.document.querySelector('nav button').click();assert.equal(w.document.querySelector('#latest').style.display,'none');
   const trigger=w.document.querySelector('.season-trigger');trigger.click();
   assert.equal(trigger.getAttribute('aria-expanded'),'true');
   trigger.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));

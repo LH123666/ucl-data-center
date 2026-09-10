@@ -21,7 +21,6 @@
     hideInfo();
     qualificationPage()?.classList.remove('active');
     advancementPage()?.classList.remove('active');
-    if(button.id==='latestBtn')setTimeout(()=>document.querySelector('#latest').scrollIntoView({behavior:'smooth'}),0);
   }));
 
   const map=document.querySelector('#advancementMap');
