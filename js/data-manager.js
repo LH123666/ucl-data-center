@@ -6,7 +6,8 @@
   main.insertAdjacentHTML('beforeend','<section class="schedule-section" id="schedulePage"><div class="section-head"><div><p class="eyebrow">UPCOMING FIXTURES</p><h2>未来赛程</h2></div><span id="fixtureCount">正在获取…</span></div><div class="schedule-grid" id="scheduleGrid"><div class="empty-schedule">正在载入最新赛程…</div></div><div class="data-source-panel"><b>未来赛程数据来源</b><span>欧冠官方赛程与 ESPN Scoreboard API</span><a href="https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&limit=600" target="_blank" rel="noopener">https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=2026&amp;limit=600</a><a href="https://www.uefa.com/uefachampionsleague/fixtures-results/" target="_blank" rel="noopener">https://www.uefa.com/uefachampionsleague/fixtures-results/</a></div></section>');
   document.body.insertAdjacentHTML('beforeend','<div class="data-toast" id="dataToast"></div>');
   document.body.insertAdjacentHTML('beforeend','<aside class="modal-standings" id="modalStandings"></aside>');
-  let allUpcoming=rawUpcoming.map(f=>({...f,home:canonicalTeamName(f.home),away:canonicalTeamName(f.away)})),upcoming=[...allUpcoming];
+  let allUpcoming=rawUpcoming.map(f=>({...f,home:canonicalTeamName(f.home),away:canonicalTeamName(f.away)})),upcoming=[...allUpcoming],liveLeagueFixtures=[];
+  window.getUclLeaguePhaseFeed=()=>({upcoming:allUpcoming.map(item=>({...item})),live:liveLeagueFixtures.map(item=>({...item}))});
   const predictionStorageKey='ucl36-match-predictions-v1';
   const emptyPrediction=()=>({result:'',halfScore:'',fullScore:'',totalGoals:'',halfFull:'',note:''});
   const loadPredictions=()=>{try{return JSON.parse(localStorage.getItem(predictionStorageKey)||'{}')}catch(e){return {}}};
@@ -71,7 +72,8 @@
     const seasonLine=document.querySelector('.team-hero>span');
     const profile=clubHistoryFor(name);
     if(seasonLine)seasonLine.outerHTML=`<div class="team-season-context"><span class="team-history">${rankHistoryMarkup(t,rank)}</span><em class="pot-chip">第 ${info?.pot||t[11]} 档</em>${entryMethodMarkup(profile)}</div>`;
-    document.querySelector('.team-hero+.summary')?.insertAdjacentHTML('afterend',clubHistoryMarkup(name));
+    document.querySelector('.team-hero+.summary')?.insertAdjacentHTML('afterend',clubHistoryMarkup(name)+(window.leaguePhaseTeamOrbitMarkup?.(name)||''));
+    window.bindLeaguePhaseOrbit?.();
     drawer.classList.add('open');overlay.classList.add('open');
   };
   window.openTeam=openTeamLive;
@@ -164,26 +166,27 @@
         if(responses.some(response=>!response.ok))throw new Error('ESPN HTTP error');
         const payloads=await Promise.all(responses.map(response=>response.json()));
         seasonEvents=payloads.flatMap(data=>data.events||[]).filter(event=>{const date=event.date?.slice(0,10)||'';return date>='2026-07-01'&&date<='2027-06-30'});
-        const fresh=[],future=[],now=Date.now(),unknownLeagueNames=new Set();
+        const fresh=[],future=[],live=[],now=Date.now(),unknownLeagueNames=new Set();
         seasonEvents.forEach(event=>{const competition=event.competitions?.[0],home=competition?.competitors?.find(team=>team.homeAway==='home'),away=competition?.competitors?.find(team=>team.homeAway==='away');if(!competition||!home||!away)return;const scheduled=beijingDateTime(event.date),date=scheduled.date,homeName=canonical(home.team.displayName),awayName=canonical(away.team.displayName),stage=event.season?.slug==='league-phase'?'league':'qualifying';
           if(stage==='league'&&(!leagueTeamInfo(homeName)||!leagueTeamInfo(awayName))){if(!leagueTeamInfo(homeName))unknownLeagueNames.add(home.team.displayName);if(!leagueTeamInfo(awayName))unknownLeagueNames.add(away.team.displayName);return}
           if(event.status?.type?.completed){let hh=0,ha=0;(competition.details||[]).filter(detail=>detail.scoringPlay&&Number(detail.clock.value)<=2700).forEach(detail=>detail.team.id===home.id?hh++:ha++);fresh.push([date,homeName,awayName,home.score+'-'+away.score,hh+'-'+ha,stage])}
+          else if(stage==='league'&&event.status?.type?.state==='in')live.push({date,time:scheduled.time,home:homeName,away:awayName,score:`${home.score||0}-${away.score||0}`,status:event.status.type.shortDetail||'进行中'});
           else if(new Date(event.date).getTime()>now)future.push({date,time:scheduled.time,home:homeName,away:awayName});
         });
         if(fresh.length)mergeMatchRows(fresh);
-        if(seasonEvents.length)allUpcoming=future.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+        if(seasonEvents.length){allUpcoming=future.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));liveLeagueFixtures=live}
       }catch(error){sourceErrors.push('ESPN')}
       syncLeagueTeams(leagueTeams);recalc();refreshUpcoming();if(currentTeamName)openTeamLive(currentTeamName,false);
       const stamp=official?.sourceUpdatedAt?.slice(5)||'08-27';
       const confirmed=teams.length===36&&new Set(teams.map(team=>team[1])).size===36&&teams.every(team=>leagueTeamInfo(team[1]));
       document.querySelector('#updatedAt').textContent=`官方数据至 ${stamp} · ${confirmed?'36队已确认':'名单核对中'}`;
       if(!silent)toast(sourceErrors.length===2?'在线数据源暂不可用，已显示本地最终核验数据':`更新完成：${teams.length} 队，${matches.length} 场赛果，${upcoming.length} 场待赛`);
-      window.refreshUclAdvancement?.();window.refreshKnockoutView?.();
+      window.refreshUclAdvancement?.();window.refreshKnockoutView?.();window.refreshLeaguePhaseView?.();
     }finally{btn.classList.remove('loading');btn.disabled=false}
   }
   document.querySelector('#updateBtn').onclick=()=>updateData(false);
-  scheduleBtn.onclick=()=>{document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));scheduleBtn.classList.add('active');document.querySelector('.hero').style.display='none';document.querySelector('.layout').style.display='none';document.querySelector('.results').style.display='none';document.querySelector('#schedulePage').classList.add('active');window.scrollTo({top:0,behavior:'smooth'})};
-  document.querySelectorAll('nav button:not(#scheduleBtn)').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('.hero').style.display='flex';document.querySelector('.layout').style.display='grid';document.querySelector('.results').style.display='block';document.querySelector('#schedulePage').classList.remove('active')}));
+  scheduleBtn.onclick=()=>{document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));scheduleBtn.classList.add('active');document.querySelector('.hero').style.display='none';document.querySelector('#leaguePhaseHub')?.style.setProperty('display','none');document.querySelector('.layout').style.display='none';document.querySelector('.results').style.display='none';document.querySelector('#schedulePage').classList.add('active');window.scrollTo({top:0,behavior:'smooth'})};
+  document.querySelectorAll('nav button:not(#scheduleBtn)').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('.hero').style.display='flex';document.querySelector('#leaguePhaseHub')?.style.removeProperty('display');document.querySelector('.layout').style.display='grid';document.querySelector('.results').style.display='block';document.querySelector('#schedulePage').classList.remove('active')}));
   updateData(true);setTimeout(()=>updateData(true),1500);setInterval(()=>updateData(true),600000);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateData(true)});
 })(); 

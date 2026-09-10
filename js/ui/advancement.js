@@ -195,7 +195,7 @@
   const button=document.querySelector('#advancementBtn');
   button.addEventListener('click',()=>{
     document.querySelectorAll('nav button').forEach(item=>item.classList.toggle('active',item===button));
-    ['.hero','.layout','.results'].forEach(selector=>document.querySelector(selector).style.display='none');
+    ['.hero','#leaguePhaseHub','.layout','.results'].forEach(selector=>document.querySelector(selector)?.style.setProperty('display','none'));
     document.querySelector('#schedulePage')?.classList.remove('active');
     document.querySelector('#competitionInfo')?.classList.remove('active');
     document.querySelector('#qualificationPage')?.classList.remove('active');

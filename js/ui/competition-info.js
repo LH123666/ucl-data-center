@@ -5,7 +5,7 @@
   const qualificationPage=()=>document.querySelector('#qualificationPage');
   const advancementPage=()=>document.querySelector('#advancementPage');
   const schedulePage=document.querySelector('#schedulePage');
-  const regularViews=['.hero','.layout','.results'];
+  const regularViews=['.hero','#leaguePhaseHub','.layout','.results'];
   const setActive=button=>{document.querySelectorAll('nav button').forEach(item=>item.classList.toggle('active',item===button))};
   const hideInfo=()=>infoPage.classList.remove('active');
   infoBtn.addEventListener('click',()=>{
