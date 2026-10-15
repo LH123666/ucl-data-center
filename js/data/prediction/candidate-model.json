@@ -1,0 +1,837 @@
+{
+  "schemaVersion": 1,
+  "version": "opponent-poisson-0.1",
+  "params": {
+    "ridge": 6,
+    "halfLifeDays": 730,
+    "maxIterations": 500,
+    "tolerance": 1e-8
+  },
+  "cutoffDate": "2026-10-15",
+  "firstDate": "2018-09-18",
+  "lastDate": "2026-01-28",
+  "count": 864,
+  "weightedGames": 282.4055293334335,
+  "coefficients": {
+    "intercept": 0.2702741887517771,
+    "homeAdvantage": 0.2534305537480052
+  },
+  "teams": [
+    [
+      "AC Milan",
+      {
+        "attack": 0.011541463073848063,
+        "defense": 0.1799113158821226,
+        "games": 26,
+        "effectiveGames": 8.855010900118701
+      }
+    ],
+    [
+      "AEK Athens",
+      {
+        "attack": -0.06436516831131084,
+        "defense": -0.013725459804043728,
+        "games": 6,
+        "effectiveGames": 0.37998657986053747
+      }
+    ],
+    [
+      "AS Roma",
+      {
+        "attack": 0.012450429198641212,
+        "defense": 0.02516527241241698,
+        "games": 6,
+        "effectiveGames": 0.37998657986053747
+      }
+    ],
+    [
+      "Ajax",
+      {
+        "attack": 0.027302514036215343,
+        "defense": -0.24446610939606644,
+        "games": 38,
+        "effectiveGames": 10.10155076086048
+      }
+    ],
+    [
+      "Antwerp",
+      {
+        "attack": -0.10309881815563472,
+        "defense": -0.19564859888733596,
+        "games": 6,
+        "effectiveGames": 2.1536144561409856
+      }
+    ],
+    [
+      "Arsenal",
+      {
+        "attack": 0.47834111088574766,
+        "defense": 0.6437791380131654,
+        "games": 22,
+        "effectiveGames": 12.154724189593294
+      }
+    ],
+    [
+      "Aston Villa",
+      {
+        "attack": 0.05800383621664627,
+        "defense": 0.2563403387343975,
+        "games": 8,
+        "effectiveGames": 4.14448383953626
+      }
+    ],
+    [
+      "Atalanta",
+      {
+        "attack": 0.11366191148192405,
+        "defense": 0.19477295477626133,
+        "games": 34,
+        "effectiveGames": 12.382233060984014
+      }
+    ],
+    [
+      "Athletic Club",
+      {
+        "attack": -0.09267497035010924,
+        "defense": 0.030551691071025424,
+        "games": 8,
+        "effectiveGames": 5.857044050815827
+      }
+    ],
+    [
+      "Atlético Madrid",
+      {
+        "attack": 0.286816041358276,
+        "defense": 0.0794337696916773,
+        "games": 52,
+        "effectiveGames": 16.40042667449972
+      }
+    ],
+    [
+      "Barcelona",
+      {
+        "attack": 0.49379023420074075,
+        "defense": 0.03909070157180761,
+        "games": 52,
+        "effectiveGames": 16.401259096100834
+      }
+    ],
+    [
+      "Bayer Leverkusen",
+      {
+        "attack": 0.06522687821738819,
+        "defense": 0.14477849644507843,
+        "games": 28,
+        "effectiveGames": 12.023883140667083
+      }
+    ],
+    [
+      "Bayern Munich",
+      {
+        "attack": 0.521015799121806,
+        "defense": 0.3962831799830387,
+        "games": 52,
+        "effectiveGames": 16.400195712287488
+      }
+    ],
+    [
+      "Benfica",
+      {
+        "attack": 0.09471850225744168,
+        "defense": 0.09265381041128953,
+        "games": 46,
+        "effectiveGames": 15.629902318403397
+      }
+    ],
+    [
+      "Besiktas",
+      {
+        "attack": -0.1521820299883505,
+        "defense": -0.1766830150499345,
+        "games": 6,
+        "effectiveGames": 1.0717048559467732
+      }
+    ],
+    [
+      "Bodo/Glimt",
+      {
+        "attack": 0.1641073247028977,
+        "defense": -0.06794627739470817,
+        "games": 8,
+        "effectiveGames": 5.855614163619914
+      }
+    ],
+    [
+      "Bologna",
+      {
+        "attack": -0.31799069939864977,
+        "defense": 0.20882423382006204,
+        "games": 8,
+        "effectiveGames": 4.144962735252016
+      }
+    ],
+    [
+      "Borussia Dortmund",
+      {
+        "attack": 0.33207561756511556,
+        "defense": 0.05597227504588013,
+        "games": 52,
+        "effectiveGames": 16.398990658263997
+      }
+    ],
+    [
+      "Borussia Monchengladbach",
+      {
+        "attack": 0.15197638081337297,
+        "defense": 0.027891438658584216,
+        "games": 6,
+        "effectiveGames": 0.7710580602126748
+      }
+    ],
+    [
+      "Braga",
+      {
+        "attack": -0.10040035581119641,
+        "defense": -0.04627499039862845,
+        "games": 6,
+        "effectiveGames": 2.1536099223382354
+      }
+    ],
+    [
+      "Brest",
+      {
+        "attack": -0.12293122391776996,
+        "defense": 0.08329646914689456,
+        "games": 8,
+        "effectiveGames": 4.145445758071037
+      }
+    ],
+    [
+      "CSKA Moscow",
+      {
+        "attack": -0.014603722520122205,
+        "defense": 0.017341715114594782,
+        "games": 6,
+        "effectiveGames": 0.37998657986053747
+      }
+    ],
+    [
+      "Celtic",
+      {
+        "attack": -0.17577173650737188,
+        "defense": -0.17555047093453033,
+        "games": 20,
+        "effectiveGames": 7.78424010276011
+      }
+    ],
+    [
+      "Chelsea",
+      {
+        "attack": 0.23588818091185657,
+        "defense": 0.29191367946785274,
+        "games": 32,
+        "effectiveGames": 9.721594323177394
+      }
+    ],
+    [
+      "Club Brugge",
+      {
+        "attack": -0.00036200207387483826,
+        "defense": 0.008131332836523685,
+        "games": 46,
+        "effectiveGames": 14.24784750891544
+      }
+    ],
+    [
+      "Copenhagen",
+      {
+        "attack": -0.11988092090617827,
+        "defense": -0.1890017608912761,
+        "games": 20,
+        "effectiveGames": 9.496196339565191
+      }
+    ],
+    [
+      "Dinamo Zagreb",
+      {
+        "attack": -0.07525146201804352,
+        "defense": -0.18921789864047311,
+        "games": 20,
+        "effectiveGames": 6.167503999668124
+      }
+    ],
+    [
+      "Dynamo Kyiv",
+      {
+        "attack": -0.214127207313808,
+        "defense": 0.01339122339497407,
+        "games": 12,
+        "effectiveGames": 1.8427627072164143
+      }
+    ],
+    [
+      "Eintracht Frankfurt",
+      {
+        "attack": -0.06878927236904074,
+        "defense": -0.19806593771533423,
+        "games": 14,
+        "effectiveGames": 7.342626993053862
+      }
+    ],
+    [
+      "FC Porto",
+      {
+        "attack": 0.18940252092645715,
+        "defense": 0.17492171936898504,
+        "games": 30,
+        "effectiveGames": 5.86199463484943
+      }
+    ],
+    [
+      "Ferencvaros",
+      {
+        "attack": -0.05737267545511358,
+        "defense": -0.11159987230201608,
+        "games": 6,
+        "effectiveGames": 0.7710555951050627
+      }
+    ],
+    [
+      "Feyenoord",
+      {
+        "attack": 0.20661866407095308,
+        "defense": -0.24897226545991044,
+        "games": 14,
+        "effectiveGames": 6.300029849362163
+      }
+    ],
+    [
+      "Galatasaray",
+      {
+        "attack": -0.15157208616956386,
+        "defense": 0.061911707474573564,
+        "games": 26,
+        "effectiveGames": 8.927449483810019
+      }
+    ],
+    [
+      "Genk",
+      {
+        "attack": -0.04885532787035747,
+        "defense": -0.13076101066228268,
+        "games": 6,
+        "effectiveGames": 0.5368709595550373
+      }
+    ],
+    [
+      "Girona",
+      {
+        "attack": -0.30656212438349084,
+        "defense": 0.0612459672654223,
+        "games": 8,
+        "effectiveGames": 4.144983115616915
+      }
+    ],
+    [
+      "Hoffenheim",
+      {
+        "attack": 0.022978697443315235,
+        "defense": -0.039420517451273576,
+        "games": 6,
+        "effectiveGames": 0.37998657986053747
+      }
+    ],
+    [
+      "Internazionale",
+      {
+        "attack": 0.026152615466348762,
+        "defense": 0.5629987372249918,
+        "games": 52,
+        "effectiveGames": 16.399457715363507
+      }
+    ],
+    [
+      "Istanbul Basaksehir",
+      {
+        "attack": -0.030408439059617175,
+        "defense": -0.11359333658582442,
+        "games": 6,
+        "effectiveGames": 0.7711804697934803
+      }
+    ],
+    [
+      "Juventus",
+      {
+        "attack": 0.044677458144850586,
+        "defense": 0.2957354309826139,
+        "games": 46,
+        "effectiveGames": 14.246114199047
+      }
+    ],
+    [
+      "Kairat Almaty",
+      {
+        "attack": -0.19432286076404573,
+        "defense": -0.3338760106396159,
+        "games": 8,
+        "effectiveGames": 5.856267963099954
+      }
+    ],
+    [
+      "Krasnodar",
+      {
+        "attack": -0.04108268576813262,
+        "defense": -0.03125984719014964,
+        "games": 6,
+        "effectiveGames": 0.7710555951050627
+      }
+    ],
+    [
+      "Lazio",
+      {
+        "attack": -0.08459901792185401,
+        "defense": 0.14542111860996604,
+        "games": 12,
+        "effectiveGames": 2.924670051246048
+      }
+    ],
+    [
+      "Lens",
+      {
+        "attack": -0.06594380807408254,
+        "defense": 0.011162650458996507,
+        "games": 6,
+        "effectiveGames": 2.1536099223382354
+      }
+    ],
+    [
+      "Lille",
+      {
+        "attack": 0.15731429566397054,
+        "defense": 0.16308221627781994,
+        "games": 20,
+        "effectiveGames": 5.753556436219346
+      }
+    ],
+    [
+      "Liverpool",
+      {
+        "attack": 0.395120756549233,
+        "defense": 0.4309264473688028,
+        "games": 46,
+        "effectiveGames": 14.246069932395272
+      }
+    ],
+    [
+      "Lokomotiv Moscow",
+      {
+        "attack": -0.13089801030625725,
+        "defense": -0.006525035264178764,
+        "games": 18,
+        "effectiveGames": 1.6879159514723765
+      }
+    ],
+    [
+      "Lyon",
+      {
+        "attack": 0.026654915108900595,
+        "defense": 0.0072619944004551976,
+        "games": 12,
+        "effectiveGames": 0.9168575394155748
+      }
+    ],
+    [
+      "Maccabi Haifa",
+      {
+        "attack": -0.0049406378316390765,
+        "defense": -0.27359789450342137,
+        "games": 6,
+        "effectiveGames": 1.4856330911628826
+      }
+    ],
+    [
+      "Malmo FF",
+      {
+        "attack": -0.16214556902866042,
+        "defense": -0.0910139702077562,
+        "games": 6,
+        "effectiveGames": 1.0717071121113517
+      }
+    ],
+    [
+      "Manchester City",
+      {
+        "attack": 0.3302557808629338,
+        "defense": 0.22337592473974813,
+        "games": 52,
+        "effectiveGames": 16.400807915297616
+      }
+    ],
+    [
+      "Manchester United",
+      {
+        "attack": 0.15219815255278632,
+        "defense": -0.10331629910331175,
+        "games": 24,
+        "effectiveGames": 4.376359209415187
+      }
+    ],
+    [
+      "Marseille",
+      {
+        "attack": -0.05718247450743707,
+        "defense": 0.01556358796232504,
+        "games": 20,
+        "effectiveGames": 8.112363676152206
+      }
+    ],
+    [
+      "Midtjylland",
+      {
+        "attack": -0.07688961416383483,
+        "defense": -0.03508536468307361,
+        "games": 6,
+        "effectiveGames": 0.7710580602126748
+      }
+    ],
+    [
+      "Monaco",
+      {
+        "attack": -0.07325645742559207,
+        "defense": -0.008872526176438012,
+        "games": 22,
+        "effectiveGames": 10.382332576141199
+      }
+    ],
+    [
+      "Napoli",
+      {
+        "attack": 0.023821220848796707,
+        "defense": 0.06519427355976415,
+        "games": 32,
+        "effectiveGames": 10.412583241453095
+      }
+    ],
+    [
+      "Newcastle United",
+      {
+        "attack": 0.19337442967581284,
+        "defense": 0.38091688733492907,
+        "games": 14,
+        "effectiveGames": 8.01129052973384
+      }
+    ],
+    [
+      "Olympiacos",
+      {
+        "attack": -0.12254527411163585,
+        "defense": 0.03426186549860832,
+        "games": 20,
+        "effectiveGames": 7.163521704235516
+      }
+    ],
+    [
+      "PSV Eindhoven",
+      {
+        "attack": 0.27652265368020024,
+        "defense": -0.0204632601478132,
+        "games": 28,
+        "effectiveGames": 12.532800759802349
+      }
+    ],
+    [
+      "Pafos",
+      {
+        "attack": -0.19884249596755063,
+        "defense": 0.06004881533836901,
+        "games": 8,
+        "effectiveGames": 5.857058134284408
+      }
+    ],
+    [
+      "Paris Saint-Germain",
+      {
+        "attack": 0.43364454795745183,
+        "defense": 0.2928504365974532,
+        "games": 52,
+        "effectiveGames": 16.399794630669582
+      }
+    ],
+    [
+      "Qarabag",
+      {
+        "attack": 0.04008923219924592,
+        "defense": -0.34882319219827174,
+        "games": 8,
+        "effectiveGames": 5.857044050815827
+      }
+    ],
+    [
+      "RB Leipzig",
+      {
+        "attack": 0.1024689618573766,
+        "defense": -0.060845462357324395,
+        "games": 38,
+        "effectiveGames": 10.16430887752982
+      }
+    ],
+    [
+      "Rangers",
+      {
+        "attack": -0.20505867878224246,
+        "defense": -0.3108072726263567,
+        "games": 6,
+        "effectiveGames": 1.4858617005773915
+      }
+    ],
+    [
+      "Real Madrid",
+      {
+        "attack": 0.4932792088443895,
+        "defense": 0.124688880227547,
+        "games": 52,
+        "effectiveGames": 16.399044340859863
+      }
+    ],
+    [
+      "Real Sociedad",
+      {
+        "attack": -0.05665536973364618,
+        "defense": 0.27725877365442997,
+        "games": 6,
+        "effectiveGames": 2.1536099223382354
+      }
+    ],
+    [
+      "Red Bull Salzburg",
+      {
+        "attack": -0.2510551551700801,
+        "defense": -0.2569197128423912,
+        "games": 38,
+        "effectiveGames": 10.163861942011035
+      }
+    ],
+    [
+      "Red Star Belgrade",
+      {
+        "attack": -0.056642176715929485,
+        "defense": -0.3804216641376959,
+        "games": 26,
+        "effectiveGames": 7.215913882544842
+      }
+    ],
+    [
+      "Rennes",
+      {
+        "attack": -0.09620300806471689,
+        "defense": -0.030544252455677788,
+        "games": 6,
+        "effectiveGames": 0.7710555951050627
+      }
+    ],
+    [
+      "Schalke 04",
+      {
+        "attack": -0.022838310611237863,
+        "defense": 0.04631406275112626,
+        "games": 6,
+        "effectiveGames": 0.3799857276723163
+      }
+    ],
+    [
+      "Sevilla",
+      {
+        "attack": -0.12335304066182008,
+        "defense": 0.026120794532484816,
+        "games": 24,
+        "effectiveGames": 5.482005720717532
+      }
+    ],
+    [
+      "Shakhtar Donetsk",
+      {
+        "attack": -0.1375266848224567,
+        "defense": -0.073959043024683,
+        "games": 44,
+        "effectiveGames": 10.544336872500926
+      }
+    ],
+    [
+      "Sheriff Tiraspol",
+      {
+        "attack": -0.016367347057261422,
+        "defense": -0.01120763397348276,
+        "games": 6,
+        "effectiveGames": 1.0717048559467732
+      }
+    ],
+    [
+      "Slavia Prague",
+      {
+        "attack": -0.30493548165777135,
+        "defense": -0.1964628652375795,
+        "games": 14,
+        "effectiveGames": 6.392513918009237
+      }
+    ],
+    [
+      "Slovan Bratislava",
+      {
+        "attack": -0.20726383435668164,
+        "defense": -0.46387645354746104,
+        "games": 8,
+        "effectiveGames": 4.143999714933039
+      }
+    ],
+    [
+      "Sparta Prague",
+      {
+        "attack": -0.2176881393987774,
+        "defense": -0.2931317604975692,
+        "games": 8,
+        "effectiveGames": 4.145483720260179
+      }
+    ],
+    [
+      "Sporting CP",
+      {
+        "attack": 0.2295997719543537,
+        "defense": 0.08269958367490304,
+        "games": 28,
+        "effectiveGames": 12.557815115838872
+      }
+    ],
+    [
+      "Sturm Graz",
+      {
+        "attack": -0.29036308275755424,
+        "defense": -0.04039282356298465,
+        "games": 8,
+        "effectiveGames": 4.145425696692199
+      }
+    ],
+    [
+      "Tottenham Hotspur",
+      {
+        "attack": 0.17237315134499304,
+        "defense": 0.27758464659032905,
+        "games": 26,
+        "effectiveGames": 8.25744075967045
+      }
+    ],
+    [
+      "Union Berlin",
+      {
+        "attack": -0.10197866629972918,
+        "defense": 0.024087379273438562,
+        "games": 6,
+        "effectiveGames": 2.1536099223382354
+      }
+    ],
+    [
+      "Union Saint-Gilloise",
+      {
+        "attack": -0.10953943885153605,
+        "defense": -0.10014622939085782,
+        "games": 8,
+        "effectiveGames": 5.854976136995167
+      }
+    ],
+    [
+      "Valencia",
+      {
+        "attack": -0.02661794880949173,
+        "defense": 0.06346893515538175,
+        "games": 12,
+        "effectiveGames": 0.9168575394155748
+      }
+    ],
+    [
+      "VfB Stuttgart",
+      {
+        "attack": -0.010790915488218606,
+        "defense": -0.1660275292050781,
+        "games": 8,
+        "effectiveGames": 4.14451605164477
+      }
+    ],
+    [
+      "Viktoria Plzen",
+      {
+        "attack": -0.05972035126457959,
+        "defense": -0.2879177163202314,
+        "games": 12,
+        "effectiveGames": 1.8656181147372195
+      }
+    ],
+    [
+      "Villarreal",
+      {
+        "attack": -0.29594706420630684,
+        "defense": -0.19754960134307056,
+        "games": 14,
+        "effectiveGames": 6.9275156605390515
+      }
+    ],
+    [
+      "Wolfsburg",
+      {
+        "attack": -0.10199498241764439,
+        "defense": -0.03909912544305754,
+        "games": 6,
+        "effectiveGames": 1.0717071121113517
+      }
+    ],
+    [
+      "Young Boys",
+      {
+        "attack": -0.40515004763310103,
+        "defense": -0.3495424795957675,
+        "games": 26,
+        "effectiveGames": 7.750329346313851
+      }
+    ],
+    [
+      "Zenit",
+      {
+        "attack": -0.035924385983178264,
+        "defense": -0.04601332555217383,
+        "games": 18,
+        "effectiveGames": 2.3796336667714524
+      }
+    ]
+  ],
+  "fitDiagnostics": {
+    "converged": true,
+    "iterations": 6,
+    "penalizedObjectiveWithoutConstants": 393.11752774286555,
+    "constraints": "sum attack = sum defense = 0",
+    "estimation": "Joint weighted regularized Poisson maximum likelihood; cyclic coordinate Newton with backtracking."
+  },
+  "checkpointId": "opponent-7b6c767bf269b22dabf5",
+  "generatedAt": "2026-10-15T08:05:06.318Z",
+  "sourceSet": [
+    {
+      "name": "OpenFootball",
+      "license": "CC0-1.0",
+      "datasetSha256": "f773deb68440b80fc063aea8114df47110f5f494f8e110d308cca527d0e3d940",
+      "latestObservedDate": "2026-01-28"
+    },
+    {
+      "season": "2025-26",
+      "url": "https://raw.githubusercontent.com/openfootball/champions-league/master/2025-26/cl.txt",
+      "sha256": "2b1877308587ff1004c21b8e961b9050b8754f968244e0635eb005040fd9d5cb",
+      "license": "CC0-1.0",
+      "retrievedAt": null,
+      "acquisition": "verified-local-cache",
+      "verifiedAt": "2026-10-15T08:05:06.312Z"
+    }
+  ],
+  "inputSha256": "7b6c767bf269b22dabf55bacc806fe16beead8a47b7aabae9fda5abda7664511",
+  "trainingCutoff": "2026-10-15",
+  "latestObservedDate": "2026-01-28",
+  "releaseGate": {
+    "enabled": false,
+    "reason": "Requires new frozen prospective evidence and explicit release decision."
+  }
+}

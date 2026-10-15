@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "checkpointId": "opponent-7b6c767bf269b22dabf5",
+  "generatedAt": "2026-10-15T08:05:06.318Z",
+  "dataCheckedAt": "2026-10-15T08:05:06.318Z",
+  "trainingCutoff": "2026-10-15",
+  "latestTrainingResult": "2026-01-28",
+  "trainingMatches": 864,
+  "added": 0,
+  "corrected": 0,
+  "futureRowsExcluded": 0,
+  "inputSha256": "7b6c767bf269b22dabf55bacc806fe16beead8a47b7aabae9fda5abda7664511",
+  "sourceSet": [
+    {
+      "name": "OpenFootball",
+      "license": "CC0-1.0",
+      "datasetSha256": "f773deb68440b80fc063aea8114df47110f5f494f8e110d308cca527d0e3d940",
+      "latestObservedDate": "2026-01-28"
+    },
+    {
+      "season": "2025-26",
+      "url": "https://raw.githubusercontent.com/openfootball/champions-league/master/2025-26/cl.txt",
+      "sha256": "2b1877308587ff1004c21b8e961b9050b8754f968244e0635eb005040fd9d5cb",
+      "license": "CC0-1.0",
+      "retrievedAt": null,
+      "acquisition": "verified-local-cache",
+      "verifiedAt": "2026-10-15T08:05:06.312Z"
+    }
+  ],
+  "attempts": [
+    {
+      "season": "2025-26",
+      "url": "https://raw.githubusercontent.com/openfootball/champions-league/master/2025-26/cl.txt",
+      "status": "cached",
+      "message": "仅校验已审计本地缓存，未联网更新",
+      "matches": 144,
+      "sha256": "2b1877308587ff1004c21b8e961b9050b8754f968244e0635eb005040fd9d5cb",
+      "checkedAt": "2026-10-15T08:05:06.312Z"
+    },
+    {
+      "season": "2026-27",
+      "url": "https://raw.githubusercontent.com/openfootball/champions-league/master/2026-27/cl.txt",
+      "status": "unavailable",
+      "message": "无已审计缓存；未进行新联网检查；此前记录：HTTP 404",
+      "checkedAt": "2026-10-15T08:05:06.318Z"
+    }
+  ],
+  "fitConverged": true,
+  "status": "partial-source-unavailable",
+  "promotionEnabled": false,
+  "officialModelChanged": false,
+  "limitations": [
+    "Source publication time is unknown; this is a post-hoc score reconstruction.",
+    "Candidate coefficients do not update merely because the website score button was clicked.",
+    "No lineup or tactical numerical effects."
+  ],
+  "validation": {
+    "matches": 288,
+    "fits": 32,
+    "fitConverged": true,
+    "designation": "post-hoc-development-diagnostics",
+    "passedStructuralChecks": true,
+    "prospectiveValidation": false
+  }
+}

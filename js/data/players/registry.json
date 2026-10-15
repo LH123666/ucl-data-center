@@ -1,0 +1,1232 @@
+{
+  "schemaVersion": "player-registry-1.0",
+  "generatedAt": "2026-10-15",
+  "probabilityAdjustmentEnabled": false,
+  "scope": {
+    "season": "2026-27",
+    "clubCount": 36,
+    "seedPolicy": "historical-observations-only",
+    "caveat": "人员仅来自既有战术档案历史观察；不是现役名册、报名名单、首发、伤停或训练样本。未知日期不回填；同名跨队不自动合并。"
+  },
+  "clubs": [
+    {
+      "id": "paris-saint-germain",
+      "name": "Paris Saint-Germain",
+      "zh": "巴黎圣日耳曼",
+      "logo": "assets/clubs/paris-saint-germain.png",
+      "pot": 1
+    },
+    {
+      "id": "bayern-munich",
+      "name": "Bayern Munich",
+      "zh": "拜仁慕尼黑",
+      "logo": "assets/clubs/bayern-munich.png",
+      "pot": 1
+    },
+    {
+      "id": "real-madrid",
+      "name": "Real Madrid",
+      "zh": "皇家马德里",
+      "logo": "assets/clubs/real-madrid.png",
+      "pot": 1
+    },
+    {
+      "id": "liverpool",
+      "name": "Liverpool",
+      "zh": "利物浦",
+      "logo": "assets/clubs/liverpool.png",
+      "pot": 1
+    },
+    {
+      "id": "internazionale",
+      "name": "Internazionale",
+      "zh": "国际米兰",
+      "logo": "assets/clubs/internazionale.png",
+      "pot": 1
+    },
+    {
+      "id": "manchester-city",
+      "name": "Manchester City",
+      "zh": "曼城",
+      "logo": "assets/clubs/manchester-city.png",
+      "pot": 1
+    },
+    {
+      "id": "arsenal",
+      "name": "Arsenal",
+      "zh": "阿森纳",
+      "logo": "assets/clubs/arsenal.png",
+      "pot": 1
+    },
+    {
+      "id": "barcelona",
+      "name": "Barcelona",
+      "zh": "巴塞罗那",
+      "logo": "assets/clubs/barcelona.png",
+      "pot": 1
+    },
+    {
+      "id": "atletico-madrid",
+      "name": "Atlético Madrid",
+      "zh": "马德里竞技",
+      "logo": "assets/clubs/atletico-madrid.png",
+      "pot": 1
+    },
+    {
+      "id": "borussia-dortmund",
+      "name": "Borussia Dortmund",
+      "zh": "多特蒙德",
+      "logo": "assets/clubs/borussia-dortmund.png",
+      "pot": 2
+    },
+    {
+      "id": "as-roma",
+      "name": "AS Roma",
+      "zh": "罗马",
+      "logo": "assets/clubs/as-roma.png",
+      "pot": 2
+    },
+    {
+      "id": "sporting-cp",
+      "name": "Sporting CP",
+      "zh": "葡萄牙体育",
+      "logo": "assets/clubs/sporting-cp.png",
+      "pot": 2
+    },
+    {
+      "id": "aston-villa",
+      "name": "Aston Villa",
+      "zh": "阿斯顿维拉",
+      "logo": "assets/clubs/aston-villa.png",
+      "pot": 2
+    },
+    {
+      "id": "fc-porto",
+      "name": "FC Porto",
+      "zh": "波尔图",
+      "logo": "assets/clubs/fc-porto.png",
+      "pot": 2
+    },
+    {
+      "id": "manchester-united",
+      "name": "Manchester United",
+      "zh": "曼联",
+      "logo": "assets/clubs/manchester-united.png",
+      "pot": 2
+    },
+    {
+      "id": "club-brugge",
+      "name": "Club Brugge",
+      "zh": "布鲁日",
+      "logo": "assets/clubs/club-brugge.png",
+      "pot": 2
+    },
+    {
+      "id": "real-betis",
+      "name": "Real Betis",
+      "zh": "皇家贝蒂斯",
+      "logo": "assets/clubs/real-betis.png",
+      "pot": 2
+    },
+    {
+      "id": "psv-eindhoven",
+      "name": "PSV Eindhoven",
+      "zh": "埃因霍温",
+      "logo": "assets/clubs/psv-eindhoven.png",
+      "pot": 2
+    },
+    {
+      "id": "feyenoord",
+      "name": "Feyenoord",
+      "zh": "费耶诺德",
+      "logo": "assets/clubs/feyenoord.png",
+      "pot": 3
+    },
+    {
+      "id": "lille",
+      "name": "Lille",
+      "zh": "里尔",
+      "logo": "assets/clubs/lille.png",
+      "pot": 3
+    },
+    {
+      "id": "bodo-glimt",
+      "name": "Bodo/Glimt",
+      "zh": "博德闪耀",
+      "logo": "assets/clubs/bodo-glimt.png",
+      "pot": 3
+    },
+    {
+      "id": "napoli",
+      "name": "Napoli",
+      "zh": "那不勒斯",
+      "logo": "assets/clubs/napoli.png",
+      "pot": 3
+    },
+    {
+      "id": "rb-leipzig",
+      "name": "RB Leipzig",
+      "zh": "莱比锡",
+      "logo": "assets/clubs/rb-leipzig.png",
+      "pot": 3
+    },
+    {
+      "id": "villarreal",
+      "name": "Villarreal",
+      "zh": "比利亚雷亚尔",
+      "logo": "assets/clubs/villarreal.png",
+      "pot": 3
+    },
+    {
+      "id": "fenerbahce",
+      "name": "Fenerbahce",
+      "zh": "费内巴切",
+      "logo": "assets/clubs/fenerbahce.png",
+      "pot": 3
+    },
+    {
+      "id": "shakhtar-donetsk",
+      "name": "Shakhtar Donetsk",
+      "zh": "顿涅茨克矿工",
+      "logo": "assets/clubs/shakhtar-donetsk.png",
+      "pot": 3
+    },
+    {
+      "id": "galatasaray",
+      "name": "Galatasaray",
+      "zh": "加拉塔萨雷",
+      "logo": "assets/clubs/galatasaray.png",
+      "pot": 3
+    },
+    {
+      "id": "slavia-prague",
+      "name": "Slavia Prague",
+      "zh": "布拉格斯拉维亚",
+      "logo": "assets/clubs/slavia-prague.png",
+      "pot": 4
+    },
+    {
+      "id": "slovan-bratislava",
+      "name": "Slovan Bratislava",
+      "zh": "布拉迪斯拉发斯洛万",
+      "logo": "assets/clubs/slovan-bratislava.png",
+      "pot": 4
+    },
+    {
+      "id": "vfb-stuttgart",
+      "name": "VfB Stuttgart",
+      "zh": "斯图加特",
+      "logo": "assets/clubs/vfb-stuttgart.png",
+      "pot": 4
+    },
+    {
+      "id": "aek-athens",
+      "name": "AEK Athens",
+      "zh": "雅典AEK",
+      "logo": "assets/clubs/aek-athens.png",
+      "pot": 4
+    },
+    {
+      "id": "lask",
+      "name": "LASK",
+      "zh": "林茨",
+      "logo": "assets/clubs/lask.png",
+      "pot": 4
+    },
+    {
+      "id": "como",
+      "name": "Como",
+      "zh": "科莫",
+      "logo": "assets/clubs/como.png",
+      "pot": 4
+    },
+    {
+      "id": "lens",
+      "name": "Lens",
+      "zh": "朗斯",
+      "logo": "assets/clubs/lens.png",
+      "pot": 4
+    },
+    {
+      "id": "viking",
+      "name": "Viking",
+      "zh": "维京",
+      "logo": "assets/clubs/viking.png",
+      "pot": 4
+    },
+    {
+      "id": "sabah",
+      "name": "Sabah",
+      "zh": "萨巴赫",
+      "logo": "assets/clubs/sabah.png",
+      "pot": 4
+    }
+  ],
+  "sources": [
+    {
+      "id": "tactics:paris-saint-germain:s1",
+      "title": "UEFA · Paris pressing and mobility inspire historic final victory",
+      "url": "https://www.uefa.com/uefachampionsleague/news/029a-1de9d126962d-87e708b9adaf-1000--champions-league-performance-insights-paris-pressing-and/",
+      "publishedAt": "2025-06-03",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:bayern-munich:s1",
+      "title": "UEFA · How Bayern combine creativity with control",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a4-205b4169a19f-11b0c9d67f18-1000--champions-league-performance-insights-how-bayern-combine-cre/",
+      "publishedAt": "2026-04-10",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:real-madrid:s1",
+      "title": "UEFA · Real Madrid’s space invaders",
+      "url": "https://www.uefa.com/uefachampionsleague/news/0296-1d2429342c9e-d582c4aee3bf-1000--champions-league-performance-insights-real-madrid-s-spac/",
+      "publishedAt": "2025-02-25",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:liverpool:s1",
+      "title": "UEFA · Liverpool overcome Atleti through adaptability, pressing power and mental resilience",
+      "url": "https://www.uefa.com/uefachampionsleague/news/029d-1ec35936bff7-722086a73dc1-1000--champions-league-performance-insights-liverpool-overcome/",
+      "publishedAt": "2025-09-19",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:internazionale:s1",
+      "title": "UEFA · How Arsenal passed their San Siro test（包含国米双前锋分析）",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a1-1fc0b3e5030a-b203d8cbbdd5-1000--champions-league-performance-insights-how-arsenal-passed/",
+      "publishedAt": "2026-01-23",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:arsenal:s1",
+      "title": "UEFA · How Arsenal passed their San Siro test",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a1-1fc0b3e5030a-b203d8cbbdd5-1000--champions-league-performance-insights-how-arsenal-passed/",
+      "publishedAt": "2026-01-23",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:atletico-madrid:s1",
+      "title": "UEFA · How clever Atlético de Madrid stifled Real Madrid",
+      "url": "https://www.uefa.com/uefachampionsleague/news/0297-1d4cff4faf46-df5ce08baebd-1000--champions-league-performance-insights-how-clever-atletico/",
+      "publishedAt": "2025-03-17",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:borussia-dortmund:s1",
+      "title": "UEFA · How Dortmund’s runs undid Atalanta",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a2-1ff8fee7917f-64d6ed1dbcb0-1000--champions-league-performance-insights-how-dortmund-s-runs/",
+      "publishedAt": "2026-02-20",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:aston-villa:s1",
+      "title": "UEFA · How box midfield gave Aston Villa the platform to penetrate Lille defence",
+      "url": "https://www.uefa.com/uefaeuropaleague/news/02a3-20291280a06c-c7f7e5e3f522-1000--europa-league-performance-insights-how-box-midfield-gave-a/",
+      "publishedAt": "2026-03-16",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:fc-porto:s2",
+      "title": "UEFA · Porto and Roma’s key men",
+      "url": "https://www.uefa.com/uefaeuropaleague/news/0296-1d165c35f536-c25a97cd18f6-1000--uefa-europa-league-performance-insights-porto-and-roma-s-ke/",
+      "publishedAt": "2025-02-18",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:manchester-united:s1",
+      "title": "UEFA · How Real Sociedad resisted Manchester United",
+      "url": "https://www.uefa.com/uefaeuropaleague/news/0297-1d38bcba5c10-fe3ac5f63a16-1000--uefa-europa-league-tactical-analysis-how-real-sociedad-r/",
+      "publishedAt": "2025-03-07",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:real-betis:s2",
+      "title": "UEFA · Antony shines brightest as Real Betis progress",
+      "url": "https://www.uefa.com/uefaeuropaleague/news/02a1-1fce92892bb3-4c80c5448d18-1000--europa-league-tactical-analysis-antony-shines-brightest-as/",
+      "publishedAt": "2026-01-30",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:psv-eindhoven:s1",
+      "title": "UEFA · Finding solutions to man-marking",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a1-1fceb8b0716e-5ad137580ad0-1000--champions-league-performance-insights-finding-solutions-to-m/",
+      "publishedAt": "2026-01-30",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:feyenoord:s1",
+      "title": "Como 1907官方 · Match Preview: Feyenoord v Como",
+      "url": "https://comofootball.com/en/match-preview-feyenoord-v-como-1907/",
+      "publishedAt": null,
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:bodo-glimt:s1",
+      "title": "UEFA · How Patrick Berg set the tone for Bodø/Glimt",
+      "url": "https://www.uefa.com/uefaeuropaleague/news/0298-1d7f1e769197-ff3c8d7f204a-1000--uefa-europa-league-tactical-analysis-how-berg-set-the-tone/",
+      "publishedAt": "2025-04-11",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:napoli:s1",
+      "title": "Lega Serie A官方 · Il nuovo assetto del Napoli di Antonio Conte",
+      "url": "https://www.legaseriea.it/serie-a/news/il-nuovo-assetto-del-napoli-di-antonio-conte",
+      "publishedAt": null,
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:fenerbahce:s1",
+      "title": "UEFA · Fenerbahçe in the 2026/27 Champions League",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a9-2182e99fa90d-4b9d760fe60e-1000--fenerbahce-in-the-2026-27-champions-league-what-are-their-/",
+      "publishedAt": "2026-08-27",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:shakhtar-donetsk:s1",
+      "title": "Shakhtar官方 · Marino Pusic: We added variety",
+      "url": "https://shakhtar.com/en/news/2025/may/3_news/3_marino-pusic/",
+      "publishedAt": "2025-05-03",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:galatasaray:s1",
+      "title": "UEFA · Galatasaray in the 2026/27 Champions League",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a9-2182e9dd448c-223172804475-1000--galatasaray-in-the-2026-27-champions-league-what-are-their-/",
+      "publishedAt": "2026-08-27",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:galatasaray:s2",
+      "title": "UEFA · 2025年10月22日比赛综述中的Galatasaray对Bodø/Glimt段落",
+      "url": "https://www.uefa.com/uefachampionsleague/news/029e-1f03c8f544b5-3eecbacb5744-1000--champions-league-round-up-paris-inter-and-arsenal-win-in-s/",
+      "publishedAt": "2025-10-22",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:slovan-bratislava:s1",
+      "title": "UEFA · Slovan Bratislava in the 2026/27 Champions League",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a9-2182ed8281ff-a3a8deab03fb-1000--slovan-bratislava-in-the-2026-27-champions-league-what-are-t/",
+      "publishedAt": "2026-08-27",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:vfb-stuttgart:s1",
+      "title": "UEFA · How Stuttgart overloaded Celtic’s back line",
+      "url": "https://www.uefa.com/uefaeuropaleague/news/02a2-1ffec61b1f8f-af24b682d3ed-1000--europa-league-performance-insights-how-stuttgart-overloa/",
+      "publishedAt": "2026-02-23",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:aek-athens:s1",
+      "title": "UEFA · AEK Athens in the 2026/27 Champions League",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a9-2182e7bc0d8c-12e4d3e297a1-1000--aek-athens-in-the-2026-27-champions-league-what-are-their-/",
+      "publishedAt": "2026-08-27",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    },
+    {
+      "id": "tactics:viking:s1",
+      "title": "UEFA · Viking’s unlikely journey to the Champions League",
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a9-218b0b5ce041-499a5bed3e4f-1000--viking-s-unlikely-journey-to-the-champions-league/",
+      "publishedAt": "2026-09-08",
+      "observedAt": null,
+      "retrievedAt": "2026-10-15",
+      "kind": "historical-editorial",
+      "provenance": "existing-tactical-dossiers",
+      "retrievalMeaning": "沿用既有档案访问日期；本次构建未重新核查网页或球员事实。"
+    }
+  ],
+  "players": [
+    {
+      "id": "player-research-ad268b91231684fe",
+      "displayName": "Ousmane Dembélé",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "paris-saint-germain:ousmane dembele"
+    },
+    {
+      "id": "player-research-5fac59f69bf306c6",
+      "displayName": "Michael Olise",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "bayern-munich:michael olise"
+    },
+    {
+      "id": "player-research-e97def5ecbb7e58a",
+      "displayName": "Kylian Mbappé",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "real-madrid:kylian mbappe"
+    },
+    {
+      "id": "player-research-5a2205e8eb1fe63d",
+      "displayName": "Jude Bellingham",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "real-madrid:jude bellingham"
+    },
+    {
+      "id": "player-research-cc0d50cbccf09691",
+      "displayName": "Virgil van Dijk",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "liverpool:virgil van dijk"
+    },
+    {
+      "id": "player-research-184e435cdce88f94",
+      "displayName": "Lautaro Martínez",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "internazionale:lautaro martinez"
+    },
+    {
+      "id": "player-research-b1ca55c0047d53f1",
+      "displayName": "Marcus Thuram",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "internazionale:marcus thuram"
+    },
+    {
+      "id": "player-research-774ed73af50710ec",
+      "displayName": "Declan Rice",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "arsenal:declan rice"
+    },
+    {
+      "id": "player-research-9ecb7a3ff01fb198",
+      "displayName": "Marcos Llorente",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "atletico-madrid:marcos llorente"
+    },
+    {
+      "id": "player-research-f602bc0e52e9f9e5",
+      "displayName": "Serhou Guirassy",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "borussia-dortmund:serhou guirassy"
+    },
+    {
+      "id": "player-research-a792220ee3e2ff99",
+      "displayName": "Ollie Watkins",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "aston-villa:ollie watkins"
+    },
+    {
+      "id": "player-research-426184c909284bbe",
+      "displayName": "Morgan Rogers",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "aston-villa:morgan rogers"
+    },
+    {
+      "id": "player-research-79dc13f9bccd21de",
+      "displayName": "Samu",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "fc-porto:samu"
+    },
+    {
+      "id": "player-research-92cc1b27a036ad1f",
+      "displayName": "Bruno Fernandes",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "manchester-united:bruno fernandes"
+    },
+    {
+      "id": "player-research-6ed21d8ae727ce42",
+      "displayName": "Diogo Dalot",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "manchester-united:diogo dalot"
+    },
+    {
+      "id": "player-research-f871c77025f6d4cb",
+      "displayName": "Antony",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "real-betis:antony"
+    },
+    {
+      "id": "player-research-bcde1b285576dcd5",
+      "displayName": "Jerdy Schouten",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "psv-eindhoven:jerdy schouten"
+    },
+    {
+      "id": "player-research-be81cfb38920ecaa",
+      "displayName": "Anis Hadj Moussa",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "feyenoord:anis hadj moussa"
+    },
+    {
+      "id": "player-research-514dfda03a971dcf",
+      "displayName": "Nacho Ferri",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "feyenoord:nacho ferri"
+    },
+    {
+      "id": "player-research-5d3445410c00533c",
+      "displayName": "Patrick Berg",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "bodo-glimt:patrick berg"
+    },
+    {
+      "id": "player-research-21b022df2e717445",
+      "displayName": "Scott McTominay",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "napoli:scott mctominay"
+    },
+    {
+      "id": "player-research-9d9015520a6e09e8",
+      "displayName": "Alisson Santos",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "napoli:alisson santos"
+    },
+    {
+      "id": "player-research-1a15a1dcea35bd34",
+      "displayName": "N’Golo Kanté",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "fenerbahce:n’golo kante"
+    },
+    {
+      "id": "player-research-8e90deaa6b667609",
+      "displayName": "Romelu Lukaku",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "fenerbahce:romelu lukaku"
+    },
+    {
+      "id": "player-research-1359ea2473a0d262",
+      "displayName": "Newertton",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "shakhtar-donetsk:newertton"
+    },
+    {
+      "id": "player-research-74077374d1b4f59e",
+      "displayName": "Victor Osimhen",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "galatasaray:victor osimhen"
+    },
+    {
+      "id": "player-research-10b993f062ce1ca9",
+      "displayName": "Lesley Ugochukwu",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "galatasaray:lesley ugochukwu"
+    },
+    {
+      "id": "player-research-e93ef1bfb2053ad2",
+      "displayName": "Andraž Šporar",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "slovan-bratislava:andraz sporar"
+    },
+    {
+      "id": "player-research-2455395677d051e5",
+      "displayName": "Nino Marcelli",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "slovan-bratislava:nino marcelli"
+    },
+    {
+      "id": "player-research-8e303575b0e27f85",
+      "displayName": "Jamie Leweling",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "vfb-stuttgart:jamie leweling"
+    },
+    {
+      "id": "player-research-c6e00d4eba1e7e3b",
+      "displayName": "Luka Jović",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "aek-athens:luka jovic"
+    },
+    {
+      "id": "player-research-db476c51456f25d9",
+      "displayName": "Oleksandr Zubkov",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "aek-athens:oleksandr zubkov"
+    },
+    {
+      "id": "player-research-0bf4e47ecbee3222",
+      "displayName": "Zlatko Tripić",
+      "aliases": [],
+      "birthDate": null,
+      "externalIds": [],
+      "identityStatus": "research-seed",
+      "seedKey": "viking:zlatko tripic"
+    }
+  ],
+  "memberships": [],
+  "observations": [
+    {
+      "id": "historical:paris-saint-germain:1",
+      "playerId": "player-research-ad268b91231684fe",
+      "teamId": "paris-saint-germain",
+      "period": "2024/25 · 决赛",
+      "role": "该场前场压迫的发起者",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:paris-saint-germain:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:bayern-munich:1",
+      "playerId": "player-research-5fac59f69bf306c6",
+      "teamId": "bayern-munich",
+      "period": "2025/26 · 四分之一决赛",
+      "role": "来源展示其在流动进攻中的受益位置",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:bayern-munich:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:real-madrid:1",
+      "playerId": "player-research-e97def5ecbb7e58a",
+      "teamId": "real-madrid",
+      "period": "2024/25 · 对曼城",
+      "role": "来源分析其弧线跑位及身后接应",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:real-madrid:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:real-madrid:2",
+      "playerId": "player-research-5a2205e8eb1fe63d",
+      "teamId": "real-madrid",
+      "period": "2024/25 · 对曼城",
+      "role": "来源展示线间接球后连接进攻",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:real-madrid:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:liverpool:1",
+      "playerId": "player-research-cc0d50cbccf09691",
+      "teamId": "liverpool",
+      "period": "2025/26 · 对马竞",
+      "role": "该场禁区防守和争顶的重要参与者",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:liverpool:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:internazionale:1",
+      "playerId": "player-research-184e435cdce88f94",
+      "teamId": "internazionale",
+      "period": "2025/26 · 对阿森纳",
+      "role": "来源记录其回接并连接搭档",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:internazionale:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:internazionale:2",
+      "playerId": "player-research-b1ca55c0047d53f1",
+      "teamId": "internazionale",
+      "period": "2025/26 · 对阿森纳",
+      "role": "来源展示其与搭档的身后和背身配合",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:internazionale:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:arsenal:1",
+      "playerId": "player-research-774ed73af50710ec",
+      "teamId": "arsenal",
+      "period": "2025/26 · 对国米",
+      "role": "该场替补后加强中卫身前和周围保护",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:arsenal:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:atletico-madrid:1",
+      "playerId": "player-research-9ecb7a3ff01fb198",
+      "teamId": "atletico-madrid",
+      "period": "2024/25 · 对皇马",
+      "role": "该场右侧边路防守协作参与者",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:atletico-madrid:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:borussia-dortmund:1",
+      "playerId": "player-research-f602bc0e52e9f9e5",
+      "teamId": "borussia-dortmund",
+      "period": "2025/26 · 对亚特兰大",
+      "role": "来源展示其禁区接应与进攻参与",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:borussia-dortmund:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:aston-villa:1",
+      "playerId": "player-research-a792220ee3e2ff99",
+      "teamId": "aston-villa",
+      "period": "2025/26 · 对里尔",
+      "role": "来源分析其反复威胁身后空间",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:aston-villa:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:aston-villa:2",
+      "playerId": "player-research-426184c909284bbe",
+      "teamId": "aston-villa",
+      "period": "2025/26 · 对里尔",
+      "role": "中场盒形结构中的接应参与者",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:aston-villa:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:fc-porto:1",
+      "playerId": "player-research-79dc13f9bccd21de",
+      "teamId": "fc-porto",
+      "period": "2024/25 · 对罗马",
+      "role": "历史案例中的中锋牵制及纵深接应",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:fc-porto:s2"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:manchester-united:1",
+      "playerId": "player-research-92cc1b27a036ad1f",
+      "teamId": "manchester-united",
+      "period": "2024/25 · 对皇家社会",
+      "role": "该场连接攻防并参与中场平衡",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:manchester-united:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:manchester-united:2",
+      "playerId": "player-research-6ed21d8ae727ce42",
+      "teamId": "manchester-united",
+      "period": "2024/25 · 对皇家社会",
+      "role": "来源展示其越过防线的前插",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:manchester-united:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:real-betis:1",
+      "playerId": "player-research-f871c77025f6d4cb",
+      "teamId": "real-betis",
+      "period": "2025/26 · 对费耶诺德",
+      "role": "2026年1月案例中的射门与进攻连接者",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:real-betis:s2"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:psv-eindhoven:1",
+      "playerId": "player-research-bcde1b285576dcd5",
+      "teamId": "psv-eindhoven",
+      "period": "2025/26 · 对拜仁",
+      "role": "该场跟随回撤接球者的防守案例",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:psv-eindhoven:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:feyenoord:1",
+      "playerId": "player-research-be81cfb38920ecaa",
+      "teamId": "feyenoord",
+      "period": "2026/27 · 对科莫赛前",
+      "role": "赛前资料列出的边路攻击者",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:feyenoord:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:feyenoord:2",
+      "playerId": "player-research-514dfda03a971dcf",
+      "teamId": "feyenoord",
+      "period": "2026/27 · 对科莫赛前",
+      "role": "赛前资料列出的中锋",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:feyenoord:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:bodo-glimt:1",
+      "playerId": "player-research-5d3445410c00533c",
+      "teamId": "bodo-glimt",
+      "period": "2024/25 · 对拉齐奥",
+      "role": "后腰接应、出球及保护的关键观察对象",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:bodo-glimt:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:napoli:1",
+      "playerId": "player-research-21b022df2e717445",
+      "teamId": "napoli",
+      "period": "2025/26 · 对克雷莫内塞",
+      "role": "来源分析从后向前进入空间的作用",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:napoli:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:napoli:2",
+      "playerId": "player-research-9d9015520a6e09e8",
+      "teamId": "napoli",
+      "period": "2025/26 · 对克雷莫内塞",
+      "role": "来源分析左侧拉宽与个人突破",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:napoli:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:fenerbahce:1",
+      "playerId": "player-research-1a15a1dcea35bd34",
+      "teamId": "fenerbahce",
+      "period": "2026/27 · 8月球队介绍",
+      "role": "来源强调中场破坏对方进攻并发起推进",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:fenerbahce:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:fenerbahce:2",
+      "playerId": "player-research-8e90deaa6b667609",
+      "teamId": "fenerbahce",
+      "period": "2026/27 · 8月球队介绍",
+      "role": "来源列为夏季锋线引援，未确认本场可出战",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:fenerbahce:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:shakhtar-donetsk:1",
+      "playerId": "player-research-1359ea2473a0d262",
+      "teamId": "shakhtar-donetsk",
+      "period": "2024/25 · 对Chornomorets",
+      "role": "该场获得机会并通过个人突破参与攻击",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:shakhtar-donetsk:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:galatasaray:1",
+      "playerId": "player-research-74077374d1b4f59e",
+      "teamId": "galatasaray",
+      "period": "2026/27人员介绍；2025/26案例",
+      "role": "本季资料列为关键前锋，历史比赛另有施压案例",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:galatasaray:s1",
+        "tactics:galatasaray:s2"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:galatasaray:2",
+      "playerId": "player-research-10b993f062ce1ca9",
+      "teamId": "galatasaray",
+      "period": "2026/27 · 8月球队介绍",
+      "role": "本季资料描述其中场身体对抗与传递特点",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:galatasaray:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:slovan-bratislava:1",
+      "playerId": "player-research-e93ef1bfb2053ad2",
+      "teamId": "slovan-bratislava",
+      "period": "2026/27 · 8月球队介绍",
+      "role": "来源列为队长和关键中锋",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:slovan-bratislava:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:slovan-bratislava:2",
+      "playerId": "player-research-2455395677d051e5",
+      "teamId": "slovan-bratislava",
+      "period": "2026/27 · 8月球队介绍",
+      "role": "来源列为值得观察的边锋",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:slovan-bratislava:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:vfb-stuttgart:1",
+      "playerId": "player-research-8e303575b0e27f85",
+      "teamId": "vfb-stuttgart",
+      "period": "2025/26 · 对凯尔特人",
+      "role": "来源展示球权转换后的攻击参与",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:vfb-stuttgart:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:aek-athens:1",
+      "playerId": "player-research-c6e00d4eba1e7e3b",
+      "teamId": "aek-athens",
+      "period": "2026/27 · 8月球队介绍",
+      "role": "来源列为关键前锋，不能据此断言当前比赛必然首发",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:aek-athens:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:aek-athens:2",
+      "playerId": "player-research-db476c51456f25d9",
+      "teamId": "aek-athens",
+      "period": "2026/27 · 8月球队介绍",
+      "role": "来源列为有创造能力的边路引援",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:aek-athens:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    },
+    {
+      "id": "historical:viking:1",
+      "playerId": "player-research-0bf4e47ecbee3222",
+      "teamId": "viking",
+      "period": "2026/27 · 9月访谈",
+      "role": "来源中的队长和边路球员",
+      "observedAt": null,
+      "sourceIds": [
+        "tactics:viking:s1"
+      ],
+      "observationType": "historical-personnel-reference"
+    }
+  ],
+  "eligibility": [],
+  "availability": []
+}

@@ -37,6 +37,7 @@
     container.querySelector('.prediction-add').onclick=()=>{const current=collectPredictionRows(container);if(current.length>=5){toast('最多保存5条预测');return}mountPredictionEditor(container,key,home,away,[...current,emptyPrediction()])};
     container.querySelectorAll('.prediction-remove').forEach(btn=>btn.onclick=()=>{const current=collectPredictionRows(container);current.splice(Number(btn.dataset.remove),1);mountPredictionEditor(container,key,home,away,current.length?current:[emptyPrediction()])});
     container.querySelector('.prediction-save').onclick=()=>{const saved=collectPredictionRows(container).filter(hasPrediction).slice(0,5);if(saved.length)predictions[key]=saved;else delete predictions[key];localStorage.setItem(predictionStorageKey,JSON.stringify(predictions));mountPredictionEditor(container,key,home,away,saved.length?saved:[emptyPrediction()]);renderSchedule();toast(saved.length?`已保存${saved.length}条预测`:'已清空本场预测')};
+    container.querySelector('.prediction-save').addEventListener('click',()=>window.dispatchEvent(new Event('ucl:prediction-saved')));
   };
   const canonical=n=>canonicalTeamName(n);
   const beijingDateTime=value=>{const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(value)).filter(part=>part.type!=='literal').map(part=>[part.type,part.value]));return {date:`${parts.year}-${parts.month}-${parts.day}`,time:`${parts.hour}:${parts.minute}`}};
@@ -174,7 +175,7 @@
     const btn=document.querySelector('#updateBtn');btn.classList.add('loading');btn.disabled=true;
     if(!seasonMeta.current){
       try{recalc();upcoming=archiveFixtures;renderSchedule();document.querySelector('#updatedAt').textContent=`${seasonMeta.label} · 完整赛季归档`;if(!silent)toast(`已重新载入 ${seasonMeta.label}：36队、144场联赛阶段比赛`);window.refreshUclAdvancement?.();window.refreshKnockoutView?.();window.refreshLeaguePhaseView?.()}finally{btn.classList.remove('loading');btn.disabled=false}
-      window.uclDataStatus.archive();return;
+      window.uclDataStatus.archive();window.dispatchEvent(new Event('ucl:data-updated'));return;
     }
     let official=null,seasonEvents=[],sourceErrors=[];
     window.uclDataStatus.begin('league');window.uclDataStatus.begin('qualifying');window.uclDataStatus.begin('knockout');
@@ -194,10 +195,11 @@
         const payloads=await Promise.all(responses.map(response=>response.json()));
         if(payloads.some(data=>!Array.isArray(data.events)))throw new Error('ESPN数据格式无效');
         seasonEvents=payloads.flatMap(data=>data.events||[]).filter(event=>{const date=event.date?.slice(0,10)||'';return date>=seasonMeta.start&&date<=seasonMeta.end});
-        const fresh=[],future=[],live=[],now=Date.now(),unknownLeagueNames=new Set();
+        const fresh=[],future=[],live=[],verifiedResults=[],now=Date.now(),unknownLeagueNames=new Set();
         seasonEvents.forEach(event=>{const competition=event.competitions?.[0],home=competition?.competitors?.find(team=>team.homeAway==='home'),away=competition?.competitors?.find(team=>team.homeAway==='away');if(!competition||!home||!away)return;const scheduled=beijingDateTime(event.date),date=scheduled.date,homeName=canonical(home.team.displayName),awayName=canonical(away.team.displayName),stage=window.uclResultStage(event.season?.slug);
           if(stage==='league'&&(!leagueTeamInfo(homeName)||!leagueTeamInfo(awayName))){if(!leagueTeamInfo(homeName))unknownLeagueNames.add(home.team.displayName);if(!leagueTeamInfo(awayName))unknownLeagueNames.add(away.team.displayName);return}
-          if(event.status?.type?.completed){let hh=0,ha=0;(competition.details||[]).filter(detail=>detail.scoringPlay&&Number(detail.clock.value)<=2700).forEach(detail=>detail.team.id===home.id?hh++:ha++);fresh.push([date,homeName,awayName,home.score+'-'+away.score,hh+'-'+ha,stage])}
+          if(event.status?.type?.completed){let hh=0,ha=0;(competition.details||[]).filter(detail=>detail.scoringPlay&&Number(detail.clock.value)<=2700).forEach(detail=>detail.team.id===home.id?hh++:ha++);fresh.push([date,homeName,awayName,home.score+'-'+away.score,hh+'-'+ha,stage]);
+            if(stage==='league'&&event.status.type.name==='STATUS_FULL_TIME'&&Date.parse(event.date)<now&&/^\d+$/.test(String(home.score))&&/^\d+$/.test(String(away.score))){verifiedResults.push({eventId:String(event.id||competition.id||''),fixture:{season:seasonMeta.key,date,home:homeName,away:awayName,kickoff:event.date,stage:'league'},goals:[Number(home.score),Number(away.score)],observedAt:new Date(now).toISOString(),status:'full-time',source:'espn-observed',sourceUrl:urls.find(url=>url.includes('dates='+event.date.slice(0,4))).split('&_=')[0]});}}
           else if(stage==='league'&&event.status?.type?.state==='in')live.push({date,time:scheduled.time,home:homeName,away:awayName,score:`${home.score||0}-${away.score||0}`,status:event.status.type.shortDetail||'进行中'});
           else if(new Date(event.date).getTime()>now)future.push({date,time:scheduled.time,home:homeName,away:awayName});
         });
@@ -205,12 +207,15 @@
         if(fresh.length)mergeMatchRows(fresh);
         if(seasonEvents.length){allUpcoming=future.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));liveLeagueFixtures=live}
         window.uclDataStatus.finish('league',{ok:seasonEvents.some(event=>event.season?.slug==='league-phase')&&!unknownLeagueNames.size,source:'ESPN Scoreboard API',warning:unknownLeagueNames.size?'有球队无法识别，部分数据未纳入':!seasonEvents.some(event=>event.season?.slug==='league-phase')?'接口未返回本赛季联赛阶段数据，保留已有结果':''});
+        window.uclLatestObservedResults=verifiedResults;
+        window.dispatchEvent(new CustomEvent('ucl:observed-results',{detail:{rows:verifiedResults,observedAt:new Date(now).toISOString()}}));
       }catch(error){sourceErrors.push('ESPN');window.uclDataStatus.finish('league',{warning:'联赛赛果获取或校验失败，保留已有数据'})}
       syncLeagueTeams(leagueTeams);recalc();refreshUpcoming();if(currentTeamName)openTeamLive(currentTeamName,false);
       const stamp=official?.sourceUpdatedAt?.slice(5)||'08-27';
       const confirmed=teams.length===36&&new Set(teams.map(team=>team[1])).size===36&&teams.every(team=>leagueTeamInfo(team[1]));
       window.refreshUclAdvancement?.();await window.refreshKnockoutView?.();window.refreshLeaguePhaseView?.();
       if(!silent)toast(window.uclDataStatus.summary());
+      window.dispatchEvent(new Event('ucl:data-updated'));
     }finally{btn.classList.remove('loading');btn.disabled=false}
   }
   document.querySelector('#updateBtn').onclick=()=>updateData(false);

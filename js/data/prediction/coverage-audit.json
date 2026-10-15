@@ -1,0 +1,794 @@
+{
+  "version": "prediction-coverage-1.0",
+  "auditedAt": "2026-10-15",
+  "scope": {
+    "season": "2026-27",
+    "currentClubs": 36,
+    "historicalSeasons": [
+      "2018-19",
+      "2019-20",
+      "2020-21",
+      "2021-22",
+      "2022-23",
+      "2023-24",
+      "2024-25",
+      "2025-26"
+    ],
+    "trainingStages": [
+      "group",
+      "league"
+    ],
+    "probabilityFeatureScope": "existing-local-score-training-only",
+    "auditedAtMeaning": "本地文件与来源元信息审计日期；不是数据发布日、球员状态核查日或历史赛前可用时间。",
+    "rawDataPublished": false,
+    "siteRosterRevalidated": false
+  },
+  "localDatasets": {
+    "scores": {
+      "status": "held",
+      "source": "OpenFootball",
+      "license": "CC0-1.0",
+      "matches": 1122,
+      "eligibleTrainingMatches": 864,
+      "excludedKnockoutMatches": 258,
+      "clubs": 87,
+      "eligibleTrainingClubs": 87,
+      "seasons": [
+        {
+          "season": "2018-19",
+          "matches": 125,
+          "eligibleTrainingMatches": 96
+        },
+        {
+          "season": "2019-20",
+          "matches": 119,
+          "eligibleTrainingMatches": 96
+        },
+        {
+          "season": "2020-21",
+          "matches": 125,
+          "eligibleTrainingMatches": 96
+        },
+        {
+          "season": "2021-22",
+          "matches": 125,
+          "eligibleTrainingMatches": 96
+        },
+        {
+          "season": "2022-23",
+          "matches": 125,
+          "eligibleTrainingMatches": 96
+        },
+        {
+          "season": "2023-24",
+          "matches": 125,
+          "eligibleTrainingMatches": 96
+        },
+        {
+          "season": "2024-25",
+          "matches": 189,
+          "eligibleTrainingMatches": 144
+        },
+        {
+          "season": "2025-26",
+          "matches": 189,
+          "eligibleTrainingMatches": 144
+        }
+      ],
+      "historicalPublishedAt": null,
+      "domesticMatches": 0,
+      "note": "1122场完整正赛比分与864场训练口径分开统计；未持有国内联赛训练输入。"
+    },
+    "statsbombSample": {
+      "status": "held-local-only",
+      "source": "StatsBomb Open Data",
+      "license": "provider-specific-terms-not-CC0",
+      "matches": 1,
+      "matchId": 22912,
+      "stage": "knockout",
+      "matchedScoreRows": 1,
+      "eligibleTrainingMatches": 0,
+      "teams": 2,
+      "listedPlayers": 46,
+      "starters": 22,
+      "listedNonStarters": 24,
+      "substitutions": 6,
+      "playersWithPositionIntervals": 28,
+      "normalizedPlayerMinutes": 0,
+      "events": 3165,
+      "shots": 30,
+      "shotsWithXg": 30,
+      "preMatchPublishedAt": null,
+      "note": "仅2018/19决赛样本；位置时段可重建分钟但未规范化，样本不参与现有训练或本次球员注册种子。"
+    },
+    "tacticalDossiers": {
+      "status": "held",
+      "clubs": 36,
+      "observations": 85,
+      "namedPlayerObservations": 33,
+      "clubsWithNamedPlayers": 23,
+      "note": "编辑观察与角色描述，不是完整名单、球员统计、当前注册或赛前伤停。"
+    },
+    "playerRegistry": {
+      "status": "historical-seed-only",
+      "players": 33,
+      "historicalObservations": 33,
+      "verifiedCurrentRosters": 0,
+      "trainingLineupMatches": 0,
+      "note": "历史人名种子与球队关联不证明当前转会、报名、可出场或首发；未就绪时计数为null而不是零条有效样本。"
+    }
+  },
+  "fields": [
+    {
+      "id": "score90",
+      "label": "90分钟比分",
+      "training": {
+        "present": 864,
+        "denominator": 864,
+        "ratio": 1,
+        "status": "present"
+      },
+      "sample": {
+        "present": 1,
+        "denominator": 1,
+        "ratio": 1,
+        "status": "present"
+      },
+      "note": "训练分母为小组/联赛阶段比赛，不含淘汰赛样本。"
+    },
+    {
+      "id": "calendarDate",
+      "label": "比赛日历日期",
+      "training": {
+        "present": 864,
+        "denominator": 864,
+        "ratio": 1,
+        "status": "present"
+      },
+      "sample": {
+        "present": 1,
+        "denominator": 1,
+        "ratio": 1,
+        "status": "present"
+      },
+      "note": "样本比赛日期来自本地比分档案与既有样本身份核查，不来自事件内时钟。"
+    },
+    {
+      "id": "kickoffUtc",
+      "label": "可信开球时间与时区",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 0,
+        "denominator": 1,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "note": "不能把比赛分钟、文件修改时间或日历日期当成UTC开球时间。"
+    },
+    {
+      "id": "startingXI",
+      "label": "双方完整首发",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 1,
+        "denominator": 1,
+        "ratio": 1,
+        "status": "present"
+      },
+      "note": "单场决赛的22名首发真实存在，但不属于864场训练比赛；历史球员观察不等于首发。"
+    },
+    {
+      "id": "bench",
+      "label": "双方比赛替补名单",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 1,
+        "denominator": 1,
+        "ratio": 1,
+        "status": "present"
+      },
+      "note": "样本有双方各23人比赛名单；名单中非首发人数不代表全部实际出场。"
+    },
+    {
+      "id": "substitutions",
+      "label": "换人事件",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 1,
+        "denominator": 1,
+        "ratio": 1,
+        "status": "present"
+      },
+      "note": "样本中确有6次换人；不能将未知换人填为零次。"
+    },
+    {
+      "id": "historicalMinutes",
+      "label": "已规范化逐人出场分钟",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 0,
+        "denominator": 1,
+        "ratio": 0,
+        "status": "reconstructable-not-normalized"
+      },
+      "note": "样本位置时段与换人事件可用于重建分钟，尚未完成统一分钟与补时口径；不得直接声称已有分钟训练集。"
+    },
+    {
+      "id": "events",
+      "label": "完整事件流",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 1,
+        "denominator": 1,
+        "ratio": 1,
+        "status": "present"
+      },
+      "note": "样本事件为赛后记录，不能当作同场赛前特征。"
+    },
+    {
+      "id": "shotXg",
+      "label": "射门级xG",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 1,
+        "denominator": 1,
+        "ratio": 1,
+        "status": "present"
+      },
+      "note": "仅30次射门的单场样本；不同供应商口径不可直接拼接。"
+    },
+    {
+      "id": "injuries",
+      "label": "带时间戳的伤停状态",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 0,
+        "denominator": 1,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "note": "未见可按预测时点还原的伤停资料；空白并非全员健康。"
+    },
+    {
+      "id": "suspensions",
+      "label": "带时间戳的停赛状态",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 0,
+        "denominator": 1,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "note": "比赛黄红牌记录不自动等于下一场停赛或报名资格。"
+    },
+    {
+      "id": "preMatchPublishedAt",
+      "label": "可证实的赛前信息发布时间",
+      "training": {
+        "present": 0,
+        "denominator": 864,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "sample": {
+        "present": 0,
+        "denominator": 1,
+        "ratio": 0,
+        "status": "missing"
+      },
+      "note": "模型构建日、文章复核日、抓取日、文件修改时间都不能代替历史赛前可用时间。"
+    },
+    {
+      "id": "sourceLineage",
+      "label": "比分来源追溯",
+      "training": {
+        "present": 864,
+        "denominator": 864,
+        "ratio": 1,
+        "status": "present"
+      },
+      "sample": {
+        "present": 1,
+        "denominator": 1,
+        "ratio": 1,
+        "status": "present"
+      },
+      "note": "比分逐行来源与哈希可追溯；这并不证明历史信息最早发布时间。"
+    }
+  ],
+  "clubCoverage": {
+    "denominator": 36,
+    "denominatorMeaning": "网站现有2026/27球队目录；未重新认证官方参赛名单",
+    "clubsWithScoreHistory": 30,
+    "clubsWithTrainingLineups": 0,
+    "clubsWithVerifiedCurrentRoster": 0,
+    "rows": [
+      {
+        "clubId": "paris-saint-germain",
+        "name": "Paris Saint-Germain",
+        "zh": "巴黎圣日耳曼",
+        "historicalScoreMatches": 93,
+        "eligibleTrainingScoreMatches": 52,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "bayern-munich",
+        "name": "Bayern Munich",
+        "zh": "拜仁慕尼黑",
+        "historicalScoreMatches": 89,
+        "eligibleTrainingScoreMatches": 52,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "real-madrid",
+        "name": "Real Madrid",
+        "zh": "皇家马德里",
+        "historicalScoreMatches": 94,
+        "eligibleTrainingScoreMatches": 52,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "liverpool",
+        "name": "Liverpool",
+        "zh": "利物浦",
+        "historicalScoreMatches": 74,
+        "eligibleTrainingScoreMatches": 46,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 1,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "internazionale",
+        "name": "Internazionale",
+        "zh": "国际米兰",
+        "historicalScoreMatches": 72,
+        "eligibleTrainingScoreMatches": 52,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "manchester-city",
+        "name": "Manchester City",
+        "zh": "曼城",
+        "historicalScoreMatches": 87,
+        "eligibleTrainingScoreMatches": 52,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "arsenal",
+        "name": "Arsenal",
+        "zh": "阿森纳",
+        "historicalScoreMatches": 39,
+        "eligibleTrainingScoreMatches": 22,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "barcelona",
+        "name": "Barcelona",
+        "zh": "巴塞罗那",
+        "historicalScoreMatches": 77,
+        "eligibleTrainingScoreMatches": 52,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "atletico-madrid",
+        "name": "Atlético Madrid",
+        "zh": "马德里竞技",
+        "historicalScoreMatches": 77,
+        "eligibleTrainingScoreMatches": 52,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "borussia-dortmund",
+        "name": "Borussia Dortmund",
+        "zh": "多特蒙德",
+        "historicalScoreMatches": 77,
+        "eligibleTrainingScoreMatches": 52,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "as-roma",
+        "name": "AS Roma",
+        "zh": "罗马",
+        "historicalScoreMatches": 8,
+        "eligibleTrainingScoreMatches": 6,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "sporting-cp",
+        "name": "Sporting CP",
+        "zh": "葡萄牙体育",
+        "historicalScoreMatches": 36,
+        "eligibleTrainingScoreMatches": 28,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "aston-villa",
+        "name": "Aston Villa",
+        "zh": "阿斯顿维拉",
+        "historicalScoreMatches": 12,
+        "eligibleTrainingScoreMatches": 8,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "fc-porto",
+        "name": "FC Porto",
+        "zh": "波尔图",
+        "historicalScoreMatches": 42,
+        "eligibleTrainingScoreMatches": 30,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "manchester-united",
+        "name": "Manchester United",
+        "zh": "曼联",
+        "historicalScoreMatches": 30,
+        "eligibleTrainingScoreMatches": 24,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "club-brugge",
+        "name": "Club Brugge",
+        "zh": "布鲁日",
+        "historicalScoreMatches": 54,
+        "eligibleTrainingScoreMatches": 46,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "real-betis",
+        "name": "Real Betis",
+        "zh": "皇家贝蒂斯",
+        "historicalScoreMatches": 0,
+        "eligibleTrainingScoreMatches": 0,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "psv-eindhoven",
+        "name": "PSV Eindhoven",
+        "zh": "埃因霍温",
+        "historicalScoreMatches": 34,
+        "eligibleTrainingScoreMatches": 28,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "feyenoord",
+        "name": "Feyenoord",
+        "zh": "费耶诺德",
+        "historicalScoreMatches": 18,
+        "eligibleTrainingScoreMatches": 14,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "lille",
+        "name": "Lille",
+        "zh": "里尔",
+        "historicalScoreMatches": 24,
+        "eligibleTrainingScoreMatches": 20,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "bodo-glimt",
+        "name": "Bodo/Glimt",
+        "zh": "博德闪耀",
+        "historicalScoreMatches": 12,
+        "eligibleTrainingScoreMatches": 8,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "napoli",
+        "name": "Napoli",
+        "zh": "那不勒斯",
+        "historicalScoreMatches": 40,
+        "eligibleTrainingScoreMatches": 32,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "rb-leipzig",
+        "name": "RB Leipzig",
+        "zh": "莱比锡",
+        "historicalScoreMatches": 48,
+        "eligibleTrainingScoreMatches": 38,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "villarreal",
+        "name": "Villarreal",
+        "zh": "比利亚雷亚尔",
+        "historicalScoreMatches": 20,
+        "eligibleTrainingScoreMatches": 14,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "fenerbahce",
+        "name": "Fenerbahce",
+        "zh": "费内巴切",
+        "historicalScoreMatches": 0,
+        "eligibleTrainingScoreMatches": 0,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "shakhtar-donetsk",
+        "name": "Shakhtar Donetsk",
+        "zh": "顿涅茨克矿工",
+        "historicalScoreMatches": 44,
+        "eligibleTrainingScoreMatches": 44,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "galatasaray",
+        "name": "Galatasaray",
+        "zh": "加拉塔萨雷",
+        "historicalScoreMatches": 30,
+        "eligibleTrainingScoreMatches": 26,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "slavia-prague",
+        "name": "Slavia Prague",
+        "zh": "布拉格斯拉维亚",
+        "historicalScoreMatches": 14,
+        "eligibleTrainingScoreMatches": 14,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "slovan-bratislava",
+        "name": "Slovan Bratislava",
+        "zh": "布拉迪斯拉发斯洛万",
+        "historicalScoreMatches": 8,
+        "eligibleTrainingScoreMatches": 8,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "vfb-stuttgart",
+        "name": "VfB Stuttgart",
+        "zh": "斯图加特",
+        "historicalScoreMatches": 8,
+        "eligibleTrainingScoreMatches": 8,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "aek-athens",
+        "name": "AEK Athens",
+        "zh": "雅典AEK",
+        "historicalScoreMatches": 6,
+        "eligibleTrainingScoreMatches": 6,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 2,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "lask",
+        "name": "LASK",
+        "zh": "林茨",
+        "historicalScoreMatches": 0,
+        "eligibleTrainingScoreMatches": 0,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "como",
+        "name": "Como",
+        "zh": "科莫",
+        "historicalScoreMatches": 0,
+        "eligibleTrainingScoreMatches": 0,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "lens",
+        "name": "Lens",
+        "zh": "朗斯",
+        "historicalScoreMatches": 6,
+        "eligibleTrainingScoreMatches": 6,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "viking",
+        "name": "Viking",
+        "zh": "维京",
+        "historicalScoreMatches": 0,
+        "eligibleTrainingScoreMatches": 0,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 1,
+        "verifiedCurrentRoster": false
+      },
+      {
+        "clubId": "sabah",
+        "name": "Sabah",
+        "zh": "萨巴赫",
+        "historicalScoreMatches": 0,
+        "eligibleTrainingScoreMatches": 0,
+        "eligibleTrainingLineups": 0,
+        "localEventSampleMatches": 0,
+        "historicalPlayerObservations": 0,
+        "verifiedCurrentRoster": false
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "openfootball",
+      "name": "OpenFootball Champions League",
+      "url": "https://github.com/openfootball/champions-league",
+      "termsUrl": "https://github.com/openfootball/champions-league/blob/master/LICENSE.md",
+      "status": "held-local-and-score-aggregates",
+      "checkedAt": "2026-10-15",
+      "publishedAt": null,
+      "license": "CC0-1.0",
+      "note": "上游标注公共领域CC0；本地八季输入不含连续阵容/事件/xG。许可不保证准确性或历史发布时间。"
+    },
+    {
+      "id": "statsbomb",
+      "name": "StatsBomb Open Data",
+      "url": "https://github.com/hudl/open-data",
+      "termsUrl": "https://github.com/hudl/open-data/blob/master/LICENSE.pdf",
+      "status": "single-local-sample-plus-candidate-expansion",
+      "checkedAt": "2026-10-15",
+      "publishedAt": null,
+      "license": "provider-specific-terms-not-CC0",
+      "note": "官方仅开放部分赛事，提供JSON比赛、阵容、事件和部分360数据。公开研究或分析须按其条款署名及使用标识；本次只核对元信息，不批量采集或发布样本派生分析。"
+    }
+  ],
+  "gates": {
+    "lineupProbabilityEnabled": false,
+    "opponentBaselinePromotion": false,
+    "reasons": [
+      "864场训练输入没有可用的首发与分钟特征；单场淘汰赛样本不能代替训练覆盖。",
+      "缺少赛前可用时间、完整当前报名与伤停数据，不能排除信息泄漏。",
+      "新对手强度模型尚无新的未来独立验证；历史开发回测不自动开启正式替换。"
+    ]
+  },
+  "nextActions": [
+    "优先确认覆盖目标比赛的许可、完整首发/替补/换人/分钟口径以及赛前可用时间。",
+    "对当前36队分别追踪名单覆盖；无资料球队保留未知，不以球星个案代替全队。",
+    "用角色、替代差距和历史常态阵容做保守的影子实验，暂不影响正式概率。",
+    "建立新的真实赛前快照与未来独立检验，达标后再决定是否启用数值阵容修正。"
+  ],
+  "limitations": [
+    "未下载新赛事批次、未购买或订阅数据、未运行受限爬虫。",
+    "字段覆盖的零表示未持有合格记录，不表示球员零分钟、零伤停或球队零能力。",
+    "仅导出计数、来源元信息和缺口；原始比分、事件、球员表现不进入本摘要。",
+    "已查看的2024/25、2025/26回测是开发对照，不能继续调参后冒充未触碰独立验证。"
+  ]
+}

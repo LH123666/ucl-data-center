@@ -1,0 +1,67 @@
+{
+  "version": "tactical-dossiers-1.0",
+  "reviewedAt": "2026-10-15",
+  "scope": "当前网站2026/27球队目录中的36队；逐队来源观察，不重新认证参赛名单",
+  "probabilityAdjustmentEnabled": false,
+  "notice": "资料核查日期不等于战术观察日期。历史球风不自动代表当前打法；对位分支为分析假设，不是比赛发生率或胜负规则。更新数据按钮只同步比赛，不自动重写人工研究档案。",
+  "dimensions": [
+    {"id":"buildUp","label":"后场组织","variants":"短传组织／诱压出球／直接长传／混合出球","observe":"记录对手压迫下的出球选择，而不是只看全场传球成功率。"},
+    {"id":"progression","label":"向前推进","variants":"耐心推进／快速纵向／带球突破／长传与二点","observe":"区分推进偏好、推进成功率与对手主动让出的空间。"},
+    {"id":"chanceCreation","label":"机会创造与宽度","variants":"中路／肋部／边路／倒三角／高球传中／远射","observe":"分别记录宽度来自边锋、边后卫还是翼卫，不能把所有传中视为相同威胁。"},
+    {"id":"defensiveBlock","label":"防守位置与结构","variants":"高位／中位／低位；紧凑／拉宽","observe":"区分主动回收和被迫退守；防线高度不等于逼抢强度。"},
+    {"id":"marking","label":"盯防机制","variants":"区域／人盯人／混合盯防","observe":"考察对方换位后是跟人、交接还是保护区域。"},
+    {"id":"pressing","label":"压迫机制","variants":"持续高压／触发式压迫／边路围抢／控制通道","observe":"需要观察启动信号与整体协同，不能仅凭抢断数断言高压。"},
+    {"id":"attackingTransition","label":"得球后选择","variants":"立即反击／先稳住球／重新组织","observe":"反击偏好不等于反击执行能力；检查第一脚出球和接应。"},
+    {"id":"defensiveTransition","label":"丢球后选择","variants":"就地反抢／延缓推进／快速回收","observe":"区分夺回成功与反抢失败后暴露空间两个分支。"},
+    {"id":"restDefence","label":"进攻时的后方保护","variants":"留守人数／中路保护／弱侧覆盖／门将扫荡","observe":"检查边后卫前插后谁保护身后，不以阵型名称代替实际结构。"},
+    {"id":"tempo","label":"节奏与风险","variants":"快慢节奏／投入人数／冒险传球／领先后控节奏","observe":"球权快速交换不等于高质量机会增加；比分状态要单独记录。"},
+    {"id":"setPieces","label":"定位球组织","variants":"短配合／空中争抢／二点进攻／相应防守","observe":"区分战术设计、获得机会次数和最终终结，不从一次进球推断长期优势。"}
+  ],
+  "styles": [
+    {"id":"high-press","label":"高位压迫","description":"主动在对手组织区施压；压迫位置、触发与执行能力需要分别核对。"},
+    {"id":"low-block","label":"低位密集防守","description":"主要在靠近本方禁区组织防守；可能主动选择，也可能是被迫后退。"},
+    {"id":"direct-play","label":"直接进攻／争二点","description":"较快越过中场或首层压迫，通过纵向传球、争顶和二点继续进攻。"},
+    {"id":"high-line","label":"高位防线","description":"防线位置靠前；与前场压迫、门将保护、身后空间联合观察。"},
+    {"id":"counter-attack","label":"快速反击","description":"夺回球权后尽快利用对手未组织好的空间，不等于整场放弃控球。"},
+    {"id":"possession","label":"控球组织","description":"通过传递和占位建立推进；控球量不能代替机会质量。"},
+    {"id":"wide-play","label":"边路进攻","description":"拉宽、套边、内切或转移后攻击边路；高球传中与倒三角须区分。"},
+    {"id":"man-marking","label":"人盯人压迫","description":"围绕对手接球人分配防守责任；换位、个人摆脱与区域保护可能改变效果。"}
+  ],
+  "formAxes": [
+    {"label":"主动权与空间","description":"单向围攻、轮流组织、中场争夺；同时记录双方主要占据区域。"},
+    {"label":"转换频率与速度","description":"记录球权变化、向前速度与反击机会，不直接等同总进球。"},
+    {"label":"机会数量与质量","description":"区分射门多与高质量机会多；比分不能反向充当场面标签。"},
+    {"label":"机会来源与分配","description":"阵地、反击、传中、二点或定位球；双方威胁与单向压制分别描述。"},
+    {"label":"状态切换","description":"领先、落后、换人、体能变化的条件分支；红牌只作为未必发生的条件情景。"}
+  ],
+  "safeguards": [
+    "战术意图、执行能力和实际比赛表现是三层不同信息。",
+    "高节奏不等于大球，低位防守不等于小球，控球多不等于占优。",
+    "同一种比赛形态保留主胜、平局、客胜；形式与结果有关联，但不是同一变量。",
+    "按A进攻对B防守及B进攻对A防守分别检查，不假设对位对称。",
+    "对位分支不标未经验证的百分比，也不调整V1比分、大小球或胜平负概率。",
+    "档案属于赛后资料研究，不能当成历史赛前已知信息参与回测。",
+    "没有观察资料的维度标为未覆盖，不为填满而编造评分、伤停或球员名单。"
+  ],
+  "mechanisms": [
+    {"id":"possession-low","title":"控球阵地 × 低位防守","styles":["possession","low-block"],"branches":[{"condition":"转移、肋部接应及禁区占位有效","form":"持续围攻能转化为禁区进入和较好机会。"},{"condition":"推进被限制且缺少纵深接应","form":"外围循环控球，射门可能来自低威胁位置。"}]},
+    {"id":"build-press","title":"后场组织 × 高位压迫","styles":["possession","high-press"],"branches":[{"condition":"压迫同步且接应被封锁","form":"组织方受困，高位夺回带来短距离攻击。"},{"condition":"出球越过首层压迫","form":"中后场出现空间或人数优势，推进突然提速。"}]},
+    {"id":"press-direct","title":"高位压迫 × 直接进攻","styles":["high-press","direct-play"],"branches":[{"condition":"长传接应及二点保护有效","form":"前场压迫被绕过，争顶和二点成为比赛主线。"},{"condition":"落点由压迫方控制","form":"直接出球难以形成持续进攻，球权反复回到组织区。"}]},
+    {"id":"press-press","title":"高位压迫 × 高位压迫","styles":["high-press"],"branches":[{"condition":"双方都能突破部分压迫","form":"球权频繁变化，出现连续攻防转换。"},{"condition":"双方组织和接应都被限制","form":"推进受到打断，转换多但有效机会未必多。"}]},
+    {"id":"possession-possession","title":"控球组织 × 控球组织","styles":["possession"],"branches":[{"condition":"双方都保持耐心与后方保护","form":"轮流组织、试探空间，节奏相对可控。"},{"condition":"一方提高压迫或冒险投入","form":"失球位置和反抢质量改变原有空间平衡。"}]},
+    {"id":"central-compact","title":"中路渗透 × 收窄防守","styles":["possession","low-block"],"branches":[{"condition":"中路接球点与转身空间被封锁","form":"球被导向边路或回传，外围流转增加。"},{"condition":"换位、第三人配合或个人摆脱成功","form":"局部防线被突破，机会数量不多也可能质量较高。"}]},
+    {"id":"wide-narrow","title":"边路拉宽 × 收窄防守","styles":["wide-play","low-block"],"branches":[{"condition":"强弱侧转移快于防守横移","form":"边路或后点出现可利用空间。"},{"condition":"防守移动同步且禁区保护完整","form":"传中获得但落点质量受限，可能频繁被解围。"}]},
+    {"id":"cross-aerial","title":"高球传中 × 禁区防空","styles":["wide-play","direct-play"],"branches":[{"condition":"传中路线重复且禁区接应不足","form":"传中数量高但直接威胁有限。"},{"condition":"改打倒三角、后点或第二落点","form":"机会来源变化，需要重新检查禁区保护。"}]},
+    {"id":"line-direct","title":"高位防线 × 纵深进攻","styles":["high-line","direct-play","counter-attack"],"branches":[{"condition":"出球者有时间且前锋跑动接应成功","form":"出现攻击身后空间的快速推进。"},{"condition":"前场压迫、越位控制与门将保护协同","form":"身后空间虽存在，但利用机会受到限制。"}]},
+    {"id":"counter-counter","title":"反击倾向 × 反击倾向","styles":["counter-attack"],"branches":[{"condition":"双方均不愿先投入组织","form":"主动推进量偏少，形成试探与僵持。"},{"condition":"早期进球或战术调整迫使一方压出","form":"原有角色改变，产生新的反击空间。"}]},
+    {"id":"counterpress-exit","title":"就地反抢 × 快速出压","styles":["high-press","counter-attack","possession"],"branches":[{"condition":"丢球区域有足够人数及后方保护","form":"球被迅速夺回，形成持续压制。"},{"condition":"夺回方第一、第二脚出球突破围抢","form":"反抢身后被打开，推进可能骤然加速。"}]},
+    {"id":"marking-rotation","title":"人盯人 × 流动换位","styles":["man-marking","possession"],"branches":[{"condition":"盯防交接及时且个人对抗有效","form":"接球与转身受限，可能转成长传和二点争夺。"},{"condition":"换位牵动盯防或个人摆脱成功","form":"空当被释放，局部推进空间增大。"}]},
+    {"id":"second-block","title":"长传二点 × 紧凑中场","styles":["direct-play","low-block"],"branches":[{"condition":"中场对落点保护同步","form":"比赛集中于争顶、二点及连续身体对抗。"},{"condition":"一方持续控制第二落点","form":"零散争夺转为一方持续推进。"}]},
+    {"id":"setpiece-transition","title":"定位球进攻 × 禁区保护","styles":["direct-play","wide-play"],"branches":[{"condition":"定位球设计获得接应与二点空间","form":"死球及二次进攻可能成为主要威胁来源。"},{"condition":"防守控制落点并找到前场出口","form":"定位球被化解后产生反击风险。"}]}
+  ],
+  "sources": [
+    {"title":"FIFA · 有球、无球与攻守转换核心原则","url":"https://www.fifatrainingcentre.com/en/game/game-analysis/landing-page-core-principles.php"},
+    {"title":"FIFA · 高位压迫与组织协同","url":"https://www.fifatrainingcentre.com/en/game/game-analysis/out-of-possession/high-press.php"},
+    {"title":"StatsBomb · 多维球风与实力偏差","url":"https://blogarchive.statsbomb.com/articles/soccer/modelling-team-playing-style/"}
+  ]
+}

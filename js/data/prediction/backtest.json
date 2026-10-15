@@ -1,0 +1,532 @@
+{
+  "schemaVersion": 1,
+  "version": "score-poisson-1.0",
+  "generatedAt": "2026-10-14T10:42:04.582Z",
+  "params": {
+    "halfLifeDays": 730,
+    "priorGames": 8
+  },
+  "validation": {
+    "season": "2023-24",
+    "candidates": [
+      {
+        "params": {
+          "halfLifeDays": 730,
+          "priorGames": 8
+        },
+        "validation": {
+          "matches": 96,
+          "logLoss": 0.9291614947528509,
+          "brier": 0.5468286860240575,
+          "accuracy": 0.5520833333333334,
+          "calibration": [
+            {
+              "lower": 0,
+              "upper": 0.1,
+              "count": 6,
+              "predicted": 0.07909180312969727,
+              "observed": 0
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 39,
+              "predicted": 0.16514393032931135,
+              "observed": 0.07692307692307693
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 108,
+              "predicted": 0.24092572240647175,
+              "observed": 0.24074074074074073
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 53,
+              "predicted": 0.3487696683127288,
+              "observed": 0.32075471698113206
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 32,
+              "predicted": 0.4420563776525938,
+              "observed": 0.4375
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 28,
+              "predicted": 0.5423206954754118,
+              "observed": 0.5714285714285714
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 14,
+              "predicted": 0.6459224619697768,
+              "observed": 0.9285714285714286
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 6,
+              "predicted": 0.75663907672843,
+              "observed": 1
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 2,
+              "predicted": 0.8332664858815506,
+              "observed": 0.5
+            }
+          ]
+        }
+      },
+      {
+        "params": {
+          "halfLifeDays": 730,
+          "priorGames": 16
+        },
+        "validation": {
+          "matches": 96,
+          "logLoss": 0.9505046531098321,
+          "brier": 0.5612690168293981,
+          "accuracy": 0.5833333333333334,
+          "calibration": [
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 22,
+              "predicted": 0.16986482641938006,
+              "observed": 0.045454545454545456
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 122,
+              "predicted": 0.24283369401965943,
+              "observed": 0.22131147540983606
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 58,
+              "predicted": 0.3440616958047517,
+              "observed": 0.3103448275862069
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 54,
+              "predicted": 0.44455367654359046,
+              "observed": 0.48148148148148145
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 22,
+              "predicted": 0.5464412891623464,
+              "observed": 0.6818181818181818
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 8,
+              "predicted": 0.645512734594581,
+              "observed": 1
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 2,
+              "predicted": 0.7449880100087081,
+              "observed": 0.5
+            }
+          ]
+        }
+      },
+      {
+        "params": {
+          "halfLifeDays": 730,
+          "priorGames": 24
+        },
+        "validation": {
+          "matches": 96,
+          "logLoss": 0.9669475639810782,
+          "brier": 0.5730182722761556,
+          "accuracy": 0.5833333333333334,
+          "calibration": [
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 11,
+              "predicted": 0.17794889401628497,
+              "observed": 0.09090909090909091
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 123,
+              "predicted": 0.2417628249784701,
+              "observed": 0.18699186991869918
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 67,
+              "predicted": 0.3428874437976071,
+              "observed": 0.3283582089552239
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 63,
+              "predicted": 0.4405958142437911,
+              "observed": 0.47619047619047616
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 19,
+              "predicted": 0.5438366730004658,
+              "observed": 0.8421052631578947
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 5,
+              "predicted": 0.6483685749323375,
+              "observed": 0.8
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "evaluation": {
+    "seasons": [
+      "2024-25",
+      "2025-26"
+    ],
+    "model": {
+      "matches": 288,
+      "logLoss": 0.9249723750491685,
+      "brier": 0.5442448459628334,
+      "accuracy": 0.5868055555555556,
+      "calibration": [
+        {
+          "lower": 0,
+          "upper": 0.1,
+          "count": 10,
+          "predicted": 0.07535124757848514,
+          "observed": 0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 115,
+          "predicted": 0.16737394014694137,
+          "observed": 0.11304347826086956
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 352,
+          "predicted": 0.23889936460240113,
+          "observed": 0.20738636363636365
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 128,
+          "predicted": 0.3488582073639057,
+          "observed": 0.359375
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 114,
+          "predicted": 0.4546164283943116,
+          "observed": 0.4824561403508772
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 79,
+          "predicted": 0.5456362976587417,
+          "observed": 0.620253164556962
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 52,
+          "predicted": 0.6450947398702058,
+          "observed": 0.75
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 11,
+          "predicted": 0.7436833516781628,
+          "observed": 0.9090909090909091
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 3,
+          "predicted": 0.8650246103296865,
+          "observed": 1
+        }
+      ]
+    },
+    "pooled": {
+      "matches": 288,
+      "logLoss": 1.0156918020984549,
+      "brier": 0.612090374076379,
+      "accuracy": 0.5138888888888888,
+      "calibration": [
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 324,
+          "predicted": 0.23882744751231225,
+          "observed": 0.1728395061728395
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 252,
+          "predicted": 0.30696898786977256,
+          "observed": 0.3333333333333333
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 288,
+          "predicted": 0.46272125716259704,
+          "observed": 0.5138888888888888
+        }
+      ]
+    },
+    "logLossImprovement": 0.08931786872933001,
+    "brierImprovement": 0.11084233797324772
+  },
+  "bySeason": [
+    {
+      "season": "2024-25",
+      "model": {
+        "matches": 144,
+        "logLoss": 0.9143550501084106,
+        "brier": 0.537956680950342,
+        "accuracy": 0.5972222222222222,
+        "calibration": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 6,
+            "predicted": 0.07938586503750993,
+            "observed": 0
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 60,
+            "predicted": 0.16757650998696852,
+            "observed": 0.1
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 179,
+            "predicted": 0.23945580233771785,
+            "observed": 0.20670391061452514
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 56,
+            "predicted": 0.34805887418243203,
+            "observed": 0.375
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 52,
+            "predicted": 0.4560084294540246,
+            "observed": 0.5384615384615384
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 45,
+            "predicted": 0.5441208709698071,
+            "observed": 0.5333333333333333
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 26,
+            "predicted": 0.6455057326184352,
+            "observed": 0.8076923076923077
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 7,
+            "predicted": 0.7485059710461762,
+            "observed": 0.8571428571428571
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 1,
+            "predicted": 0.8946402672359671,
+            "observed": 1
+          }
+        ]
+      },
+      "pooled": {
+        "matches": 144,
+        "logLoss": 1.0025398019923495,
+        "brier": 0.6035136359242326,
+        "accuracy": 0.5347222222222222,
+        "calibration": [
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 144,
+            "predicted": 0.23413459884693433,
+            "observed": 0.125
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 144,
+            "predicted": 0.3101799216493729,
+            "observed": 0.3402777777777778
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 144,
+            "predicted": 0.45568547950369215,
+            "observed": 0.5347222222222222
+          }
+        ]
+      }
+    },
+    {
+      "season": "2025-26",
+      "model": {
+        "matches": 144,
+        "logLoss": 0.9355896999899276,
+        "brier": 0.5505330109753239,
+        "accuracy": 0.5763888888888888,
+        "calibration": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 4,
+            "predicted": 0.06929932138994795,
+            "observed": 0
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 55,
+            "predicted": 0.1671529548669118,
+            "observed": 0.12727272727272726
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 173,
+            "predicted": 0.23832362844851868,
+            "observed": 0.20809248554913296
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 72,
+            "predicted": 0.3494799109494961,
+            "observed": 0.3472222222222222
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 62,
+            "predicted": 0.4534489436345528,
+            "observed": 0.43548387096774194
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 34,
+            "predicted": 0.5476420094529203,
+            "observed": 0.7352941176470589
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 26,
+            "predicted": 0.6446837471219763,
+            "observed": 0.6923076923076923
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 4,
+            "predicted": 0.7352437677841391,
+            "observed": 1
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 2,
+            "predicted": 0.8502167818765463,
+            "observed": 1
+          }
+        ]
+      },
+      "pooled": {
+        "matches": 144,
+        "logLoss": 1.0288438022045623,
+        "brier": 0.6206671122285294,
+        "accuracy": 0.4930555555555556,
+        "calibration": [
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 180,
+            "predicted": 0.24258172644461465,
+            "observed": 0.2111111111111111
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 108,
+            "predicted": 0.302687742830305,
+            "observed": 0.32407407407407407
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 144,
+            "predicted": 0.4697570348215037,
+            "observed": 0.4930555555555556
+          }
+        ]
+      }
+    }
+  ],
+  "protocol": "Rolling predictions using strictly earlier calendar dates; parameters selected on 2023/24 only.",
+  "caveats": [
+    "Historical scores were downloaded after the matches; original publication timestamps are unavailable.",
+    "A chronological score reconstruction is not a historical saved live-prediction record.",
+    "The evaluation covers league phase only, not qualifying or knockout stages."
+  ]
+}

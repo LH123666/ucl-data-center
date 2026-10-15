@@ -1,0 +1,1896 @@
+[
+  {
+    "name": "Aston Villa",
+    "revision": "1.1",
+    "evidencePeriod": "2025/26 · 对里尔欧联十六强案例",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "来源观察 Unai Emery 在2026年3月的组织安排，不确认当前可用阵容。",
+    "summary": "中场接应、边路宽度和身后跑动提供多条推进路线。",
+    "traits": [
+      {
+        "id": "aston-villa:claim:1",
+        "dimension": "buildUp",
+        "label": "中场盒形接应",
+        "detail": "来源分析有球时4-2-2-2形成的中路接应关系。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对里尔欧联十六强案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-07-14",
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "aston-villa:claim:2",
+        "dimension": "chanceCreation",
+        "label": "中路与两侧共同展开",
+        "detail": "对手保护中路时，通过边路配合拉开防线。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对里尔欧联十六强案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-07-14",
+          "season": "2025-26",
+          "signals": [
+            "wide-play"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "aston-villa:claim:3",
+        "dimension": "progression",
+        "label": "可越过中场找身后",
+        "detail": "前锋持续跑动让长传也是推进选项。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对里尔欧联十六强案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-07-14",
+          "season": "2025-26",
+          "signals": [
+            "direct-play"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "两名线间接应者的转身",
+        "中锋的纵深牵制",
+        "边路传球与禁区人数"
+      ],
+      "observedPlayers": [
+        {
+          "name": "Ollie Watkins",
+          "role": "来源分析其反复威胁身后空间",
+          "period": "2025/26 · 对里尔",
+          "sourceIds": [
+            "s1"
+          ]
+        },
+        {
+          "name": "Morgan Rogers",
+          "role": "中场盒形结构中的接应参与者",
+          "period": "2025/26 · 对里尔",
+          "sourceIds": [
+            "s1"
+          ]
+        }
+      ]
+    },
+    "matchups": [
+      {
+        "opponentStyle": "low-block",
+        "mechanism": "对手收紧中路时能否转向边路再进入禁区",
+        "branches": [
+          {
+            "condition": "转移、肋部接应及禁区占位有效",
+            "form": "持续围攻能转化为禁区进入和较好机会。"
+          },
+          {
+            "condition": "推进被限制且缺少纵深接应",
+            "form": "外围循环控球，射门可能来自低威胁位置。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "high-line",
+        "mechanism": "中锋的身后跑动能否得到及时传球",
+        "branches": [
+          {
+            "condition": "出球者有时间且前锋跑动接应成功",
+            "form": "出现攻击身后空间的快速推进。"
+          },
+          {
+            "condition": "前场压迫、越位控制与门将保护协同",
+            "form": "身后空间虽存在，但利用机会受到限制。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "这场机会不多但展示多种推进方式；不能把阵型灵活直接等同进球多。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "UEFA · How box midfield gave Aston Villa the platform to penetrate Lille defence",
+        "url": "https://www.uefa.com/uefaeuropaleague/news/02a3-20291280a06c-c7f7e5e3f522-1000--europa-league-performance-insights-how-box-midfield-gave-a/",
+        "publishedAt": "2026-03-16",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "FC Porto",
+    "revision": "1.1",
+    "evidencePeriod": "2024/25 · 对罗马欧联附加赛案例",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "该场教练为 Martín Anselmi；这不确认2026/27任职，不能跨换帅直接套用。",
+    "summary": "通过直接传递和接应变化寻找逐人压迫中的空当。",
+    "traits": [
+      {
+        "id": "fc-porto:claim:1",
+        "dimension": "progression",
+        "label": "允许直接越过压迫",
+        "detail": "教练不以传球次数为目标，强调有效向前。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "intent",
+          "observedAt": null,
+          "period": "2024/25 · 对罗马欧联附加赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-04-15",
+          "season": "2024-25",
+          "signals": [
+            "direct-play"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "fc-porto:claim:2",
+        "dimension": "chanceCreation",
+        "label": "三人配合牵动盯防",
+        "detail": "无球移动与小范围组合被用于创造推进通道。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对罗马欧联附加赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-06-14",
+          "season": "2024-25",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "fc-porto:claim:3",
+        "dimension": "buildUp",
+        "label": "后卫向前寻找线间接应",
+        "detail": "接脚下和跑身后为后场出球提供不同路线。",
+        "sourceIds": [
+          "s2"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对罗马欧联附加赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-06-18",
+          "season": "2024-25",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "后卫的受压传球",
+        "中锋护球与牵制",
+        "翼卫的纵深接应"
+      ],
+      "observedPlayers": [
+        {
+          "name": "Samu",
+          "role": "历史案例中的中锋牵制及纵深接应",
+          "period": "2024/25 · 对罗马",
+          "sourceIds": [
+            "s2"
+          ]
+        }
+      ]
+    },
+    "matchups": [
+      {
+        "opponentStyle": "man-marking",
+        "mechanism": "接应移动能否让盯防者离开保护区域",
+        "branches": [
+          {
+            "condition": "盯防交接及时且个人对抗有效",
+            "form": "接球与转身受限，可能转成长传和二点争夺。"
+          },
+          {
+            "condition": "换位牵动盯防或个人摆脱成功",
+            "form": "空当被释放，局部推进空间增大。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "high-press",
+        "mechanism": "直接出球后的接应及二点能否维持进攻",
+        "branches": [
+          {
+            "condition": "长传接应及二点保护有效",
+            "form": "前场压迫被绕过，争顶和二点成为比赛主线。"
+          },
+          {
+            "condition": "落点由压迫方控制",
+            "form": "直接出球难以形成持续进攻，球权反复回到组织区。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "这是Anselmi时期的特定比赛，不以俱乐部名称代替对新教练实际打法的核查。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "UEFA · Porto and Roma’s game of cat and mouse",
+        "url": "https://www.uefa.com/uefaeuropaleague/news/0296-1d0e91717d28-5d9a3407e4ea-1000--uefa-europa-league-tactical-analysis-porto-and-roma-s-game-o/",
+        "publishedAt": "2025-02-14",
+        "accessedAt": "2026-10-15"
+      },
+      {
+        "id": "s2",
+        "title": "UEFA · Porto and Roma’s key men",
+        "url": "https://www.uefa.com/uefaeuropaleague/news/0296-1d165c35f536-c25a97cd18f6-1000--uefa-europa-league-performance-insights-porto-and-roma-s-ke/",
+        "publishedAt": "2025-02-18",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "Manchester United",
+    "revision": "1.1",
+    "evidencePeriod": "2024/25 · 对皇家社会欧联十六强案例",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "资料中的教练为 Ruben Amorim；旧赛季战术案例不是现任教练及阵容确认。",
+    "summary": "诱导对手前压后攻击身后，同时保持中场与防守块的平衡。",
+    "traits": [
+      {
+        "id": "manchester-united:claim:1",
+        "dimension": "progression",
+        "label": "长斜传寻找纵深跑动",
+        "detail": "来源展示后卫吸引对手后，把球送向前插接应者。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对皇家社会欧联十六强案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-07-05",
+          "season": "2024-25",
+          "signals": [
+            "direct-play"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "manchester-united:claim:2",
+        "dimension": "chanceCreation",
+        "label": "回接与向前跑动配合",
+        "detail": "前场回接牵动防守，其他球员攻击空当。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对皇家社会欧联十六强案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-07-05",
+          "season": "2024-25",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "manchester-united:claim:3",
+        "dimension": "defensiveBlock",
+        "label": "保持较均衡的防守块",
+        "detail": "允许对手部分后场组织，但限制其穿越防守。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对皇家社会欧联十六强案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-07-05",
+          "season": "2024-25",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "斜传的传球人与纵深接应",
+        "中场的空间保护",
+        "翼卫的前插和回收"
+      ],
+      "observedPlayers": [
+        {
+          "name": "Bruno Fernandes",
+          "role": "该场连接攻防并参与中场平衡",
+          "period": "2024/25 · 对皇家社会",
+          "sourceIds": [
+            "s1"
+          ]
+        },
+        {
+          "name": "Diogo Dalot",
+          "role": "来源展示其越过防线的前插",
+          "period": "2024/25 · 对皇家社会",
+          "sourceIds": [
+            "s1"
+          ]
+        }
+      ]
+    },
+    "matchups": [
+      {
+        "opponentStyle": "high-line",
+        "mechanism": "能否找到高防线身后的同步跑动",
+        "branches": [
+          {
+            "condition": "出球者有时间且前锋跑动接应成功",
+            "form": "出现攻击身后空间的快速推进。"
+          },
+          {
+            "condition": "前场压迫、越位控制与门将保护协同",
+            "form": "身后空间虽存在，但利用机会受到限制。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "high-press",
+        "mechanism": "出球被压迫时长传是否有可用落点",
+        "branches": [
+          {
+            "condition": "长传接应及二点保护有效",
+            "form": "前场压迫被绕过，争顶和二点成为比赛主线。"
+          },
+          {
+            "condition": "落点由压迫方控制",
+            "form": "直接出球难以形成持续进攻，球权反复回到组织区。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "比赛在对手扳平后发生变化，不能把前70分钟的有效策略扩展为整场或长期必然表现。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "UEFA · How Real Sociedad resisted Manchester United",
+        "url": "https://www.uefa.com/uefaeuropaleague/news/0297-1d38bcba5c10-fe3ac5f63a16-1000--uefa-europa-league-tactical-analysis-how-real-sociedad-r/",
+        "publishedAt": "2025-03-07",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "Club Brugge",
+    "revision": "1.1",
+    "evidencePeriod": "2025/26 · 对马竞淘汰赛附加赛案例",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "来源中的教练为 Ivan Leko；观察限于2026年2月的该组比赛。",
+    "summary": "前场多人压迫与逐人跟防明显，但压迫强度并不等于胜负优势。",
+    "traits": [
+      {
+        "id": "club-brugge:claim:1",
+        "dimension": "pressing",
+        "label": "多人高位施压",
+        "detail": "来源突出前场压迫的人数和强度。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对马竞淘汰赛附加赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-06-27",
+          "season": "2025-26",
+          "signals": [
+            "high-press"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "club-brugge:claim:2",
+        "dimension": "marking",
+        "label": "全场逐人参照",
+        "detail": "该场从4-3-3出发，以人对人的方式跟防。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对马竞淘汰赛附加赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-06-27",
+          "season": "2025-26",
+          "signals": [
+            "man-marking"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "club-brugge:claim:3",
+        "dimension": "tempo",
+        "label": "主动提高比赛强度",
+        "detail": "教练认可球队上半场的主动与强度，而非仅评价结果。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对马竞淘汰赛附加赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-06-27",
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "前场压迫同步性",
+        "中卫面对支点前锋的保护",
+        "定位球第一和第二落点"
+      ],
+      "observedPlayers": []
+    },
+    "matchups": [
+      {
+        "opponentStyle": "direct-play",
+        "mechanism": "对手越过高压寻找支点后谁保护二点",
+        "branches": [
+          {
+            "condition": "长传接应及二点保护有效",
+            "form": "前场压迫被绕过，争顶和二点成为比赛主线。"
+          },
+          {
+            "condition": "落点由压迫方控制",
+            "form": "直接出球难以形成持续进攻，球权反复回到组织区。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "possession",
+        "mechanism": "高位跟人能否限制对手自由接球",
+        "branches": [
+          {
+            "condition": "压迫同步且接应被封锁",
+            "form": "组织方受困，高位夺回带来短距离攻击。"
+          },
+          {
+            "condition": "出球越过首层压迫",
+            "form": "中后场出现空间或人数优势，推进突然提速。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "这是特定淘汰赛的策略，不能从高压意图推断每场能持续90分钟，也不能忽略定位球和前锋对位。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "UEFA · The details that made the difference for Atleti（包含布鲁日逐人高压）",
+        "url": "https://www.uefa.com/uefachampionsleague/news/02a2-2006ca3a0881-074629497ece-1000--champions-league-performance-insights-the-details-that-made-/",
+        "publishedAt": "2026-02-27",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "Real Betis",
+    "revision": "1.1",
+    "evidencePeriod": "2024/25及2025/26 · UEFA逐场技术观察",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "材料中的教练为 Manuel Pellegrini；不同赛季案例分开引用，不确认本季状态。",
+    "summary": "纵深接应和转换进攻之外，也有前场协同压迫与边路连接的案例。",
+    "traits": [
+      {
+        "id": "real-betis:claim:1",
+        "dimension": "attackingTransition",
+        "label": "利用转换攻击空间",
+        "detail": "对佛罗伦萨的分析强调转换与纵深。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对佛罗伦萨案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-08-30",
+          "season": "2024-25",
+          "signals": [
+            "counter-attack"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "real-betis:claim:2",
+        "dimension": "pressing",
+        "label": "前锋与中场共同施压",
+        "detail": "2026年1月对费耶诺德的分析展示整体前压。",
+        "sourceIds": [
+          "s2"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 2026年1月对费耶诺德案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-05-30",
+          "season": "2025-26",
+          "signals": [
+            "high-press"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "real-betis:claim:3",
+        "dimension": "chanceCreation",
+        "label": "线间接球后连接前场",
+        "detail": "2026年1月案例中，前场接应与跑动保持联系。",
+        "sourceIds": [
+          "s2"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 2026年1月对费耶诺德案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-05-30",
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "两翼与中锋的传跑连接",
+        "中场前压后的保护",
+        "线间接球后的处理"
+      ],
+      "observedPlayers": [
+        {
+          "name": "Antony",
+          "role": "2026年1月案例中的射门与进攻连接者",
+          "period": "2025/26 · 对费耶诺德",
+          "sourceIds": [
+            "s2"
+          ]
+        }
+      ]
+    },
+    "matchups": [
+      {
+        "opponentStyle": "high-line",
+        "mechanism": "纵深接应能否得到出球支持",
+        "branches": [
+          {
+            "condition": "出球者有时间且前锋跑动接应成功",
+            "form": "出现攻击身后空间的快速推进。"
+          },
+          {
+            "condition": "前场压迫、越位控制与门将保护协同",
+            "form": "身后空间虽存在，但利用机会受到限制。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "low-block",
+        "mechanism": "前场配合能否形成禁区内有效机会",
+        "branches": [
+          {
+            "condition": "转移、肋部接应及禁区占位有效",
+            "form": "持续围攻能转化为禁区进入和较好机会。"
+          },
+          {
+            "condition": "推进被限制且缺少纵深接应",
+            "form": "外围循环控球，射门可能来自低威胁位置。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "两篇材料来自不同对手；不能把某次远射或个人能力直接转换为长期大球倾向。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "UEFA · How Real Betis beat Fiorentina",
+        "url": "https://www.uefa.com/uefaconferenceleague/news/0299-1da976b7409d-0bab90537314-1000--uefa-conference-league-tactical-analysis-how-real-betis-/",
+        "publishedAt": "2025-05-02",
+        "accessedAt": "2026-10-15"
+      },
+      {
+        "id": "s2",
+        "title": "UEFA · Antony shines brightest as Real Betis progress",
+        "url": "https://www.uefa.com/uefaeuropaleague/news/02a1-1fce92892bb3-4c80c5448d18-1000--europa-league-tactical-analysis-antony-shines-brightest-as/",
+        "publishedAt": "2026-01-30",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "PSV Eindhoven",
+    "revision": "1.1",
+    "evidencePeriod": "2025/26 · 对拜仁联赛阶段案例",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "资料中的教练为 Peter Bosz；这里只观察2026年1月的对位。",
+    "summary": "逐人压迫把比赛带入高强度转换，需要同时观察回追与对手长传。",
+    "traits": [
+      {
+        "id": "psv-eindhoven:claim:1",
+        "dimension": "marking",
+        "label": "中卫也跟随接应者",
+        "detail": "来源展示后卫随对方回撤接球人前顶。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对拜仁联赛阶段案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-05-30",
+          "season": "2025-26",
+          "signals": [
+            "man-marking"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "psv-eindhoven:claim:2",
+        "dimension": "pressing",
+        "label": "高位逐人压迫",
+        "detail": "双方以一对一方式争夺球权。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对拜仁联赛阶段案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-05-30",
+          "season": "2025-26",
+          "signals": [
+            "high-press",
+            "man-marking"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "psv-eindhoven:claim:3",
+        "dimension": "tempo",
+        "label": "高强度转换",
+        "detail": "教练把该场描述为强度很高的转换比赛。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对拜仁联赛阶段案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-05-30",
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "中卫前顶后的身后保护",
+        "门将处理越顶传球",
+        "前场施压与中场回追"
+      ],
+      "observedPlayers": [
+        {
+          "name": "Jerdy Schouten",
+          "role": "该场跟随回撤接球者的防守案例",
+          "period": "2025/26 · 对拜仁",
+          "sourceIds": [
+            "s1"
+          ]
+        }
+      ]
+    },
+    "matchups": [
+      {
+        "opponentStyle": "direct-play",
+        "mechanism": "对方越顶出球是否绕过逐人压迫",
+        "branches": [
+          {
+            "condition": "长传接应及二点保护有效",
+            "form": "前场压迫被绕过，争顶和二点成为比赛主线。"
+          },
+          {
+            "condition": "落点由压迫方控制",
+            "form": "直接出球难以形成持续进攻，球权反复回到组织区。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "possession",
+        "mechanism": "换位是否牵动PSV的跟人结构",
+        "branches": [
+          {
+            "condition": "盯防交接及时且个人对抗有效",
+            "form": "接球与转身受限，可能转成长传和二点争夺。"
+          },
+          {
+            "condition": "换位牵动盯防或个人摆脱成功",
+            "form": "空当被释放，局部推进空间增大。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "这是双方共同选择逐人对抗的一场比赛；高强度转换不自动对应大球。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "UEFA · Finding solutions to man-marking",
+        "url": "https://www.uefa.com/uefachampionsleague/news/02a1-1fceb8b0716e-5ad137580ad0-1000--champions-league-performance-insights-finding-solutions-to-m/",
+        "publishedAt": "2026-01-30",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "Feyenoord",
+    "revision": "1.1",
+    "evidencePeriod": "2026/27 · 10月14日科莫赛前对手分析",
+    "currentSeasonVerified": true,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "科莫官网赛前资料把 Giovanni van Bronckhorst 列为主帅；这是对手视角，不是独立的教练任职审计。",
+    "summary": "本季对手分析强调控球、高压以及从两侧和纵深发起攻击。",
+    "traits": [
+      {
+        "id": "feyenoord:claim:1",
+        "dimension": "buildUp",
+        "label": "希望掌握球权",
+        "detail": "对手官网将控球作为该队组织意图之一。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "intent",
+          "observedAt": null,
+          "period": "2026/27 · 10月14日科莫赛前对手分析",
+          "reviewedAt": "2026-10-15",
+          "validUntil": null,
+          "season": "2026-27",
+          "signals": [
+            "possession"
+          ],
+          "applicability": "conditional",
+          "expiryBasis": "unknown"
+        }
+      },
+      {
+        "id": "feyenoord:claim:2",
+        "dimension": "pressing",
+        "label": "高位夺回球权",
+        "detail": "资料描述主动高压和快速争回球权。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "background",
+          "observedAt": null,
+          "period": "2026/27 · 10月14日科莫赛前对手分析",
+          "reviewedAt": "2026-10-15",
+          "validUntil": null,
+          "season": "2026-27",
+          "signals": [
+            "high-press"
+          ],
+          "applicability": "conditional",
+          "expiryBasis": "unknown"
+        }
+      },
+      {
+        "id": "feyenoord:claim:3",
+        "dimension": "chanceCreation",
+        "label": "边路与直接跑空间并用",
+        "detail": "对手分析同时指出两翼威胁和直接纵深跑动。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "background",
+          "observedAt": null,
+          "period": "2026/27 · 10月14日科莫赛前对手分析",
+          "reviewedAt": "2026-10-15",
+          "validUntil": null,
+          "season": "2026-27",
+          "signals": [
+            "wide-play"
+          ],
+          "applicability": "conditional",
+          "expiryBasis": "unknown"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "中场的节奏组织",
+        "边锋与中锋的联系",
+        "前压后的后方保护"
+      ],
+      "observedPlayers": [
+        {
+          "name": "Anis Hadj Moussa",
+          "role": "赛前资料列出的边路攻击者",
+          "period": "2026/27 · 对科莫赛前",
+          "sourceIds": [
+            "s1"
+          ]
+        },
+        {
+          "name": "Nacho Ferri",
+          "role": "赛前资料列出的中锋",
+          "period": "2026/27 · 对科莫赛前",
+          "sourceIds": [
+            "s1"
+          ]
+        }
+      ]
+    },
+    "matchups": [
+      {
+        "opponentStyle": "high-press",
+        "mechanism": "双方都前压时比赛是否持续转换",
+        "branches": [
+          {
+            "condition": "双方都能突破部分压迫",
+            "form": "球权频繁变化，出现连续攻防转换。"
+          },
+          {
+            "condition": "双方组织和接应都被限制",
+            "form": "推进受到打断，转换多但有效机会未必多。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "low-block",
+        "mechanism": "控球和边路推进能否移动密集防线",
+        "branches": [
+          {
+            "condition": "强弱侧转移快于防守横移",
+            "form": "边路或后点出现可利用空间。"
+          },
+          {
+            "condition": "防守移动同步且禁区保护完整",
+            "form": "传中获得但落点质量受限，可能频繁被解围。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "主要证据来自对手的赛前报道，未用事件数据验证压迫频率；不能据此确认实际首发。",
+      "本季资料仅代表来源发表时的观察，不能据此确认比赛当天打法或首发。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "Como 1907官方 · Match Preview: Feyenoord v Como",
+        "url": "https://comofootball.com/en/match-preview-feyenoord-v-como-1907/",
+        "publishedAt": null,
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "Lille",
+    "revision": "1.1",
+    "evidencePeriod": "2025/26 · 对维拉欧联十六强案例",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "所用材料主要分析维拉如何面对里尔；没有据此确认里尔当前主帅。",
+    "summary": "当前证据聚焦保护中路时的防守结构，进攻画像仍待补充。",
+    "traits": [
+      {
+        "id": "lille:claim:1",
+        "dimension": "defensiveBlock",
+        "label": "4-4-2防守参照",
+        "detail": "来源以里尔4-4-2作为维拉组织的对手结构。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对维拉欧联十六强案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-07-14",
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "lille:claim:2",
+        "dimension": "defensiveBlock",
+        "label": "低位阶段保护中路",
+        "detail": "对中路的保护使维拉尝试转向边路。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对维拉欧联十六强案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-07-14",
+          "season": "2025-26",
+          "signals": [
+            "low-block"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "中场横向移动",
+        "边路协防",
+        "中卫对纵深跑动的交接"
+      ],
+      "observedPlayers": []
+    },
+    "matchups": [
+      {
+        "opponentStyle": "wide-play",
+        "mechanism": "收紧中路后如何处理边路转移",
+        "branches": [
+          {
+            "condition": "强弱侧转移快于防守横移",
+            "form": "边路或后点出现可利用空间。"
+          },
+          {
+            "condition": "防守移动同步且禁区保护完整",
+            "form": "传中获得但落点质量受限，可能频繁被解围。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "direct-play",
+        "mechanism": "紧凑结构怎样应对越顶球与第二落点",
+        "branches": [
+          {
+            "condition": "中场对落点保护同步",
+            "form": "比赛集中于争顶、二点及连续身体对抗。"
+          },
+          {
+            "condition": "一方持续控制第二落点",
+            "form": "零散争夺转为一方持续推进。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "资料为对手视角且集中于防守阶段；不把里尔永久定义为低位球队。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "UEFA · How box midfield gave Aston Villa the platform to penetrate Lille defence（包含里尔结构）",
+        "url": "https://www.uefa.com/uefaeuropaleague/news/02a3-20291280a06c-c7f7e5e3f522-1000--europa-league-performance-insights-how-box-midfield-gave-a/",
+        "publishedAt": "2026-03-16",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "Bodo/Glimt",
+    "revision": "1.1",
+    "evidencePeriod": "2024/25 · 对拉齐奥欧联四分之一决赛案例",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "资料观察 Kjetil Knutsen 时期球队；不确认本季相同人员是否仍可出场。",
+    "summary": "后腰接应、耐心变换出球路线和反抢保护相互配合。",
+    "traits": [
+      {
+        "id": "bodo-glimt:claim:1",
+        "dimension": "buildUp",
+        "label": "后腰靠近中卫接应",
+        "detail": "后腰位置变化可让自身或中卫成为自由接球人。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对拉齐奥欧联四分之一决赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-08-09",
+          "season": "2024-25",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "bodo-glimt:claim:2",
+        "dimension": "progression",
+        "label": "耐心改变推进路线",
+        "detail": "可回传和转移，而不是每次都强行向前。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对拉齐奥欧联四分之一决赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-08-09",
+          "season": "2024-25",
+          "signals": [
+            "possession"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "bodo-glimt:claim:3",
+        "dimension": "defensiveTransition",
+        "label": "靠近球的反抢与跟跑",
+        "detail": "最近球员施压，其他人处理接应和跑动。",
+        "sourceIds": [
+          "s2"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对拉齐奥欧联四分之一决赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-08-12",
+          "season": "2024-25",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "bodo-glimt:claim:4",
+        "dimension": "restDefence",
+        "label": "进攻背后的保护结构",
+        "detail": "来源展示反抢时仍保留后方2-3保护。",
+        "sourceIds": [
+          "s2"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2024/25 · 对拉齐奥欧联四分之一决赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-08-12",
+          "season": "2024-25",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "后腰阅读空间",
+        "中卫前顶与保护分工",
+        "近距离配合和反抢"
+      ],
+      "observedPlayers": [
+        {
+          "name": "Patrick Berg",
+          "role": "后腰接应、出球及保护的关键观察对象",
+          "period": "2024/25 · 对拉齐奥",
+          "sourceIds": [
+            "s1"
+          ]
+        }
+      ]
+    },
+    "matchups": [
+      {
+        "opponentStyle": "man-marking",
+        "mechanism": "盯住后腰后中卫能否成为自由人",
+        "branches": [
+          {
+            "condition": "盯防交接及时且个人对抗有效",
+            "form": "接球与转身受限，可能转成长传和二点争夺。"
+          },
+          {
+            "condition": "换位牵动盯防或个人摆脱成功",
+            "form": "空当被释放，局部推进空间增大。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "counter-attack",
+        "mechanism": "反抢失败时后方结构能否延缓反击",
+        "branches": [
+          {
+            "condition": "丢球区域有足够人数及后方保护",
+            "form": "球被迅速夺回，形成持续压制。"
+          },
+          {
+            "condition": "夺回方第一、第二脚出球突破围抢",
+            "form": "反抢身后被打开，推进可能骤然加速。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "主场对拉齐奥的案例不能直接外推到所有客场或不同天气条件。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "UEFA · How Patrick Berg set the tone for Bodø/Glimt",
+        "url": "https://www.uefa.com/uefaeuropaleague/news/0298-1d7f1e769197-ff3c8d7f204a-1000--uefa-europa-league-tactical-analysis-how-berg-set-the-tone/",
+        "publishedAt": "2025-04-11",
+        "accessedAt": "2026-10-15"
+      },
+      {
+        "id": "s2",
+        "title": "UEFA · How Bodø/Glimt controlled the game in Lazio win",
+        "url": "https://www.uefa.com/uefaeuropaleague/news/0298-1d85459a6efb-99cb86f79928-1000--europa-league-performance-insights-how-bodo-glimt-control/",
+        "publishedAt": "2025-04-14",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "Napoli",
+    "revision": "1.1",
+    "evidencePeriod": "2025/26 · 对克雷莫内塞联赛案例",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "意甲官方分析 Antonio Conte 在2026年4月的中场调整；不是当前阵容确认。",
+    "summary": "通过中场起点调整、边路一对一和身后保护改变进攻空间。",
+    "traits": [
+      {
+        "id": "napoli:claim:1",
+        "dimension": "progression",
+        "label": "从较深位置向前进入空间",
+        "detail": "McTominay起点后移后，利用带球和无球向前跑动。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对克雷莫内塞联赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": null,
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "unknown"
+        }
+      },
+      {
+        "id": "napoli:claim:2",
+        "dimension": "chanceCreation",
+        "label": "拉开边路制造一对一",
+        "detail": "Alisson Santos在左侧拉开，让中路跑动与边路突破互相支持。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对克雷莫内塞联赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": null,
+          "season": "2025-26",
+          "signals": [
+            "wide-play"
+          ],
+          "applicability": "historical",
+          "expiryBasis": "unknown"
+        }
+      },
+      {
+        "id": "napoli:claim:3",
+        "dimension": "restDefence",
+        "label": "边路身后有人保护",
+        "detail": "来源展示Gutiérrez向中路靠拢，保护前方攻击者。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "observation",
+          "observedAt": null,
+          "period": "2025/26 · 对克雷莫内塞联赛案例",
+          "reviewedAt": "2026-10-15",
+          "validUntil": null,
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "unknown"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "中场后上插的时机",
+        "边锋一对一接应",
+        "边后卫与中场的保护"
+      ],
+      "observedPlayers": [
+        {
+          "name": "Scott McTominay",
+          "role": "来源分析从后向前进入空间的作用",
+          "period": "2025/26 · 对克雷莫内塞",
+          "sourceIds": [
+            "s1"
+          ]
+        },
+        {
+          "name": "Alisson Santos",
+          "role": "来源分析左侧拉宽与个人突破",
+          "period": "2025/26 · 对克雷莫内塞",
+          "sourceIds": [
+            "s1"
+          ]
+        }
+      ]
+    },
+    "matchups": [
+      {
+        "opponentStyle": "low-block",
+        "mechanism": "中场后上和拉宽能否打开收缩防线",
+        "branches": [
+          {
+            "condition": "中路接球点与转身空间被封锁",
+            "form": "球被导向边路或回传，外围流转增加。"
+          },
+          {
+            "condition": "换位、第三人配合或个人摆脱成功",
+            "form": "局部防线被突破，机会数量不多也可能质量较高。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "high-press",
+        "mechanism": "出球被限制时是否保留向前的空间接应",
+        "branches": [
+          {
+            "condition": "压迫同步且接应被封锁",
+            "form": "组织方受困，高位夺回带来短距离攻击。"
+          },
+          {
+            "condition": "出球越过首层压迫",
+            "form": "中后场出现空间或人数优势，推进突然提速。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "这是特定人员调整的效果，不把某一中场位置固定为所有比赛的最优方案。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "Lega Serie A官方 · Il nuovo assetto del Napoli di Antonio Conte",
+        "url": "https://www.legaseriea.it/serie-a/news/il-nuovo-assetto-del-napoli-di-antonio-conte",
+        "publishedAt": null,
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "RB Leipzig",
+    "revision": "1.1",
+    "evidencePeriod": "2025/26 · 赛季初主帅理念访谈",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "Ole Werner在2025年8月解释新队理念；这是理念自述，不证明每场已成功落地。",
+    "summary": "主动争回球权、有结构地持球及丢球后的快速反应，是教练明确的目标。",
+    "traits": [
+      {
+        "id": "rb-leipzig:claim:1",
+        "dimension": "pressing",
+        "label": "主动向对手施压",
+        "detail": "教练强调不是被动等待对手把球交回。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "intent",
+          "observedAt": null,
+          "period": "2025/26 · 赛季初主帅理念访谈",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-10-21",
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "rb-leipzig:claim:2",
+        "dimension": "buildUp",
+        "label": "清晰结构创造空间",
+        "detail": "有球时希望按明确配合与空间分配组织。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "intent",
+          "observedAt": null,
+          "period": "2025/26 · 赛季初主帅理念访谈",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-10-21",
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      },
+      {
+        "id": "rb-leipzig:claim:3",
+        "dimension": "defensiveTransition",
+        "label": "丢球后迅速行动",
+        "detail": "强调丢球时的侵略性与重新转换。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "intent",
+          "observedAt": null,
+          "period": "2025/26 · 赛季初主帅理念访谈",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2025-10-21",
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "前场压迫协同",
+        "持球中场的位置联系",
+        "丢球后的保护与回追"
+      ],
+      "observedPlayers": []
+    },
+    "matchups": [
+      {
+        "opponentStyle": "possession",
+        "mechanism": "主动压迫能否维持整体结构",
+        "branches": [
+          {
+            "condition": "压迫同步且接应被封锁",
+            "form": "组织方受困，高位夺回带来短距离攻击。"
+          },
+          {
+            "condition": "出球越过首层压迫",
+            "form": "中后场出现空间或人数优势，推进突然提速。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "direct-play",
+        "mechanism": "对手越过压迫后如何处理落点",
+        "branches": [
+          {
+            "condition": "长传接应及二点保护有效",
+            "form": "前场压迫被绕过，争顶和二点成为比赛主线。"
+          },
+          {
+            "condition": "落点由压迫方控制",
+            "form": "直接出球难以形成持续进攻，球权反复回到组织区。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "新教练访谈还强调磨合需要时间；不把哲学宣言当成球队稳定执行能力。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "Bundesliga官方 · Ole Werner on taking the RB Leipzig job",
+        "url": "https://www.bundesliga.com/en/bundesliga/news/ole-werner-interview-rb-leipzig-coach-bayern-munich-opener-klopp-33597",
+        "publishedAt": "2025-08-22",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  },
+  {
+    "name": "Villarreal",
+    "revision": "1.1",
+    "evidencePeriod": "2025/26 · 对皇家社会赛后教练自评",
+    "currentSeasonVerified": false,
+    "sourcePolicy": {
+      "version": "1.1",
+      "currentSeason": "2026-27",
+      "currentApplicability": "conservative",
+      "reviewedAtMeaning": "元数据分类与编辑边界核查日；本次迁移未重新访问来源或重新验证球队事实。",
+      "publicationIsNotObservation": true,
+      "observedAtMeaning": "仅填写初版笔记或来源标题中已明确的比赛或观察日期；不以文章发表日期代替比赛日期。",
+      "expiryIsEditorialPolicy": true,
+      "expiryMeaning": "validUntil仅为编辑复核期限，不证明球队打法在此之前持续有效；不因迁移或阅读行为续期。",
+      "validityDays": {
+        "observation": 120,
+        "intent": 60,
+        "background": 180,
+        "hypothesis": 30
+      },
+      "currentSeasonVerifiedMeaning": "旧字段仅表示档案包含部分本季资料，不代表每条战术观察或比赛当天阵容已经验证。"
+    },
+    "changeLog": [
+      {
+        "revision": "1.1",
+        "date": "2026-10-15",
+        "type": "metadata-migration",
+        "summary": "沿用初版来源，仅逐条重分类、加入稳定标识和编辑复核期限；未重新核查事实，未加入新比赛观察。"
+      }
+    ],
+    "coachContext": "来源中的主帅为 Marcelino；未据此确认2026/27当前教练和阵容。",
+    "summary": "现有证据先记录对风险与决策的自评，不补写未经证实的完整球风。",
+    "traits": [
+      {
+        "id": "villarreal:claim:1",
+        "dimension": "tempo",
+        "label": "承认打法需要承担部分风险",
+        "detail": "教练强调在维持身份的同时管理风险与即时收益之间的选择。",
+        "sourceIds": [
+          "s1"
+        ],
+        "evidence": {
+          "kind": "intent",
+          "observedAt": null,
+          "period": "2025/26 · 对皇家社会赛后教练自评",
+          "reviewedAt": "2026-10-15",
+          "validUntil": "2026-01-29",
+          "season": "2025-26",
+          "signals": [],
+          "applicability": "historical",
+          "expiryBasis": "source-publication"
+        }
+      }
+    ],
+    "personnel": {
+      "status": "未接入实时首发、伤停与转会核对",
+      "watchRoles": [
+        "持球推进时的风险选择",
+        "中场丢球后的保护",
+        "领先后的场面控制"
+      ],
+      "observedPlayers": []
+    },
+    "matchups": [
+      {
+        "opponentStyle": "high-press",
+        "mechanism": "冒险出球能否越过压迫而不是制造近门丢球",
+        "branches": [
+          {
+            "condition": "压迫同步且接应被封锁",
+            "form": "组织方受困，高位夺回带来短距离攻击。"
+          },
+          {
+            "condition": "出球越过首层压迫",
+            "form": "中后场出现空间或人数优势，推进突然提速。"
+          }
+        ]
+      },
+      {
+        "opponentStyle": "counter-attack",
+        "mechanism": "主动投入后能否保护反击通道",
+        "branches": [
+          {
+            "condition": "出球者有时间且前锋跑动接应成功",
+            "form": "出现攻击身后空间的快速推进。"
+          },
+          {
+            "condition": "前场压迫、越位控制与门将保护协同",
+            "form": "身后空间虽存在，但利用机会受到限制。"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      "仅凭赛后风险自评不足以判断防线高度、固定阵型或大小球属性；相关维度保持未知。",
+      "历史观察不能自动套用到2026/27；换帅、转会及不同对手可能改变打法。",
+      "对位分支是条件式分析假设，尚未用比赛事件验证发生率，不改变V1预测概率。"
+    ],
+    "sources": [
+      {
+        "id": "s1",
+        "title": "Villarreal CF官方 · We have to congratulate the players",
+        "url": "https://villarrealcf.es/en/we-have-to-congratulate-the-players/",
+        "publishedAt": "2025-11-30",
+        "accessedAt": "2026-10-15"
+      }
+    ]
+  }
+]
