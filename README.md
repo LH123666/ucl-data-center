@@ -84,6 +84,7 @@ python -m http.server 8080
 - 新文件：`js/services/upset-badges.js`、`js/services/match-halftime.js`、`js/ui/results-heatmap.js`、`css/upset-badges.css`、`css/results-heatmap.css`；`index.html`载入新资源并给修改脚本加`20261021`版本；既有渲染模块接入统一计数。
 - 验证：`node --test tests/*.test.mjs`共114项通过；`node scripts/validate-season-pages.mjs <jsdom模块路径>`验证三赛季DOM及无当前接口污染。新增`tests/result-statistics.test.mjs`验证分母、分类穷尽、半场缺失、去重/更正、季节/阶段过滤、牛兔平衡、对比度和半场摄取。`node scripts/validate-result-statistics-browser.mjs <playwright模块路径> [网站URL]`使用系统Edge验证1440px/390px、三赛季的方格详情、球队标签、徽标、主导航/晋级图/预测页、刷新去重和比分更正；现季接口采用明确模拟数据，不代表生产数据源覆盖完整。原预测实验室浏览器回归也通过。
 - 跨电脑：先拉取完整提交再继续开发，不需要重新生成历史数据；截图写入已忽略的`research/ucl-history/result-statistics/`，私人记录与研究原文不上传。保留旧开发分支，从与原工作区文件树一致的远程`main`建立本次分支；发布仍沿用GitHub → Cloudflare Pages，无强推和部署配置迁移。
+- 线上复核补充：自动刷新重新绘制热力图时，保留方格、详情列表/关闭按钮及仍在列表内比赛的键盘焦点；补充三赛季DOM和真实浏览器的“焦点位于热力图时刷新”回归，避免网络时序导致关闭后焦点被再次渲染移走。
 
 ### 2026-10-15 · 球风档案、阵容基础与预测验证版本
 

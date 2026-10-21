@@ -34,6 +34,8 @@ for(const season of ['2026-27','2025-26','2024-25']){
     const button=w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`),expected=Number(button.dataset.count);
     button.click();assert.equal(w.document.querySelectorAll('#heatmapMatchDetails [data-heatmap-match]').length,expected);
     assert.equal(w.document.querySelectorAll('#heatmapMatchDetails .fixture-context').length,expected*2);
+    w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`).focus();run('renderResults()','refresh-with-keyboard-focus');assert.equal(w.document.activeElement,w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`));
+    w.document.querySelector('#heatmapMatchDetails').focus();run('renderResults()','refresh-detail-focus');assert.equal(w.document.activeElement.id,'heatmapMatchDetails');
     w.document.querySelector('[data-close-heatmap]').click();assert.equal(w.document.activeElement,w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`));
   }
   const resultCount=()=>w.document.querySelectorAll('#resultGrid .match').length;

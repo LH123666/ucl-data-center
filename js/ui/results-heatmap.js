@@ -113,6 +113,8 @@
   }
   function render(rows){
     latestRows=rows||[];const el=mount();if(!el)return;
+    const focused=root.document.activeElement,inside=el.contains(focused),trigger=inside&&focused.closest?.('[data-heatmap-select]'),row=inside&&focused.closest?.('[data-heatmap-match]');
+    const focusState=trigger?{kind:trigger.dataset.heatmapSelect,key:trigger.dataset.key}:row?{game:activeGames[Number(row.dataset.heatmapMatch)]}:inside&&focused.matches?.('[data-close-heatmap]')?{close:true}:inside&&focused.id==='heatmapMatchDetails'?{details:true}:null;
     const stats=summarize(latestRows,{fixtures:typeof uclLeaguePhaseSchedule==='undefined'?[]:uclLeaguePhaseSchedule.map((f,i)=>({date:f[0],home:f[1],away:f[2],matchday:Math.floor(i/18)+1})),canonicalize:typeof canonicalTeamName==='function'?canonicalTeamName:undefined,seasonKey:root.uclSeason?.key||'',matchday:selectedRound});
     const scope=selectedRound?`第${selectedRound}轮`:'全部轮次';
     el.querySelector('#heatmapSampleStatus').textContent=`${root.uclSeason?.label||''} · 联赛阶段 · ${scope} · 已获取${stats.total}场完赛样本${stats.latest?' · 最新赛果日期 '+stats.latest:''}${stats.invalidScores?' · '+stats.invalidScores+'场比分无效未纳入':''}。样本数不代表赛季赛果已完整更新。`;
@@ -124,6 +126,14 @@
       +panel('goals','总进球数','GOALS',stats.goals)+details('goals')
       +panel('half','半全场','HT / FT',stats.half,halfNote)+details('half')
       +(selectedCell?'':'<div id="heatmapMatchDetails" hidden></div>');
+    if(focusState){
+      let target;
+      if(focusState.kind)target=[...el.querySelectorAll('[data-heatmap-select]')].find(item=>item.dataset.heatmapSelect===focusState.kind&&item.dataset.key===focusState.key);
+      else if(focusState.close)target=el.querySelector('[data-close-heatmap]');
+      else if(focusState.game){const index=activeGames.findIndex(game=>game.home===focusState.game.home&&game.away===focusState.game.away);target=index>=0?el.querySelector(`[data-heatmap-match="${index}"]`):null;}
+      if(!target&&selectedCell)target=el.querySelector('#heatmapMatchDetails');
+      if(target&&!target.hidden)target.focus({preventScroll:true});
+    }
     return stats;
   }
   root.uclHeatmap={summarize,parseScore,tone,render};

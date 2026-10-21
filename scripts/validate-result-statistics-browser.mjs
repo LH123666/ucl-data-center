@@ -33,13 +33,14 @@ const base=process.argv[3]||process.env.UCL_STATS_QA_URL||'http://127.0.0.1:8086
     const button=page.locator(`[data-heatmap-select="${kind}"][data-key="${key}"]`),expected=Number(await button.getAttribute('data-count'));
     await button.focus();await page.keyboard.press('Enter');assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),expected);
     assert.equal(await button.getAttribute('aria-expanded'),'true');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+    await button.focus();await page.evaluate(()=>renderResults());assert.equal(await button.evaluate(el=>el===document.activeElement),true,'refresh retains keyboard focus');
     if(expected){
      assert.equal(await page.locator('#heatmapMatchDetails .fixture-context').count(),expected*2);
      await page.locator('#heatmapMatchDetails [data-heatmap-match]').first().click();await page.waitForSelector('#drawer.open');await page.locator('#close').click();await page.waitForSelector('#drawer:not(.open)');
      assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),expected);
     }
     if(season==='2025-26'&&kind==='goals'){await page.locator('#resultsHeatmap').screenshot({path:path.join(screenshotDir,`ucl-heatmap-${width}.png`)});await page.locator('#heatmapMatchDetails').screenshot({path:path.join(screenshotDir,`ucl-detail-${width}.png`)});}
-    await page.locator('#heatmapMatchDetails').focus();await page.keyboard.press('Escape');assert.equal(await button.evaluate(el=>el===document.activeElement),true);
+    await page.locator('#heatmapMatchDetails').focus();await page.keyboard.press('Escape');assert.equal(await button.evaluate(el=>el===document.activeElement),true,JSON.stringify({width,season,kind,key,active:await page.evaluate(()=>document.activeElement?.outerHTML?.slice(0,250)),detailsVisible:await page.locator('#heatmapMatchDetails').isVisible()}));
    }
    if(season==='2025-26')await page.locator('.table-card').screenshot({path:path.join(screenshotDir,`ucl-badges-${width}.png`)});
    await page.locator('#latestBtn').click();assert.equal(await page.locator('#resultsHeatmap').isVisible(),false);assert.ok(await page.locator('#resultGrid .upset-badge').count()>0);
