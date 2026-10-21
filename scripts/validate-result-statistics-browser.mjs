@@ -9,6 +9,7 @@ const base=process.argv[3]||process.env.UCL_STATS_QA_URL||'http://127.0.0.1:8086
 // Resolve the control and activeElement in the same browser turn. A locator can
 // retain a detached node if an automatic data refresh redraws between RPC calls.
 const waitForFocus=(page,kind,key)=>page.waitForFunction(([kind,key])=>{const el=document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`);return el&&el===document.activeElement;},[kind,key],{timeout:5000});
+const closeDrawer=async page=>{await page.locator('#close').click();await page.waitForFunction(()=>{const drawer=document.querySelector('#drawer'),overlay=document.querySelector('#overlay');return !drawer.classList.contains('open')&&drawer.getBoundingClientRect().left>=innerWidth-1&&Number(getComputedStyle(overlay).opacity)===0;});};
 (async()=>{
  const browser=await chromium.launch({headless:true,channel:'msedge'}),summary=[];
  try{
@@ -32,14 +33,25 @@ const waitForFocus=(page,kind,key)=>page.waitForFunction(([kind,key])=>{const el
    assert.equal(counts.bulls,counts.rabbits);assert.ok(counts.bulls>0);
    if(season!=='2026-27'){assert.equal(counts.total,144);assert.equal(counts.half,144);assert.equal(scoreCalls,0);}
    assert.ok(await page.locator('#standings .upset-badge').count()>0);assert.ok(await page.locator('.upset-legend').count()===1);
-   for(const[kind,key]of [['goals','7+'],['half','负胜']]){
+   assert.equal(await page.locator('[data-heatmap-select="score"]').count(),31);
+   for(const[kind,key]of [['score','2:1'],['score','胜其他'],['score','平其他'],['score','负其他'],['goals','7+'],['half','负胜']]){
     const button=page.locator(`[data-heatmap-select="${kind}"][data-key="${key}"]`),expected=Number(await button.getAttribute('data-count'));
     await button.focus();await page.keyboard.press('Enter');assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),expected);
+    if(!expected)assert.equal(await page.locator('.heatmap-matches-empty').count(),1);
+    if(kind==='score'){
+     assert.match(await page.locator('#heatmapMatchTitle').textContent(),new RegExp('比分 '+key));
+     if(!key.endsWith('其他'))assert.ok((await page.locator('.heatmap-match-score').allTextContents()).every(s=>s===key.replace(':','-')));
+     if(season==='2025-26'&&key==='负其他'){
+      assert.equal(expected,2);assert.deepEqual((await page.locator('.heatmap-match-score').allTextContents()).sort(),['2-7','3-4']);
+      const names=await page.locator('#heatmapMatchDetails').textContent();assert.match(names,/Olympiacos/);assert.match(names,/Bayer Leverkusen/);
+      await page.locator('#heatmapMatchDetails').screenshot({path:path.join(screenshotDir,`ucl-score-away-other-${width}.png`)});
+     }
+    }
     assert.equal(await button.getAttribute('aria-expanded'),'true');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
     await button.focus();await page.evaluate(()=>renderResults());await waitForFocus(page,kind,key);
     if(expected){
      assert.equal(await page.locator('#heatmapMatchDetails .fixture-context').count(),expected*2);
-     await page.locator('#heatmapMatchDetails [data-heatmap-match]').first().click();await page.waitForSelector('#drawer.open');await page.locator('#close').click();await page.waitForSelector('#drawer:not(.open)');
+     await page.locator('#heatmapMatchDetails [data-heatmap-match]').first().click();await page.waitForSelector('#drawer.open');await closeDrawer(page);
      assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),expected);
     }
     if(season==='2025-26'&&kind==='goals'){await page.locator('#resultsHeatmap').screenshot({path:path.join(screenshotDir,`ucl-heatmap-${width}.png`)});await page.locator('#heatmapMatchDetails').screenshot({path:path.join(screenshotDir,`ucl-detail-${width}.png`)});}
@@ -52,14 +64,16 @@ const waitForFocus=(page,kind,key)=>page.waitForFunction(([kind,key])=>{const el
    await page.locator('#predictorBtn').click();assert.equal(await page.locator('#resultsHeatmap').isVisible(),false);
    await page.locator('nav button').first().click();assert.equal(await page.locator('#resultsHeatmap').isVisible(),true);
    const team=await page.evaluate(()=>[...window.uclUpsets.refresh(matches)].find(([,x])=>x.bull>0)[0]);await page.evaluate(n=>window.openTeam(n),team);
-   assert.ok(await page.locator('.team-hero .upset-badge').count()>0);await page.locator('#close').click();
+   assert.ok(await page.locator('.team-hero .upset-badge').count()>0);await closeDrawer(page);
    if(season==='2026-27'){
-    const b=page.locator('[data-heatmap-select="goals"][data-key="7+"]');await page.locator('#heatmapRound').selectOption('0');await b.click();assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),1);
+    const b=page.locator('[data-heatmap-select="score"][data-key="2:5"]');await page.locator('#heatmapRound').selectOption('0');await b.click();assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),1);
     revision=1;await page.locator('#updateBtn').click();await page.waitForFunction(()=>!document.querySelector('#updateBtn').disabled);assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),0);
     assert.equal(await page.locator('#drawer').evaluate(el=>el.classList.contains('open')),false);assert.equal(await page.evaluate(()=>window.uclUpsets.get('Slovan Bratislava').bull),0);assert.equal(await page.evaluate(()=>window.uclUpsets.get('Paris Saint-Germain').rabbit),0);
     const n=await page.evaluate(()=>window.uclHeatmap.render(matches).total);await page.locator('#updateBtn').click();await page.waitForFunction(()=>!document.querySelector('#updateBtn').disabled);assert.equal(await page.evaluate(()=>window.uclHeatmap.render(matches).total),n);
    }else{
     await page.locator('#heatmapRound').selectOption('1');assert.match(await page.locator('#heatmapSampleStatus').textContent(),/已获取18场/);await page.locator('#updateBtn').click();await page.waitForFunction(()=>!document.querySelector('#updateBtn').disabled);assert.equal(await page.locator('#heatmapRound').inputValue(),'1');assert.equal(scoreCalls,0);
+    const filtered=page.locator('[data-heatmap-select="score"][data-key="2:1"]');await filtered.click();assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),Number(await filtered.getAttribute('data-count')));assert.match(await page.locator('#heatmapMatchDetails').textContent(),/第1轮/);
+    await filtered.click();assert.equal(await page.locator('#heatmapMatchDetails').isVisible(),false);await waitForFocus(page,'score','2:1');
    }
    assert.deepEqual(errors,[]);summary.push({width,season,...counts,errors:0});await page.close();
   }

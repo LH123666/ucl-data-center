@@ -30,10 +30,16 @@ for(const season of ['2026-27','2025-26','2024-25']){
   const tally=run('window.uclUpsets.refresh(matches)','upset-counts');
   assert.equal([...tally.values()].reduce((n,x)=>n+x.bull,0),[...tally.values()].reduce((n,x)=>n+x.rabbit,0));
   if(!w.uclSeason.current){assert.equal(distribution.total,144);assert.equal(distribution.half.total,144);assert.ok(w.document.querySelectorAll('#standings .upset-badge').length>0)}
-  for(const [kind,key] of [['goals','7+'],['half','负胜']]){
+  assert.equal(w.document.querySelectorAll('[data-heatmap-select="score"]').length,31);
+  for(const [kind,key] of [['score','2:1'],['score','胜其他'],['score','平其他'],['score','负其他'],['goals','7+'],['half','负胜']]){
     const button=w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`),expected=Number(button.dataset.count);
     button.click();assert.equal(w.document.querySelectorAll('#heatmapMatchDetails [data-heatmap-match]').length,expected);
     assert.equal(w.document.querySelectorAll('#heatmapMatchDetails .fixture-context').length,expected*2);
+    if(!expected)assert.ok(w.document.querySelector('.heatmap-matches-empty'));
+    if(kind==='score'){
+      assert.match(w.document.querySelector('#heatmapMatchTitle').textContent,new RegExp('比分 '+key));
+      assert.equal(w.document.querySelector('[data-heatmap-kind="score"]').nextElementSibling.id,'heatmapMatchDetails');
+    }
     w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`).focus();run('renderResults()','refresh-with-keyboard-focus');assert.equal(w.document.activeElement,w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`));
     w.document.querySelector('#heatmapMatchDetails').focus();run('renderResults()','refresh-detail-focus');assert.equal(w.document.activeElement.id,'heatmapMatchDetails');
     w.document.querySelector('[data-close-heatmap]').click();assert.equal(w.document.activeElement,w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`));

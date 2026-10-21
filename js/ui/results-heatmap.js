@@ -25,7 +25,7 @@
       if(!games.has(key)||game.date>=games.get(key).date)games.set(key,game);
     }
     const counts={had:bins(['主胜','平局','客胜']),score:bins(SCORE_KEYS),goals:bins(['0','1','2','3','4','5','6','7+']),half:bins(HALF_KEYS)};
-    const samples={goals:Object.fromEntries(Object.keys(counts.goals).map(key=>[key,[]])),half:Object.fromEntries(HALF_KEYS.map(key=>[key,[]]))};
+    const samples={score:Object.fromEntries(SCORE_KEYS.map(key=>[key,[]])),goals:Object.fromEntries(Object.keys(counts.goals).map(key=>[key,[]])),half:Object.fromEntries(HALF_KEYS.map(key=>[key,[]]))};
     let total=0,halfTotal=0,invalidScores=0,latest='';
     for(const game of games.values()){
       if(matchday&&game.matchday!==Number(matchday))continue;
@@ -34,17 +34,18 @@
       total++;if(game.date>latest)latest=game.date;
       const result=outcome(full),key=full.join(':');
       counts.had[{胜:'主胜',平:'平局',负:'客胜'}[result]]++;
-      counts.score[Object.hasOwn(counts.score,key)?key:result+'其他']++;
+      const scoreKey=Object.hasOwn(counts.score,key)?key:result+'其他';counts.score[scoreKey]++;
       const half=parseScore(game.half)||(full[0]===0&&full[1]===0?[0,0]:null);
       const knownHalf=half&&(HALF_SOURCES.has(game.halfSource)||(full[0]===0&&full[1]===0))&&half[0]<=full[0]&&half[1]<=full[1];
       const sample={...game,score:full.join('-'),half:knownHalf?half.join('-'):'—'};
+      samples.score[scoreKey].push(sample);
       const goals=full[0]+full[1],goalKey=goals>=7?'7+':String(goals);counts.goals[goalKey]++;samples.goals[goalKey].push(sample);
       if(knownHalf){
         const halfKey=outcome(half)+result;halfTotal++;counts.half[halfKey]++;samples.half[halfKey].push(sample);
       }
     }
     return {total,latest,invalidScores,halfMissing:total-halfTotal,
-      had:distribution(counts.had,total),score:distribution(counts.score,total),goals:distribution(counts.goals,total,samples.goals),half:distribution(counts.half,halfTotal,samples.half)};
+      had:distribution(counts.had,total),score:distribution(counts.score,total,samples.score),goals:distribution(counts.goals,total,samples.goals),half:distribution(counts.half,halfTotal,samples.half)};
   }
 
   // One absolute percentage scale is shared by all panels, not normalized per row.
@@ -62,7 +63,7 @@
 
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const pct=percent=>percent===null?'—':percent.toFixed(2)+'%';
-  const clickable=new Set(['goals','half']);
+  const clickable=new Set(['score','goals','half']);
   let selectedRound=0,latestRows=[],container,selectedCell=null,activeGames=[];
   function cell(value,total,kind){
     const colors=tone(value.percent),label=`${value.key}：${value.count}次，${pct(value.percent)}，${total}场有效样本`;
@@ -76,9 +77,9 @@
   }
   function matchDetails(data,kind){
     activeGames=[...data.matches].sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time)||a.home.localeCompare(b.home));
-    const label=kind==='goals'?`总进球 ${data.key==='7+'?'7球及以上':data.key+'球'}`:`半全场 ${data.key}`;
+    const label=kind==='score'?`比分 ${data.key}`:kind==='goals'?`总进球 ${data.key==='7+'?'7球及以上':data.key+'球'}`:`半全场 ${data.key}`;
     const resultWords={胜:'领先',平:'打平',负:'落后'},fullWords={胜:'获胜',平:'打平',负:'落败'};
-    const explanation=kind==='half'?`主队半场${resultWords[data.key[0]]}、全场${fullWords[data.key[1]]}。`:'全场双方总进球'+(data.key==='7+'?'达到7球或以上。':`为${data.key}球。`);
+    const explanation=kind==='score'?(data.key.endsWith('其他')?`主队全场${fullWords[data.key[0]]}，且比分未列入固定比分格。`:`主队${data.key.split(':')[0]}球、客队${data.key.split(':')[1]}球。`):kind==='half'?`主队半场${resultWords[data.key[0]]}、全场${fullWords[data.key[1]]}。`:'全场双方总进球'+(data.key==='7+'?'达到7球或以上。':`为${data.key}球。`);
     const club=name=>{if(typeof fixtureClubMarkup!=='function')return '<span>'+esc(name)+'</span>';const html=fixtureClubMarkup(name),profile=typeof clubHistoryFor==='function'&&leagueTeamInfo(name)?clubHistoryFor(name):null;return profile?html.replace(/<\/span><\/span>$/,`<em class="entry-route" title="${esc(root.uclSeason?.label||'')}进入欧冠正赛方式">${profile.entry==='qualifying'?'资格赛晋级':'直接入围正赛'}</em></span></span>`):html;};
     const describe=name=>typeof teamChineseName==='function'?teamChineseName(name):name;
     const sourceNote='<p class="heatmap-panel-note">球队标签与所选赛季的身份目录一致；国内名次、上季欧冠记录未核实的项目不推算。历史日期沿用归档原记录，未确认时区不另作换算；当前在线赛果时间为北京时间。</p>';
@@ -122,7 +123,7 @@
     activeGames=[];
     const details=kind=>{const value=selectedCell?.kind===kind?stats[kind].cells.find(cell=>cell.key===selectedCell.key):null;return value?matchDetails(value,kind):'';};
     el.querySelector('#heatmapPanels').innerHTML=panel('had','胜平负','H / D / A',stats.had)
-      +panel('score','比分','SCORE',stats.score)
+      +panel('score','比分','SCORE',stats.score)+details('score')
       +panel('goals','总进球数','GOALS',stats.goals)+details('goals')
       +panel('half','半全场','HT / FT',stats.half,halfNote)+details('half')
       +(selectedCell?'':'<div id="heatmapMatchDetails" hidden></div>');

@@ -14,8 +14,34 @@ test('UCL heatmap shares denominators, has exhaustive score/goal buckets and ret
   const s=heat.summarize([row('A','B','2-0','1-0',1,'official'),row('B','C','1-1','0-1',1,'archive'),row('C','D','0-2','0-0',1,'snapshot'),row('D','A','5-2','0-1',1,'events'),row('E','F','4-4','2-0',1,'official')]);
   assert.equal(s.total,5);assert.equal(s.half.total,5);assert.equal(s.score.cells.length,31);assert.equal(s.goals.cells.length,8);assert.equal(s.half.cells.length,9);
   for(const key of ['had','score','goals','half'])assert.equal(s[key].cells.reduce((n,c)=>n+c.count,0),5);
-  for(const key of ['goals','half'])for(const c of s[key].cells)assert.equal(c.count,c.matches.length);
+  for(const key of ['score','goals','half'])for(const c of s[key].cells)assert.equal(c.count,c.matches.length);
   assert.equal(cell(s.score,'平其他').count,1);assert.equal(cell(s.goals,'7+').count,2);assert.equal(cell(s.half,'负胜').count,1);
+});
+
+test('every fixed and other score bucket retains only its counted home-perspective fixtures',()=>{
+  const scores=['1-0','2-0','2-1','3-0','3-1','3-2','4-0','4-1','4-2','5-0','5-1','5-2','6-0','0-0','1-1','2-2','3-3','4-4','0-1','0-2','1-2','0-3','1-3','2-3','0-4','1-4','2-4','0-5','1-5','2-5','3-4'];
+  const s=heat.summarize(scores.map((score,i)=>row('Home'+i,'Away'+i,score)));
+  assert.equal(s.total,31);assert.equal(s.score.present,31);
+  for(const [i,c] of s.score.cells.entries()){
+    assert.equal(c.count,1,c.key);assert.equal(c.matches.length,1,c.key);assert.equal(c.matches[0].score,scores[i]);assert.equal(c.matches[0].home,'Home'+i);
+  }
+  assert.equal(cell(s.score,'胜其他').matches[0].score,'6-0');assert.equal(cell(s.score,'平其他').matches[0].score,'4-4');assert.equal(cell(s.score,'负其他').matches[0].score,'3-4');
+});
+
+test('2025/26 away-other regression keeps the two archived fixtures, not all away wins',()=>{
+  const s=heat.summarize(w.uclSeasonArchives['2025-26'].matches,{seasonKey:'2025-26'}),c=cell(s.score,'负其他');
+  assert.equal(c.count,2);assert.equal(c.percent,2/144*100);
+  assert.deepEqual(Array.from(c.matches,m=>[m.home,m.away,m.score]),[['Olympiacos','Real Madrid','3-4'],['Bayer Leverkusen','Paris Saint-Germain','2-7']]);
+  assert.ok(c.matches.every(m=>m.half==='—'),'unknown halftime does not exclude a full-time score sample');
+});
+
+test('score drilldowns follow round selection, aliases, postponements and score corrections without stale samples',()=>{
+  const options={seasonKey:'2026-27',fixtures:[{home:'A',away:'B',matchday:3}],canonicalize:n=>n==='AliasA'?'A':n,matchday:3};
+  const rows=[row('A','B','3-4','—',null),row('AliasA','B','2-7','—',null,'unverified','2026-10-21'),row('C','D','3-4','—',2)];
+  const before=heat.summarize(rows,options);assert.equal(before.total,1);assert.equal(cell(before.score,'负其他').matches[0].score,'2-7');assert.equal(cell(before.score,'负其他').matches[0].home,'A');
+  const after=heat.summarize([...rows,row('A','B','1-1','—',null,'unverified','2026-10-21')],options);
+  assert.equal(after.total,1);assert.equal(cell(after.score,'负其他').count,0);assert.equal(cell(after.score,'负其他').matches.length,0);assert.equal(cell(after.score,'1:1').matches[0].score,'1-1');
+  for(const c of after.score.cells)assert.equal(c.count,c.matches.length,c.key);
 });
 
 test('half/full excludes unverifiable and impossible halves, and zero-zero does not require guessed event data',()=>{
