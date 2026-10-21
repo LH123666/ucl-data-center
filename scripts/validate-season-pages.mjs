@@ -14,7 +14,7 @@ for(const season of ['2026-27','2025-26','2024-25']){
   if(season==='2024-25'){w.sessionStorage.setItem('ucl-advance-view','league');w.sessionStorage.setItem('ucl-return-view','advancementBtn')}
   if(season==='2026-27')w.localStorage.setItem('ucl36-match-predictions-v1',JSON.stringify({'2026-09-10|Paris Saint-Germain|Arsenal':[{note:'saved prediction'}]}));
   const run=(source,name)=>new vm.Script(source,{filename:name}).runInContext(context);
-  const load=path=>run(fs.readFileSync(path,'utf8'),path);
+  const load=path=>run(fs.readFileSync(path.split('?')[0],'utf8'),path);
   let selected='';
   w.document.write=text=>{selected=text;for(const match of text.matchAll(/src="([^"]+)"/g))load(match[1])};
   for(const tag of html.matchAll(/<script(?: src="([^"]+)")?>([\s\S]*?)<\/script>/g))tag[1]?load(tag[1]):run(tag[2],'inline-loader');
@@ -23,12 +23,26 @@ for(const season of ['2026-27','2025-26','2024-25']){
   if(season==='2024-25'){assert.equal(w.document.querySelector('#leagueStatisticsView').hidden,false);assert.ok(w.document.querySelector('#advancementPage').classList.contains('active'))}
   assert.equal(w.document.querySelectorAll('#standings tr').length,36);
   assert.equal(w.document.querySelectorAll('.season-option').length,3);
+  assert.equal(w.document.querySelectorAll('.heatmap-panel').length,4);
+  assert.equal(w.document.querySelectorAll('[data-heatmap-kind="handicap"]').length,0);
+  assert.equal(w.document.querySelectorAll('.upset-legend').length,1);
+  const distribution=run('window.uclHeatmap.render(matches)','heatmap-distribution');
+  const tally=run('window.uclUpsets.refresh(matches)','upset-counts');
+  assert.equal([...tally.values()].reduce((n,x)=>n+x.bull,0),[...tally.values()].reduce((n,x)=>n+x.rabbit,0));
+  if(!w.uclSeason.current){assert.equal(distribution.total,144);assert.equal(distribution.half.total,144);assert.ok(w.document.querySelectorAll('#standings .upset-badge').length>0)}
+  for(const [kind,key] of [['goals','7+'],['half','负胜']]){
+    const button=w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`),expected=Number(button.dataset.count);
+    button.click();assert.equal(w.document.querySelectorAll('#heatmapMatchDetails [data-heatmap-match]').length,expected);
+    assert.equal(w.document.querySelectorAll('#heatmapMatchDetails .fixture-context').length,expected*2);
+    w.document.querySelector('[data-close-heatmap]').click();assert.equal(w.document.activeElement,w.document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`));
+  }
   const resultCount=()=>w.document.querySelectorAll('#resultGrid .match').length;
   const eligible=run('matches.filter(row=>["league","knockout"].includes(row[5])).length','result-count');
   assert.equal(resultCount(),Math.min(8,eligible));
   w.document.querySelector('#latestBtn').click();
   assert.equal(w.document.querySelector('#latest').style.display,'block');
   assert.equal(w.document.querySelector('.layout').style.display,'none');
+  assert.equal(w.document.querySelector('#resultsHeatmap').hidden,true);
   assert.equal(w.document.querySelector('#leaguePhaseHub').parentElement.id,'leagueStatisticsView');
   assert.ok(!w.document.querySelector('#advancementPage').classList.contains('active'));
   w.document.querySelector('#advancementBtn').click();
@@ -56,6 +70,7 @@ for(const season of ['2026-27','2025-26','2024-25']){
     assert.equal(w.document.querySelectorAll('#competitionInfo.active,#qualificationPage.active,#advancementPage.active,#schedulePage.active').length,0);
   }
   w.document.querySelector('nav button').click();assert.equal(w.document.querySelector('#latest').style.display,'none');
+  assert.equal(w.document.querySelector('#resultsHeatmap').hidden,false);
   const trigger=w.document.querySelector('.season-trigger');trigger.click();
   assert.equal(trigger.getAttribute('aria-expanded'),'true');
   trigger.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));

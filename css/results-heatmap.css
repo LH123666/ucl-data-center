@@ -1,0 +1,69 @@
+.ucl-heatmap{max-width:1400px;margin:-38px auto 64px;padding:0 4vw;color:var(--ink)}
+.heatmap-intro{display:flex;justify-content:space-between;gap:22px;align-items:center;margin-bottom:16px}
+.heatmap-intro .eyebrow{font-size:10px;letter-spacing:2px;color:#5364a6;margin:0 0 7px}
+.heatmap-intro h2{font-size:26px;line-height:1.3;letter-spacing:-.4px;margin:0 0 9px}
+#heatmapSampleStatus{font-size:12px;line-height:1.8;color:var(--muted);max-width:850px;margin:0}
+.heatmap-filter{display:flex;align-items:center;gap:9px;flex:none;color:#536189;font-size:12px;white-space:nowrap}
+.heatmap-filter select{font:inherit;font-weight:700;padding:9px 28px 9px 12px;background:#fff;border:1px solid #cdd5ee;border-radius:6px;color:#17245d;cursor:pointer}
+.heatmap-filter select:focus-visible{outline:3px solid #5262c9;outline-offset:3px}
+.heatmap-panel{border:1px solid #d9def0;background:#fff;border-radius:10px;padding:4px;margin:0 0 12px;overflow:hidden}
+.heatmap-panel-head{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 10px 11px}
+.heatmap-panel-head h3{display:flex;align-items:center;gap:8px;font-size:14px;line-height:1.3;font-weight:800;margin:0;border-left:3px solid #5466d3;padding-left:8px}
+.heatmap-panel-head h3 small{font-size:8px;letter-spacing:.6px;color:#687598;font-weight:600;border-radius:3px;background:#f0f2fc;padding:3px 5px}
+.heatmap-panel-head>span{font-size:10px;line-height:1.5;color:#677698}
+.heatmap-grid{display:grid;gap:3px}
+.heatmap-had{grid-template-columns:repeat(3,minmax(0,1fr))}
+.heatmap-score{grid-template-columns:repeat(7,minmax(0,1fr))}
+.heatmap-goals{grid-template-columns:repeat(8,minmax(0,1fr))}
+.heatmap-half{grid-template-columns:repeat(9,minmax(0,1fr))}
+.heatmap-cell{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;min-width:0;min-height:76px;text-align:center;padding:10px 4px;border:1px solid #e5e8f4;font-variant-numeric:tabular-nums;cursor:default;transition:box-shadow .15s}
+.heatmap-cell>span{font-size:12px;font-weight:700;line-height:1.3}
+.heatmap-cell>strong{font-size:19px;font-weight:800;line-height:1.15;letter-spacing:-.3px}
+.heatmap-cell>small{font-size:9px;line-height:1.3;color:inherit;opacity:.85}
+.heatmap-cell:hover{box-shadow:inset 0 0 0 2px #323c8c60}
+.heatmap-clickable{font-family:inherit;width:100%;appearance:none;cursor:pointer}
+.heatmap-clickable:focus-visible{outline:3px solid #4353ba;outline-offset:-3px;position:relative;z-index:1}
+.heatmap-clickable[aria-expanded=true]{box-shadow:inset 0 0 0 3px #3748a1}
+.heatmap-match-details{border:1px solid #c7ceee;border-left:4px solid #4a5dd2;border-radius:8px;background:#f8f9ff;margin:-3px 0 16px;padding:17px;scroll-margin-top:110px}
+.heatmap-match-details:focus-visible{outline:2px solid #4f5fc6;outline-offset:2px}
+.heatmap-detail-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.heatmap-detail-head p{margin:0 0 6px;color:#68769a;font-size:11px}.heatmap-detail-head h3{font-size:19px;line-height:1.5;margin:0}
+.heatmap-detail-head h3>span{display:inline-block;font-size:11px;color:#596fa0;margin-left:10px;font-weight:500}
+.heatmap-detail-close{border:1px solid #cdd5ee;background:#fff;color:#394984;font-size:12px;padding:7px 10px;border-radius:5px;cursor:pointer;flex:none}
+.heatmap-detail-close:focus-visible,.heatmap-match-row:focus-visible{outline:3px solid #5367c7;outline-offset:-3px}
+.heatmap-detail-note{font-size:11px;line-height:1.8;color:#6d7b9d;margin:10px 0}
+.heatmap-match-list{max-height:440px;overflow-y:auto;overscroll-behavior:contain;border:1px solid #dfe3f2;background:#fff;scrollbar-gutter:stable}
+.heatmap-match-row{width:100%;display:grid;grid-template-columns:128px minmax(0,1fr) 104px;gap:14px;align-items:center;text-align:left;border:0;border-bottom:1px solid #e4e8f4;background:#fff;color:var(--ink);font-family:inherit;padding:14px 12px;cursor:pointer}
+.heatmap-match-row:hover{background:#eef2ff}.heatmap-match-row time{font-size:12px;font-weight:600}.heatmap-match-row time small{display:block;font-size:10px;font-weight:400;color:#6d7b9d;margin-top:4px}
+.heatmap-match-fixture{display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);gap:9px;align-items:center;min-width:0}
+.heatmap-match-club{display:flex;align-items:center;gap:7px;min-width:0}.heatmap-match-club>span:last-child{display:grid;min-width:0}.heatmap-match-club strong{font-size:13px;line-height:1.5;overflow-wrap:anywhere}.heatmap-match-club small{font-size:9px;color:#6d7b9d;line-height:1.5;overflow-wrap:anywhere}
+.heatmap-match-club:last-child{text-align:right;justify-content:flex-end}.heatmap-match-score{background:#242b67;color:#fff;text-align:center;border-radius:4px;font-size:16px;line-height:1.4;padding:4px 5px;white-space:nowrap}
+.heatmap-match-meta{text-align:right;font-size:11px;color:#657297}.heatmap-match-meta>b{color:#233366}.heatmap-match-meta>small,.heatmap-match-meta>i{display:block;font-size:10px;font-style:normal;line-height:1.5;margin-top:3px}.heatmap-match-meta>i{color:#4458a5}
+.heatmap-matches-empty{padding:24px 12px;text-align:center;font-size:12px;line-height:1.8;color:#6d7b9d}
+@media(max-width:700px){.heatmap-match-details{padding:12px;scroll-margin-top:240px}.heatmap-detail-head h3{font-size:17px}.heatmap-match-row{grid-template-columns:minmax(0,1fr) auto;gap:9px;padding:12px 9px}.heatmap-match-row time{grid-column:1;grid-row:1}.heatmap-match-row time small{display:inline;margin:0 0 0 7px}.heatmap-match-fixture{grid-column:1/-1;grid-row:2;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);gap:7px}.heatmap-match-meta{grid-column:2;grid-row:1}.heatmap-match-meta>small{display:none}.heatmap-match-meta>i{display:inline;margin-left:7px}.heatmap-match-score{font-size:14px}.heatmap-match-list{max-height:420px}}
+.heatmap-had .heatmap-cell{min-height:86px}.heatmap-had .heatmap-cell>strong{font-size:23px}
+.heatmap-no-data{background:repeating-linear-gradient(135deg,#f1f3f5,#f1f3f5 7px,#f8f9fa 7px,#f8f9fa 14px)!important;color:#67717b!important}
+.heatmap-panel-note{font-size:11px;line-height:1.75;margin:0;padding:8px 10px 5px;color:#6d7b9d}
+.heatmap-footnote{display:flex;align-items:flex-start;gap:20px;justify-content:space-between;padding:4px 0 0}
+.heatmap-footnote>p{max-width:830px;margin:0;color:#6d7b9d;font-size:10px;line-height:1.8}
+.heatmap-scale{display:flex;align-items:center;gap:3px;flex:none;white-space:nowrap;font-size:10px;color:#6d7b9d;margin-top:3px}
+.heatmap-scale>b{font-weight:600;margin-right:5px}.heatmap-scale>i{width:13px;height:10px;border:1px solid #dfe3f2}.heatmap-scale>span{margin:0 3px}
+@media(max-width:1000px){.heatmap-intro{align-items:flex-start}.heatmap-footnote{flex-direction:column;gap:9px}.heatmap-half{grid-template-columns:repeat(3,minmax(0,1fr))}.heatmap-goals{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:650px){.ucl-heatmap{padding:0 12px;margin:-38px auto 44px}.heatmap-intro{flex-direction:column;gap:12px}.heatmap-intro h2{font-size:23px}.heatmap-score{grid-template-columns:repeat(3,minmax(0,1fr))}.heatmap-cell{min-height:76px}.heatmap-cell>strong{font-size:18px}.heatmap-had .heatmap-cell>strong{font-size:21px}.heatmap-had .heatmap-cell{min-height:82px}.heatmap-panel-head{padding:9px 7px;gap:5px}.heatmap-panel-head>span{font-size:9px}.heatmap-panel-head h3{font-size:13px}.heatmap-goals .heatmap-cell>small{font-size:8px}}
+.ucl-heatmap[hidden]{display:none!important}
+
+/* Use the existing canonical club labels and tags in drilldowns. */
+.ucl-heatmap{margin:0 auto 64px;padding:0 4vw;max-width:1400px}
+.heatmap-match-fixture>.fixture-club{min-width:0;text-align:left;gap:3px}
+.heatmap-match-fixture>.fixture-club:last-child{text-align:right}
+.heatmap-match-fixture .fixture-club-heading{gap:6px;min-width:0}
+.heatmap-match-fixture .fixture-club-heading>span:last-child{min-width:0}
+.heatmap-match-fixture .fixture-club-heading strong{font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.heatmap-match-fixture .fixture-club-heading small{font-size:9px;color:var(--muted);overflow-wrap:anywhere}
+.heatmap-match-fixture .fixture-context{margin-top:3px;gap:3px}
+.heatmap-match-fixture .fixture-context em{font-size:10px;max-width:100%;overflow-wrap:anywhere}
+.heatmap-match-fixture .fixture-context .ucl-new{font-size:15px}
+.heatmap-match-fixture .fixture-context .entry-route{color:#4f5590;background:#eceffd}
+.heatmap-match-fixture .club-logo{--club-logo-size:27px}
+@media(max-width:650px){.ucl-heatmap{padding:0 12px;margin:0 auto 44px}.heatmap-match-fixture .club-logo{--club-logo-size:23px}.heatmap-match-fixture .fixture-club-heading{gap:4px}}
+

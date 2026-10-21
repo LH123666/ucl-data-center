@@ -1,0 +1,27 @@
+/* Vector badges stay legible beside names without changing the club crest. */
+.table-card{min-width:0;max-width:100%}
+.upset-badges{display:inline-flex!important;flex-flow:row nowrap!important;align-items:center;gap:3px;vertical-align:middle;flex:none;line-height:0}
+.upset-badges:empty{display:none!important}
+.upset-badge{display:inline-flex!important;position:relative;width:34px;height:34px;flex:none;align-items:center;justify-content:center;vertical-align:middle;filter:drop-shadow(0 1px 1px #23160b20)}
+.upset-bull{color:#c52d3c}.upset-rabbit{color:#08744f}
+.upset-badge svg,.upset-legend-icon svg{display:block;width:100%;height:100%;fill:currentColor;overflow:visible}
+.upset-badge .upset-count{fill:#fff;stroke:none;font:900 17px 'DM Sans',sans-serif;letter-spacing:-.5px}
+.upset-badge .upset-count-wide{font-size:14px}
+.upset-face{fill:none;stroke:#fff;stroke-opacity:.68;stroke-width:1.7;stroke-linecap:round}
+.upset-name-line{display:flex!important;flex-flow:row wrap!important;align-items:center;gap:5px;min-width:0;line-height:1.35}
+.upset-name-line>strong,.upset-name-line>b{min-width:0;overflow-wrap:anywhere}
+.bilingual .upset-name-line{white-space:normal;min-height:24px}
+.upset-legend{display:flex;gap:6px 20px;flex-wrap:wrap;align-items:center;padding:12px 22px;border-top:1px solid var(--line);background:#fffdf9;font-size:11px;color:var(--muted)}
+.upset-legend>span{display:inline-flex;gap:5px;align-items:center;color:var(--ink);font-weight:600}
+.upset-legend-icon{width:25px;height:25px;display:inline-flex;flex:none}
+.upset-legend>small{flex-basis:100%;font-size:10px;line-height:1.7}
+
+.fixture-club-heading .upset-name-line{gap:3px}.fixture-club-heading .upset-badge{width:29px;height:29px}
+.fixture-club:last-child .upset-name-line{justify-content:flex-end}
+.bilingual .upset-badge{width:31px;height:31px}.upset-legend{background:#f8f9ff}
+.team-hero h2 .upset-badges{margin-left:10px}.team-hero .upset-badge{width:42px;height:42px}
+.phase-team .upset-name-line{gap:3px}.phase-team .upset-badge{width:25px;height:25px}
+.side-club .upset-badge,.draw-club .upset-badge,.ko-club .upset-badge{width:25px;height:25px}
+.phase-team .upset-name-line strong{font-size:13px}.draw-club .upset-name-line{justify-content:flex-start}
+@media(max-width:650px){.upset-badge{width:29px;height:29px}.fixture-club-heading .upset-badge{width:26px;height:26px}.team-hero .upset-badge{width:34px;height:34px}}
+
