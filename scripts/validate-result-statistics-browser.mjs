@@ -6,6 +6,9 @@ const require=createRequire(import.meta.url);
 const {chromium}=require(process.argv[2]||'playwright');
 const screenshotDir='research/ucl-history/result-statistics';fs.mkdirSync(screenshotDir,{recursive:true});
 const base=process.argv[3]||process.env.UCL_STATS_QA_URL||'http://127.0.0.1:8086/';
+// Resolve the control and activeElement in the same browser turn. A locator can
+// retain a detached node if an automatic data refresh redraws between RPC calls.
+const waitForFocus=(page,kind,key)=>page.waitForFunction(([kind,key])=>{const el=document.querySelector(`[data-heatmap-select="${kind}"][data-key="${key}"]`);return el&&el===document.activeElement;},[kind,key],{timeout:5000});
 (async()=>{
  const browser=await chromium.launch({headless:true,channel:'msedge'}),summary=[];
  try{
@@ -33,14 +36,14 @@ const base=process.argv[3]||process.env.UCL_STATS_QA_URL||'http://127.0.0.1:8086
     const button=page.locator(`[data-heatmap-select="${kind}"][data-key="${key}"]`),expected=Number(await button.getAttribute('data-count'));
     await button.focus();await page.keyboard.press('Enter');assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),expected);
     assert.equal(await button.getAttribute('aria-expanded'),'true');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
-    await button.focus();await page.evaluate(()=>renderResults());assert.equal(await button.evaluate(el=>el===document.activeElement),true,'refresh retains keyboard focus');
+    await button.focus();await page.evaluate(()=>renderResults());await waitForFocus(page,kind,key);
     if(expected){
      assert.equal(await page.locator('#heatmapMatchDetails .fixture-context').count(),expected*2);
      await page.locator('#heatmapMatchDetails [data-heatmap-match]').first().click();await page.waitForSelector('#drawer.open');await page.locator('#close').click();await page.waitForSelector('#drawer:not(.open)');
      assert.equal(await page.locator('#heatmapMatchDetails [data-heatmap-match]').count(),expected);
     }
     if(season==='2025-26'&&kind==='goals'){await page.locator('#resultsHeatmap').screenshot({path:path.join(screenshotDir,`ucl-heatmap-${width}.png`)});await page.locator('#heatmapMatchDetails').screenshot({path:path.join(screenshotDir,`ucl-detail-${width}.png`)});}
-    await page.locator('#heatmapMatchDetails').focus();await page.keyboard.press('Escape');assert.equal(await button.evaluate(el=>el===document.activeElement),true,JSON.stringify({width,season,kind,key,active:await page.evaluate(()=>document.activeElement?.outerHTML?.slice(0,250)),detailsVisible:await page.locator('#heatmapMatchDetails').isVisible()}));
+    await page.locator('#heatmapMatchDetails').focus();await page.keyboard.press('Escape');assert.equal(await page.locator('#heatmapMatchDetails').isVisible(),false);await waitForFocus(page,kind,key);
    }
    if(season==='2025-26')await page.locator('.table-card').screenshot({path:path.join(screenshotDir,`ucl-badges-${width}.png`)});
    await page.locator('#latestBtn').click();assert.equal(await page.locator('#resultsHeatmap').isVisible(),false);assert.ok(await page.locator('#resultGrid .upset-badge').count()>0);
